@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="{{asset('global/vendor/slidepanel/slidePanel.css')}}">
     <link rel="stylesheet" href="{{asset('global/vendor/flag-icon-css/flag-icon.css')}}">
     <link rel="stylesheet" href="{{asset('global/vendor/waves/waves.css')}}">
-        <link rel="stylesheet" href="{{asset('base/assets/examples/css/pages/lockscreen.css')}}">
+        <link rel="stylesheet" href="{{asset('base/assets/examples/css/pages/login-v2.css')}}">
     
     
     <!-- Fonts -->
@@ -49,48 +49,69 @@
       Breakpoints();
     </script>
   </head>
-  <body class="animsition page-locked layout-full page-dark">
+  <body class="animsition page-login-v2 layout-full page-dark">
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
 
     <!-- Page -->
-    <div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">
-      <div class="page-content vertical-align-middle">
-        <div class="avatar avatar-lg">
-          <img src="{{asset('images/iconoTaller.png')}}" alt="...">
-        </div>
-        <p class="locked-user">CRUED - SEDES</p>
-        
-        <p>Software Para La Gestion De Servicios De Salud Y Emergencia En El Departamento de Santa Cruz</p>
-        @auth
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Cerrar Secion</a>
-                      
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                          {{ csrf_field() }}
-                      </form>
-        @else
-            <p><a href="{{ route('login') }}">Iniciar Sesion</a></p>
-            @if(true)
-                <p><a href="{{ route('register') }}">Registrar Administrador</a></p>
-            @endif
-        @endauth
-        <footer class="page-copyright page-copyright-inverse">
-          <p>Santra Cruz - Bolivia</p>
-          <p>© 2019. Todos Los Derechos Reservados.</p>
-          <div class="social">
-            <a href="javascript:void(0)">
-          <i class="icon bd-twitter" aria-hidden="true"></i>
-        </a>
-            <a href="javascript:void(0)">
-          <i class="icon bd-facebook" aria-hidden="true"></i>
-        </a>
-            <a href="javascript:void(0)">
-          <i class="icon bd-dribbble" aria-hidden="true"></i>
-        </a>
+    <div class="page" data-animsition-in="fade-in" data-animsition-out="fade-out">
+      <div class="page-content">
+        <div class="page-brand-info">
+          <div class="brand">
+            <img class="brand-img" src="{{asset('base/assets/images/logo@2x.png')}}" alt="...">
+            <h2 class="brand-text font-size-40">CRUED</h2>
           </div>
-        </footer>
+          <p class="font-size-20">Software Para La Gestion De Servicios De Salud Y Emergencia En El Departamento de Santa Cruz.</p>
+        </div>
+
+        <div class="page-login-main">
+          <div class="brand hidden-md-up">
+            <img class="brand-img" src="" alt="...">
+            <h3 class="brand-text font-size-40">CRUED</h3>
+          </div>
+          <h3 class="font-size-24">Inicio de Sesion</h3>
+          <p>Bienvenido.</p>
+
+          <form method="post" action="{{ route('login') }}" >
+          	{{ csrf_field() }}
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <input id="email" type="email" class="form-control empty" name="email" required>
+              <label class="floating-label" for="inputEmail">Email</label>
+            </div>
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <input type="password" class="form-control empty" id="password" name="password" required>
+              <label class="floating-label" for="inputPassword">Password</label>
+            </div>
+            <div class="form-group clearfix">
+              <div class="checkbox-custom checkbox-inline checkbox-primary float-left">
+                <input type="checkbox" id="remember" name="checkbox">
+                <label for="inputCheckbox">Remember me</label>
+              </div>
+              <a class="float-right" href="forgot-password.html">Se te olvidó tu contraseña?</a>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Iniciar Sesion</button>
+          </form>
+
+
+          <footer class="page-copyright">
+            <p>Santa Cruz - Bolivia</p>
+            <p>© 2019. Todos Los Derechos Reservados.</p>
+            <div class="social">
+              <a class="btn btn-icon btn-round social-twitter mx-5" href="javascript:void(0)">
+            <i class="icon bd-twitter" aria-hidden="true"></i>
+          </a>
+              <a class="btn btn-icon btn-round social-facebook mx-5" href="javascript:void(0)">
+            <i class="icon bd-facebook" aria-hidden="true"></i>
+          </a>
+              <a class="btn btn-icon btn-round social-google-plus mx-5" href="javascript:void(0)">
+            <i class="icon bd-google-plus" aria-hidden="true"></i>
+          </a>
+            </div>
+          </footer>
+        </div>
+
       </div>
     </div>
     <!-- End Page -->
@@ -137,7 +158,7 @@
     <script src="{{asset('global/js/Plugin/slidepanel.js')}}"></script>
     <script src="{{asset('global/js/Plugin/switchery.js')}}"></script>
         <script src="{{asset('global/js/Plugin/jquery-placeholder.js')}}"></script>
-        <script src="{{asset('global/js/Plugin/animate-list.js')}}"></script>
+        <script src="{{asset('global/js/Plugin/material.js')}}"></script>
     
     <script>
       (function(document, window, $){

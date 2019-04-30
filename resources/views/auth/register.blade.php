@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="{{asset('global/vendor/slidepanel/slidePanel.css')}}">
     <link rel="stylesheet" href="{{asset('global/vendor/flag-icon-css/flag-icon.css')}}">
     <link rel="stylesheet" href="{{asset('global/vendor/waves/waves.css')}}">
-        <link rel="stylesheet" href="{{asset('base/assets/examples/css/pages/lockscreen.css')}}">
+        <link rel="stylesheet" href="{{asset('base/assets/examples/css/pages/register.css')}}">
     
     
     <!-- Fonts -->
@@ -49,7 +49,7 @@
       Breakpoints();
     </script>
   </head>
-  <body class="animsition page-locked layout-full page-dark">
+  <body class="animsition page-register layout-full page-dark">
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -58,36 +58,53 @@
     <!-- Page -->
     <div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">
       <div class="page-content vertical-align-middle">
-        <div class="avatar avatar-lg">
-          <img src="{{asset('images/iconoTaller.png')}}" alt="...">
+        <div class="brand">
+          <img class="brand-img" src="{{asset('base/assets/images/logo@2x.png')}}" alt="...">
+          <h2 class="brand-text">CRUED - SEDES</h2>
         </div>
-        <p class="locked-user">CRUED - SEDES</p>
-        
-        <p>Software Para La Gestion De Servicios De Salud Y Emergencia En El Departamento de Santa Cruz</p>
-        @auth
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Cerrar Secion</a>
-                      
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                          {{ csrf_field() }}
-                      </form>
-        @else
-            <p><a href="{{ route('login') }}">Iniciar Sesion</a></p>
-            @if(true)
-                <p><a href="{{ route('register') }}">Registrar Administrador</a></p>
-            @endif
-        @endauth
+
+        <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+            {{ csrf_field() }}
+          <div class="form-group form-material floating" data-plugin="formMaterial">
+            <input type="text" class="form-control empty" id="inputName" name="name" required autofocus>
+            <label class="floating-label" for="inputName">Name</label>
+          </div>
+          <div class="form-group form-material floating" data-plugin="formMaterial">
+            <input id="email" type="email"class="form-control empty" name="email">
+            <label class="floating-label" for="inputEmail">Email Adress</label>
+          </div>
+          <div class="form-group form-material floating" data-plugin="formMaterial">
+            <input type="password" class="form-control empty" name="password" required id="password">
+            <label class="floating-label" for="inputPassword">Password</label>
+          </div>
+          <div class="form-group form-material floating" data-plugin="formMaterial">
+            <input type="password" class="form-control empty" id="inputPasswordCheck" name="password_confirmation">
+            <label class="floating-label" for="inputPasswordCheck">Confirm Password</label>
+          </div>
+          <div class="form-group form-material floating" data-plugin="formMaterial">
+            <input type="text" class="form-control empty" required autofocus name="nombre">
+            <label class="floating-label" for="inputPasswordCheck">Nombre</label>
+          </div>
+          <div class="form-group form-material floating" data-plugin="formMaterial">
+            <input type="text" class="form-control empty" required autofocus name="apellido">
+            <label class="floating-label" for="inputPasswordCheck">Apellido</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+        </form>
+        <p>¿Tienes cuenta ya? Por favor ve a <a href="{{ route('login') }}">Login</a></p>
+
         <footer class="page-copyright page-copyright-inverse">
           <p>Santra Cruz - Bolivia</p>
           <p>© 2019. Todos Los Derechos Reservados.</p>
           <div class="social">
-            <a href="javascript:void(0)">
+            <a class="btn btn-icon btn-pure" href="javascript:void(0)">
           <i class="icon bd-twitter" aria-hidden="true"></i>
         </a>
-            <a href="javascript:void(0)">
+            <a class="btn btn-icon btn-pure" href="javascript:void(0)">
           <i class="icon bd-facebook" aria-hidden="true"></i>
         </a>
-            <a href="javascript:void(0)">
-          <i class="icon bd-dribbble" aria-hidden="true"></i>
+            <a class="btn btn-icon btn-pure" href="javascript:void(0)">
+          <i class="icon bd-google-plus" aria-hidden="true"></i>
         </a>
           </div>
         </footer>
@@ -137,6 +154,7 @@
     <script src="{{asset('global/js/Plugin/slidepanel.js')}}"></script>
     <script src="{{asset('global/js/Plugin/switchery.js')}}"></script>
         <script src="{{asset('global/js/Plugin/jquery-placeholder.js')}}"></script>
+        <script src="{{asset('global/js/Plugin/material.js')}}"></script>
         <script src="{{asset('global/js/Plugin/animate-list.js')}}"></script>
     
     <script>
