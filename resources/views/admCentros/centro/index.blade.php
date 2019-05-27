@@ -5,10 +5,8 @@
 		<div class="row row-lg">
 			<div class="col-lg-12">
 			    <div class="example-wrap">
-			      	<h4>Centros Registrados</h4>
-			      	<br>
+			    	
 			      	@include('admCentros.centro.search')
-			      	<br>
 			      	<div class="example table-responsive">
 				        <table class="table table-striped">
 				          	<thead>
@@ -19,8 +17,7 @@
 					              	<th>Camas Ocupadas</th>
 					              	<th>Camas Libres</th>
 					              	<th>Camas Total</th>
-					              	<th>Id</th>
-					              	<th>Opciones</th>
+					              	<th class="text-center">Opciones</th>
 				            	</tr>
 				          	</thead>
 				          	<tbody>
@@ -36,9 +33,16 @@
 						              	<td>{{ $var->camas_ocupadas }}</td>
 						              	<td>{{ $var->camas_total - $var->camas_ocupadas }}</td>
 						              	<td>{{ $var->camas_total }}</td>
-						              	<td>{{ $var->id }}</td>
-					              		<td>
-					              			<div class="btn-group" role="group">
+					              		<td class="text-center">
+					              			<a href="{{URL::action('CentroMedicoController@edit',$var->id)}}" class="panel-action icon md-edit ml-15" data-toggle="tooltip" data-original-title="Editar" data-container="body" title=""></a>
+					              			<i class="icon md-delete ml-15" aria-hidden="true"
+                            				data-toggle="tooltip" data-original-title="Eliminar" data-container="body"
+                            				title=""></i>
+					              			<a href="{{URL::action('CentroMedicoController@show',$var->id)}}" class="panel-action icon md-eye ml-15" data-toggle="tooltip" data-original-title="Ver Mas" data-container="body" title=""></a>
+					              			<a href="{{ route('index-cartera-servicio', $var->id) }}" class="panel-action icon md-format-indent-increase ml-15" data-toggle="tooltip" data-original-title="Cartera de Servicio" data-container="body" title=""></a>
+					              			<a href="{{ route('index-rol-turno', $var->id) }}" class="panel-action icon md-account-box-phone ml-15" data-toggle="tooltip" data-original-title="Rol de Turno" data-container="body" title=""></a>
+					              			<a href="{{ route('index-reporte-cama', $var->id) }}" class="panel-action icon md-airline-seat-individual-suite ml-15" data-toggle="tooltip" data-original-title="Reporte de Cama" data-container="body" title=""></a>
+					              			<!-- <div class="btn-group" role="group">
 						                      <button type="button" class="btn btn-info dropdown-toggle" id="exampleIconDropdown{{ $var->id }}"
 						                        data-toggle="dropdown" aria-expanded="false">
 						                        <i class="icon md-settings" aria-hidden="true"></i>
@@ -47,11 +51,11 @@
 						                        <a class="dropdown-item" href="" data-target="#modal-delete-{{$var->id}}" data-toggle="modal" class="btn btn-danger" data-placement="top" data-original-title="Remove"><i class="icon md-delete" aria-hidden="true"></i> Eliminar</a>
 						                        <a class="dropdown-item" href="{{URL::action('CentroMedicoController@show',$var->id)}}" role="menuitem"><i class="icon md-edit" aria-hidden="true"></i> Ver Mas</a>
 						                        <a class="dropdown-item" href="{{URL::action('CentroMedicoController@edit',$var->id)}}" role="menuitem"><i class="icon md-edit" aria-hidden="true"></i> Editar</a>
-						                        <a class="dropdown-item" href="{{URL::action('CentroMedicoController@edit',$var->id)}}" role="menuitem"><i class="icon md-edit" aria-hidden="true"></i>Cartera Servicio</a>
+						                        <a class="dropdown-item" href="{{ route('index-cartera-servicio', $var->id) }}" role="menuitem"><i class="icon md-edit" aria-hidden="true"></i>Cartera Servicio</a>
 						                        <a class="dropdown-item" href="{{URL::action('CentroMedicoController@edit',$var->id)}}" role="menuitem"><i class="icon md-edit" aria-hidden="true"></i>Rol de Turno</a>
 						                        <a class="dropdown-item" href="{{URL::action('CentroMedicoController@edit',$var->id)}}" role="menuitem"><i class="icon md-edit" aria-hidden="true"></i>Reporte Cama</a>
 						                      </div>
-						                    </div>
+						                    </div> -->
 					              		</td>
 					            	</tr>
 					            	@include('admCentros.centro.modal')
@@ -76,4 +80,9 @@
 	</div>
 </div>
 @include('admCentros.alertas.logrado')
+
+@push ('scripts')
+
+
+@endpush	
 @endsection

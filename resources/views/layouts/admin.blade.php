@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{asset('global/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('global/css/bootstrap-extend.min.css')}}">
     <link rel="stylesheet" href="{{asset('base/assets/css/site.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/my_css.css')}}">
     
     <!-- Plugins -->
     <link rel="stylesheet" href="{{asset('global/vendor/animsition/animsition.css')}}">
@@ -51,7 +52,7 @@
       Breakpoints();
     </script>
   </head>
-  <body class="animsition">
+  <body class="animsition" id="mynav">
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -85,7 +86,7 @@
           <!-- Navbar Toolbar -->
           <ul class="nav navbar-toolbar">
             <li class="nav-item hidden-float" id="toggleMenubar">
-              <a class="nav-link" data-toggle="menubar" href="#" role="button">
+              <a id="linkmn" class="nav-link" data-toggle="menubar" href="#" role="button">
                 <i class="icon hamburger hamburger-arrow-left">
                   <span class="sr-only">Toggle menubar</span>
                   <span class="hamburger-bar"></span>
@@ -218,7 +219,7 @@
                 </a>
               </li>
               <li class="site-menu-item has-sub">
-                <a href="javascript:void(0)">
+                <a href="{{url('adm/usuario')}}">
                     <i class="site-menu-icon md-male-female" aria-hidden="true"></i>
                     <span class="site-menu-title">Usuarios</span>
                             <span class="site-menu-arrow"></span>
@@ -408,13 +409,11 @@
     <!-- Page -->
     <div class="page">
       <div class="page-content">
-        <div class="row">
-            <div class="col-md-12">
+        
                 <!--Contenido-->
                   @yield('contenido')
                 <!--Fin Contenido-->
-            </div>
-        </div>
+            
       </div>
     </div>
     <!-- End Page -->

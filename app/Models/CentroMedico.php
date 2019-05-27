@@ -379,9 +379,9 @@ class CentroMedico extends Model
         } else {
             $result = DB::table('cartera_servicio as a')
                 ->select('a.*')
-                ->where('a.id_centro_medico', '=', $id)
-                ->where('a.mes', 'LIKE', '%' . $text . '%')
+                ->orwhere('a.mes', 'LIKE', '%' . $text . '%')
                 ->orWhere('a.titulo', 'LIKE', '%' . $text . '%')
+                ->where('a.id_centro_medico', '=', $id)
                 ->orderBy("a.id", "DES");
           // $result=$query->where('estado','=',1)
           //             ->where('nombre','LIKE','%'.$text.'%')

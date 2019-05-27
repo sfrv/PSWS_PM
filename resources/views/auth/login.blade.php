@@ -60,8 +60,8 @@
       <div class="page-content">
         <div class="page-brand-info">
           <div class="brand">
-            <img class="brand-img" src="{{asset('base/assets/images/logo@2x.png')}}" alt="...">
-            <h2 class="brand-text font-size-40">CRUED</h2>
+            <img class="brand-img" src="{{asset('images/escudo.png')}}" style="opacity: 0.5;width: 15%" alt="...">
+            <h2 class="brand-text font-size-40">CRUED - SEDES</h2>
           </div>
           <p class="font-size-20">Software Para La Gestion De Servicios De Salud Y Emergencia En El Departamento de Santa Cruz.</p>
         </div>
@@ -69,7 +69,7 @@
         <div class="page-login-main">
           <div class="brand hidden-md-up">
             <img class="brand-img" src="" alt="...">
-            <h3 class="brand-text font-size-40">CRUED</h3>
+            <h3 class="brand-text font-size-40">C.R.U.E.D.</h3>
           </div>
           <h3 class="font-size-24">Inicio de Sesion</h3>
           <p>Bienvenido.</p>

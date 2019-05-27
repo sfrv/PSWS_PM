@@ -39,7 +39,7 @@
 				                    <label class="floating-label" id="letra_camas_libres">Camas Libres</label>
 				                </div>
 			              	</div>
-			              	<div class="col-lg-4 col-xs-12">
+			              	<div class="col-lg-6 col-xs-12">
 				                <div class="card card-block p-30">
 				                  	<div class="counter counter-md text-left">
 				                    	<div class="row">
@@ -68,16 +68,16 @@
 				                  	</div>
 				                </div>
 			                </div>
-			                <div class="col-lg-4 col-xs-12">
+			                <div class="col-lg-6 col-xs-12">
 				                <div class="card card-block p-30">
 				                  	<div class="counter counter-md text-left">
 				                    	<div class="row">
-				                    		<div class="col-lg-7 col-xs-5 counter counter-md counter text-left">
+				                    		<div class="col-lg-8 col-xs-5 counter counter-md counter text-left">
 					                      		<span class="counter-icon mr-10 blue-600">
 						                    	<i class="icon md-plus-circle-o" style="font-size: 1.73em;"></i>
 						                  		</span>
 					                    	</div>
-					                    	<div class="col-lg-5 col-xs-7 counter counter-md counter text-left">
+					                    	<div class="col-lg-4 col-xs-7 counter counter-md counter text-left">
 					                      		<span class="counter-number">{{count($detalle)}}</span>
 					                      		<span class="counter-number-related text-capitalize">Especialidades</span>
 					                    	</div>
@@ -97,36 +97,7 @@
 				                  	</div>
 				                </div>
 			                </div>
-			                <div class="col-lg-4 col-xs-12">
-				                <div class="card card-block p-30">
-				                  	<div class="counter counter-md text-left">
-				                    	<div class="row">
-				                    		<div class="col-lg-9 col-xs-5 counter counter-md counter text-left">
-					                      		<span class="counter-icon mr-10 blue-600">
-						                    	<i class="icon md-airline-seat-individual-suite" style="font-size: 1.73em;"></i>
-						                  		</span>
-					                    	</div>
-					                    	<div class="col-lg-3 col-xs-7 counter counter-md counter text-left">
-					                      		<span class="counter-number">{{count($areas_camas)}}</span>
-					                      		<span class="counter-number-related text-capitalize">Areas</span>
-					                    	</div>
-				                    	</div>
-				                    	<div class="counter-label">
-				                      		<div class="progress progress-xs mb-10">
-				                        		<div class="progress-bar progress-bar-info bg-blue-600" aria-valuenow="70.3" aria-valuemin="0"
-				                          aria-valuemax="100" style="width: 100%" role="progressbar">
-				                        		</div>
-				                      		</div>
-				                      		<div class="counter counter-sm text-left">
-				                        		<div class="counter-number-group">
-				                          			<span class="counter-icon blue-600 mr-5"><a href="{{ route('edit-areas', $centro->id) }}" class="small-box-footer">Gest. Area de Camas <i class="md-edit"></i></a></span>
-				                        		</div>
-				                      		</div>
-				                    	</div>
-				                  	</div>
-				                </div>
-			                </div>
-			              	<div class="col-lg-6 col-xs-12">
+			                <div class="col-lg-6 col-xs-12">
 		                  		<div class="form-group form-material floating" data-plugin="formMaterial">
 				                	<input required type="text" class="form-control" name="nombre" value="{{$centro->nombre}}" />
 				                    <label class="floating-label">Nombre del Centro</label>

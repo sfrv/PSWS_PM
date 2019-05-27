@@ -66,7 +66,7 @@ class User extends Authenticatable
 
     public function scope_getAdministrador($query)
     {
-        $result = $query->where('tipo', '=', 'ADMINISTRADOR');
+        $result = $query->where('tipo', '=', 'Administrador');
         return $result;
     }
 

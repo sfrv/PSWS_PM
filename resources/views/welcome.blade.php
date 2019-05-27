@@ -72,7 +72,7 @@
                       </form>
         @else
             <p><a href="{{ route('login') }}">Iniciar Sesion</a></p>
-            @if(true)
+            @if(count($usuarios) == 0)
                 <p><a href="{{ route('register') }}">Registrar Administrador</a></p>
             @endif
         @endauth
