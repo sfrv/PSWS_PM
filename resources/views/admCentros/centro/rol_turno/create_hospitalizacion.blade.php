@@ -5,54 +5,17 @@
 		<div class="row row-lg">
 			<div class="col-lg-12">
 			    <div class="example-wrap">
-			      	<h4>Registrar Nuevo Rol de Turno</h4>
+			      	<h4>Rol de Turno - Hospitalizacion</h4>
 			      	<br>
-			      	{!! Form::open(array('route'=>['store-rol-turno-emergencia',$id_centro],'method'=>'POST','autocomplete'=>'off'))!!}
+			      	{!! Form::open(array('route'=>['store-rol-turno-hospitalizacion',$id_centro,$id_rol_turno],'method'=>'POST','autocomplete'=>'off'))!!}
         			{{Form::token()}}
-		              	<div class="row">
-		              		<div class="col-lg-4 col-xs-12">
-		                  		<div class="form-group form-material floating" data-plugin="formMaterial">
-				                	<input required type="text" class="form-control" name="titulo"/>
-				                    <label class="floating-label">Titulo</label>
-				                </div>
-			              	</div>
-			              	<div class="col-lg-4 col-xs-12">
-		                  		<div class="form-group" data-plugin="formMaterial">
-				                	<label class="floating-label">Mes</label>
-				                	<select name="mes" class="form-control">
-					                    @foreach($meses as $var)
-							                @if($var == $mes_actual)
-							                  <option value="{{$var}}" selected>{{$var}}</option>
-							                @else
-							                  <option value="{{$var}}">{{$var}}</option>
-							                @endif
-							            @endforeach
-				              		</select>
-				                </div>
-			              	</div>
-			              	<div class="col-lg-4 col-xs-12">
-		                  		<div class="form-group" data-plugin="formMaterial">
-				                	<label class="floating-label">Anio</label>
-				                	<select name="anio" class="form-control">
-					                    @foreach($anios as $var)
-							                @if($var == $anio_actual)
-							                  <option value="{{$var}}" selected>{{$var}}</option>
-							                @else
-							                  <option value="{{$var}}">{{$var}}</option>
-							                @endif
-							            @endforeach
-				              		</select>
-				                </div>
-			              	</div>
-		              	</div>
-
 		              	<div>
-		              		<h4>Etapa Emegencia</h4>
+		              		<h4>Etapa Consulta Externa</h4>
 		      			  	<div class="example table-responsive">
 		      			  		<div id="table-scroll" class="table-scroll">
           							<div class="table-wrap">
 					          			<table class="table table-striped">
-					          				@foreach($especialidades_etapa_emergencia as $var)
+					          				@foreach($especialidades_etapa_hospitalizacion as $var)
 						          			<thead>
 						      					<tr>
 						      						<th class="text-center">{{$var -> nombre}}</th>
@@ -81,7 +44,7 @@
 		              	
 		              	<div class="col-sm-8 col-sm-offset-2" id="guardar">
 		              		<button type="submit" class="btn btn-primary btn-block btn-round" data-style="slide-right" data-plugin="ladda">
-		              			<span class="ladda-label">Registrar Rol de Turno<i class="icon md-long-arrow-right ml-10" aria-hidden="true"></i></span>
+		              			<span class="ladda-label">Registrar Etapa Hospitalizacion<i class="icon md-long-arrow-right ml-10" aria-hidden="true"></i></span>
 		              		</button>
 		              	</div>
 		            {!! Form::close() !!}
@@ -221,4 +184,5 @@ function eliminarFilaHora(conth_l)
 
 </script>
 @endpush
+@include('admCentros.alertas.logrado')
 @endsection

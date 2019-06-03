@@ -197,7 +197,7 @@ class RolTurnoController extends Controller
         $anio = $request->get('anio');
         $id_centro = RolTurno::_editarRolTurno($titulo,$mes,$anio,$id_rol_turno);
 
-        return Redirect::to('adm/centro/index_rol_turno/'.$id_centro);
+        return Redirect::to('adm/centro/index_rol_turno/'.$id_centro)->with('msj','Rol de Turno: "'.$id_rol_turno.'" - se Edito exitósamente.');;
     }
 
     public function update_rol_tuno_emergencia(Request $request,$id_rol_turno,$id_centro)
@@ -207,7 +207,7 @@ class RolTurnoController extends Controller
         $id_etapa_servicio = $etapa_servicio_uno->id;
         $this->update_rol_tuno_detalle($request,$id_etapa_servicio);
         
-        return Redirect::to('adm/centro/edit_rol_turno/'.$id_rol_turno.'/'.$id_centro);
+        return Redirect::to('adm/centro/edit_rol_turno/'.$id_rol_turno.'/'.$id_centro)->with('msj','Rol de Turno: "'.$id_rol_turno.'" - Etapa Emergencia se Edito exitósamente.');;
     }
 
     public function update_rol_tuno_consulta(Request $request,$id_rol_turno,$id_centro)
@@ -216,7 +216,7 @@ class RolTurnoController extends Controller
         $id_etapa_servicio = $etapa_servicio->id;
         $this->update_rol_tuno_detalle($request,$id_etapa_servicio);
         
-        return Redirect::to('adm/centro/edit_rol_turno/'.$id_rol_turno.'/'.$id_centro);
+        return Redirect::to('adm/centro/edit_rol_turno/'.$id_rol_turno.'/'.$id_centro)->with('msj','Rol de Turno: "'.$id_rol_turno.'" - Etapa Consulta Externa se Edito exitósamente.');;
     }
 
     public function update_rol_tuno_hospitalizacion(Request $request,$id_rol_turno,$id_centro)
@@ -463,7 +463,7 @@ class RolTurnoController extends Controller
         // return $request->all();
         // $this->update_rol_tuno_detalle($request,$id_etapa_servicio);
         
-        return Redirect::to('adm/centro/edit_rol_turno/'.$id_rol_turno.'/'.$id_centro);
+        return Redirect::to('adm/centro/edit_rol_turno/'.$id_rol_turno.'/'.$id_centro)->with('msj','Rol de Turno: "'.$id_rol_turno.'" - Etapa Personal Encargado se Edito exitósamente.');;
     }
 
     public function update_rol_tuno_detalle($request,$id_etapa_servicio)
