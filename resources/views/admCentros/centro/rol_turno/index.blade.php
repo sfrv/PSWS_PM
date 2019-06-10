@@ -33,12 +33,13 @@
 						              	<td>{{ $var->id }}</td>
 					              		<td class="text-center">
 					              			<a href="{{ route('edit-rol-turno', [$var->id,$centro->id]) }}" class="panel-action icon md-edit ml-15" data-toggle="tooltip" data-original-title="Editar" data-container="body" title=""></a>
-                            				<a href="{{ route('renovate-cartera-servicio',[$var->id,$centro->id] ) }}" class="panel-action icon md-mail-reply ml-15" data-toggle="tooltip" data-original-title="Renovar" data-container="body" title=""></a>
+                            				<a href="{{ route('build-rol-turno', [$var->id,$centro->id]) }}" class="panel-action icon md-redo ml-15" data-toggle="tooltip" data-original-title="Reanudar" data-container="body" title=""></a>
+                            				<a href="{{ route('renovate-cartera-servicio',[$var->id,$centro->id] ) }}" class="panel-action icon md-refresh-alt ml-15" data-toggle="tooltip" data-original-title="Renovar" data-container="body" title=""></a>
                             				<i class="icon md-delete ml-15" aria-hidden="true"
                             				data-toggle="tooltip" data-original-title="help" data-container="body"
                             				title=""></i>
-                            				<a href="{{ route('show-cartera-servicio',[$var->id,$centro->id]) }}" class="panel-action icon md-eye ml-15" data-toggle="tooltip" data-original-title="Ver Mas" data-container="body" title=""></a>
-                            				<a href="{{ route('generar-excel-cartera-servicio',[$var->id,$centro->id] ) }}" class="panel-action icon md-download ml-15" data-toggle="tooltip" data-original-title="Generar Excel" data-container="body" title=""></a>
+                            				<a href="{{ route('show-rol-turno', [$var->id,$centro->id]) }}" class="panel-action icon md-eye ml-15" data-toggle="tooltip" data-original-title="Ver Mas" data-container="body" title=""></a>
+                            				<a href="{{ route('generar-excel-rol-turno',[$var->id,$centro->id] ) }}" class="panel-action icon md-download ml-15" data-toggle="tooltip" data-original-title="Generar Excel" data-container="body" title=""></a>
 					              			<!-- <div class="btn-group" role="group">
 						                      <button type="button" class="btn btn-info dropdown-toggle" id="exampleIconDropdown{{ $var->id }}"
 						                        data-toggle="dropdown" aria-expanded="false">

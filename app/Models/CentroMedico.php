@@ -358,9 +358,9 @@ class CentroMedico extends Model
                 // ->join('etapa_servicio as d', 'c.id_etapa_servicio', '=', 'd.id')
                 // ->join('rol_turno as e', 'd.id_rol_turno', '=', 'e.id')
                 ->select('a.*')
-                ->where('a.id_centro_medico', '=', $id)
-                ->where('a.mes', 'LIKE', '%' . $text . '%')
+                ->orwhere('a.mes', 'LIKE', '%' . $text . '%')
                 ->orWhere('a.titulo', 'LIKE', '%' . $text . '%')
+                ->where('a.id_centro_medico', '=', $id)
                 ->orderBy("a.id", "DES");
         }
 

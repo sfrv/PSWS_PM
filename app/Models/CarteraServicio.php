@@ -21,6 +21,15 @@ class CarteraServicio extends Model
 
 	public function scope_insertarCarteraServicio($query, $titulo, $mes, $anio,$id_centro)
 	{
+        if ($titulo == null) {
+            $titulo = "";
+        }
+        if ($mes == null) {
+            $mes = "";
+        }
+        if ($anio == null) {
+            $anio = "";
+        }
 	  	$cartera_servicio = new CarteraServicio;
 	  	$cartera_servicio->titulo = $titulo;
 	  	$cartera_servicio->mes = $mes;
@@ -33,11 +42,23 @@ class CarteraServicio extends Model
 
 	public function scope_editarCarteraServicio($query, $titulo, $mes, $anio,$id)
 	{
+        if ($titulo == null) {
+            $titulo = "";
+        }
+        if ($mes == null) {
+            $mes = "";
+        }
+        if ($anio == null) {
+            $anio = "";
+        }
+
+
 	  	$cartera_servicio = CarteraServicio::findOrFail($id);
 	  	$cartera_servicio->titulo = $titulo;
 	  	$cartera_servicio->mes = $mes;
 	  	$cartera_servicio->anio = $anio;
 	  	$cartera_servicio->update();
+        return $cartera_servicio->id_centro_medico;
 	}
 
 	public function scope_getServiciosPorId($query, $id)

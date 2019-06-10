@@ -7,7 +7,7 @@
 			    <div class="example-wrap">
 			      	<div class="row">
 			      		<div class="col-lg-9 col-xs-12">
-			      			<h4>Editar Rol de Turno - Etapa Emergencia</h4>
+			      			<h4>Editar Rol de Turno - Etapa Personal Encargado</h4>
 			      		</div>
 			      		<div class="col-lg-3 col-xs-12">
 			      			<ol class="breadcrumb">
@@ -18,33 +18,47 @@
 			      		</div>
 			      	</div>
 			      	<br>
-			      	{!! Form::model($id_rol_turno,['method'=>'PATCH','autocomplete'=>'off','route'=>['update-rol-turno-emergencia',$id_rol_turno,$id_centro]])!!}
+			      	{!! Form::model($id_rol_turno,['method'=>'PATCH','autocomplete'=>'off','route'=>['update-rol-turno-personal-encargado',$id_rol_turno,$id_centro]])!!}
 					{{Form::token()}} 
 		              	<div>
-		              		<h4>Consulta Externa</h4>
+		              		<div class="panel-heading">
+			              		<div class="row">
+				              		<div class="col-lg-11 col-md-11 col-dm-11 col-xs-10">
+				              			<h4>
+				              				Personal Encargado
+				              			</h4>
+				              		</div>
+				              		<div>
+				              			<button type="button" class="btn btn-icon btn-primary" onclick="agregarFilaPersonal();"><i class="icon md-plus"></i></button>
+				              		</div>
+			              		</div>
+			              	</div>
 		      			  	<div class="example table-responsive">
 		      			  		<div id="table-scroll" class="table-scroll">
           							<div class="table-wrap">
-					          			<table class="table table-striped">
-					          				@foreach($especialidades_etapa_emergencia as $var)
-		          							<thead style="background-color:#A9D0F5">
+					          			<table class="table table-striped" id="table_personal">
+					          				@foreach($personal_etapa_personal_area as $var)
+		          							<thead style="background-color:#A9D0F5" id="fila_datos_head_id{{$var -> id}}">
 		          								<tr>
-		          									<th class="text-center" scope="col">{{$var -> nombre}}</th>
-							          				<th class="text-center" scope="col">Turno</th>
-							          				<th class="text-center" scope="col">Lunes</th>
-							          				<th class="text-center" scope="col">Martes</th>
-							          				<th class="text-center" scope="col">Miercoles</th>
-							          				<th class="text-center" scope="col">Jueves</th>
-							          				<th class="text-center" scope="col">Viernes</th>
-							          				<th class="text-center" scope="col">Sabado</th>
-							          				<th class="text-center" scope="col">Domingo</th>
-							          				<th class="text-center" scope="col">Observacion</th>
-							          				<th class="text-center" scope="col">Op1</th>
-							          				<th class="text-center" scope="col"><button type="button" class="btn btn-icon btn-primary" onclick="agregarFilaHora({{$var -> id}});"><i class="icon md-plus"></i></button></th>
+													<th class="text-center" scope="col"> 
+														<input style="width:150px;" value="{{$var -> nombre}}" class="autosize form-control" name="text_personal_{{$var -> id}}" type="text">
+														<input type="hidden" name="id_persona_actualizar[]" value="{{$var -> id}}">
+														</th>
+													<th class="text-center" scope="col">Turno</th>
+													<th class="text-center" scope="col">Lunes</th>
+													<th class="text-center" scope="col">Martes</th>
+													<th class="text-center" scope="col">Miercoles</th>
+													<th class="text-center" scope="col">Jueves</th>
+													<th class="text-center" scope="col">Viernes</th>
+													<th class="text-center" scope="col">Sabado</th>
+													<th class="text-center" scope="col">Domingo</th>
+													<th class="text-center" scope="col">Observacion</th>
+													<th class="text-center" scope="col">Op1</th>
+													<th class="text-center" scope="col"><button type="button" class="btn btn-icon btn-primary" onclick="agregarFilaHora({{$var -> id}},-2);"><i class="icon md-plus"></i></button> <button type="button" class="btn btn-icon btn-danger" onclick="eliminarFilaPersonal({{$var -> id}});"><i class="icon md-close"></i></button></th>
 		          								</tr>
 		          							</thead>
 		          							
-		          							<tbody id="fila_datos{{$var -> id}}">
+		          							<tbody id="fila_datos_body_id{{$var -> id}}">
 		          								
 		          							</tbody>
 		          							@endforeach
@@ -75,16 +89,15 @@ function clickb() {
 	var obj=document.getElementById('linkmn');
 	obj.click();
 }
-
+var contp = 0;
 var conth = 0;
 var cont = 0;
 var turnos = {!! $turnos_json !!};
 var detalle_turnos = {!! $detalle_turnos_json !!};
 var rol_dias = {!! $rol_dias_json !!};
-// console.log(rol_dias);
+console.log(rol_dias);
 var medicos_j = {!! $medicos_json !!};
 var array_auxa = [];
-console.log(detalle_turnos);
 
 for (var i = 0; i < turnos.length; i++) {
 	var fila_hora ='<tr  class="text-center" id="fila_h'+conth+'">'+
@@ -106,18 +119,17 @@ for (var i = 0; i < turnos.length; i++) {
 			'<td id="observacion'+conth+'"></td>'+ //observacion
 			'<td id="opcion'+conth+'"></td>'+
 			'<td>'+
-				'<button type="button" class="btn btn-icon btn-primary" onclick="agregarFila('+turnos[i]['id_detalle_centro_especialidad']+','+conth+','+turnos[i]['id']+');"><i class="icon md-plus"></i></button> '+
-				'<button type="button" class="btn btn-icon btn-danger" onclick="eliminarFilaHora('+conth+','+turnos[i]['id']+','+turnos[i]['id_detalle_centro_especialidad']+');"><i class="icon md-close"></i></button>'+
+				'<button type="button" class="btn btn-icon btn-primary" onclick="agregarFila('+turnos[i]['id_personal_area']+','+conth+','+turnos[i]['id']+');"><i class="icon md-plus"></i></button> '+
+				'<button type="button" class="btn btn-icon btn-danger" onclick="eliminarFilaHora('+conth+','+turnos[i]['id']+','+turnos[i]['id_personal_area']+');"><i class="icon md-close"></i></button>'+
 			'</td>'+
 		'</tr>';
-	$('#fila_datos'+turnos[i]['id_detalle_centro_especialidad']).append(fila_hora);
+	$('#fila_datos_body_id'+turnos[i]['id_personal_area']).append(fila_hora);
 
 	var c = 0;
 	while ( c < rol_dias.length ){
 		// var array_dias_id_anterior = [];
 		if (turnos[i]['id'] == rol_dias[c]['id_turno']) {
 			//0 1 2 3 4 5 6
-			// console.log(c);
 			var my_array = '<div id="fila_dias'+cont+'">'+
 				'<input type="hidden" name="observaciones_actualizar[]" value="'+detalle_turnos[(c / 7)]['id']+'">'+
 		 		'<input type="hidden" name="id_rol_dias_actualizar[]" value="'+rol_dias[c]['id']+'">'+
@@ -239,8 +251,8 @@ for (var i = 0; i < turnos.length; i++) {
 			var fila_observacion = '<div id="fila_observacion'+cont+'" style="padding-bottom: 10px;">'+
 					'<input style="width:200px;" value="'+detalle_turnos[(c / 7)-1]['observacion']+'" class="autosize form-control" name="observacion_actualizar_'+detalle_turnos[(c / 7)-1]['id']+'" type="text">'+
 				'</div>';
-				// console.log(c);
-			var fila_opcion = '<div style="margin-bottom: 8px;" id="fila_op'+cont+'"><button type="button" class="btn btn-icon btn-danger" onclick="eliminarFila('+cont+','+turnos[i]['id']+','+turnos[i]['id_detalle_centro_especialidad']+','+detalle_turnos[(c / 7)-1]['id']+');"><i class="icon md-close"></i></button><br></div>';
+
+			var fila_opcion = '<div style="margin-bottom: 7px;" id="fila_op'+cont+'"><button type="button" class="btn btn-icon btn-danger" onclick="eliminarFila('+cont+','+turnos[i]['id']+','+turnos[i]['id_personal_area']+','+detalle_turnos[(c / 7)-1]['id']+');"><i class="icon md-close"></i></button><br></div>';
 
 			cont++;
 
@@ -261,7 +273,32 @@ for (var i = 0; i < turnos.length; i++) {
 	}
 	conth++;
 }
-// console.log(array_auxa);
+
+function agregarFilaPersonal() {
+	var fila_personal = '<thead style="background-color:#A9D0F5" id="fila_datos_head'+contp+'">'+
+			'<tr>'+
+				'<th class="text-center" scope="col">'+
+					'<input  placeholder="Nombre de Cargo" class="autosize form-control" name="text_personal'+contp+'" type="text">'+
+					'<input type="hidden" name="idpersonal[]" value="'+contp+'">'+
+				'</th>'+
+				'<th class="text-center" scope="col">Turno</th>'+
+				'<th class="text-center" scope="col">Lunes</th>'+
+				'<th class="text-center" scope="col">Martes</th>'+
+				'<th class="text-center" scope="col">Miercoles</th>'+
+				'<th class="text-center" scope="col">Jueves</th>'+
+				'<th class="text-center" scope="col">Viernes</th>'+
+				'<th class="text-center" scope="col">Sabado</th>'+
+				'<th class="text-center" scope="col">Domingo</th>'+
+				'<th class="text-center" scope="col">Observacion</th>'+
+				'<th class="text-center" scope="col">Op1</th>'+
+				'<th class="text-center" scope="col"><button type="button" class="btn btn-icon btn-primary" onclick="agregarFilaHora('+contp+',-1'+');"><i class="icon md-plus"></i></button> <button type="button" class="btn btn-icon btn-danger" onclick="eliminarFilaPersonal('+contp+',-1'+');"><i class="icon md-close"></i></button></th>'+
+			'</tr>'+
+		'</thead>'+
+		'<tbody id="fila_datos_body'+contp+'">'+
+		'</tbody>';
+	contp++;
+	$('#table_personal').append(fila_personal);
+}
 
 function agregarFila(id_especialidad_l,conth_l,id_turno_l) {
 	// console.log(id_turno_l);
@@ -328,7 +365,7 @@ function agregarFila(id_especialidad_l,conth_l,id_turno_l) {
 		'<input style="width:200px;" placeholder="OBSERVACION..." class="autosize form-control" name="text_observacion_nuevo'+cont+'" type="text">'+
 		'</div>';
 
-	var fila_opcion = '<div style="margin-bottom: 8px;" id="fila_op'+cont+'"><button type="button" class="btn btn btn-icon btn-danger" onclick="eliminarFila('+cont+');"><i class="icon md-close"></i></button><br></div>';
+	var fila_opcion = '<div style="margin-bottom: 7px;" id="fila_op'+cont+'"><button type="button" class="btn btn-icon btn-danger" onclick="eliminarFila('+cont+');"><i class="icon md-close"></i></button><br></div>';
 	
 	cont++;
 	
@@ -344,13 +381,19 @@ function agregarFila(id_especialidad_l,conth_l,id_turno_l) {
 	
 }
 
-function agregarFilaHora(id) {//id especialidad
+function agregarFilaHora(id,w) {//id especialidad
 	// console.log(id);
+	var aux = '';
+	if (w == -1) {
+		aux = '<input type="hidden" name="idturnos'+id+'[]" value="'+conth+'">';
+	}else{
+		aux = '<input type="hidden" name="id_turnos_nuevos[]" value="'+conth+'">-'+
+			'<input type="hidden" name="idpersonal_crear[]" value="'+id+'">';
+	}
 	
 	var fila_hora ='<tr id="fila_h'+conth+'">'+
 		'<td id="dias'+conth+'">'+
-			'<input type="hidden" name="id_turnos_nuevos[]" value="'+conth+'">-'+
-			'<input type="hidden" name="idespecialidad[]" value="'+id+'">'+
+			aux+
 		'</td>'+
 		'<td>'+
 			'<input style="width:110px;" placeholder="Titulo..." class="autosize form-control" name="text_turno'+conth+'" type="text">'+
@@ -371,7 +414,11 @@ function agregarFilaHora(id) {//id especialidad
 			'<button type="button" class="btn btn-icon btn-danger" onclick="eliminarFilaHora('+conth+',-1'+',-1'+');"><i class="icon md-close"></i></button> </td>'+
 		'</tr>';
 	conth++;
-	$('#fila_datos'+id).append(fila_hora);
+	if (w == -2) {
+		$('#fila_datos_body_id'+id).append(fila_hora);
+	}else{
+		$('#fila_datos_body'+id).append(fila_hora);
+	}
 }
 
 function eliminarFila(cont_l,id_turno_l,id_especialidad_l,id_detalle_turno_l) {
@@ -381,16 +428,15 @@ function eliminarFila(cont_l,id_turno_l,id_especialidad_l,id_detalle_turno_l) {
 		var fila='<tr hidden>'+
 	      '<td><input type="hidden" name="id_rol_dias_delete[]" value="'+array_auxa[n_i][0]+'"></td>'+
 	    '</tr>';
-	  	$('#fila_datos'+id_especialidad_l).append(fila);
+	  	$('#fila_datos_body_id'+id_especialidad_l).append(fila);
 	  	array_auxa.splice(n_i,1);
 		n_i = getIndDato(cont_l,array_auxa,2);
 	}
-	
 	var fila='<tr hidden>'+
 	      '<td><input type="hidden" name="id_detalle_turno_delete[]" value="'+id_detalle_turno_l+'"></td>'+
 	    '</tr>';
 	  	$('#fila_datos'+id_especialidad_l).append(fila);
-	console.log(array_auxa);
+	// console.log(array_auxa);
 
 	$('#fila_d_l'+cont_l).remove();
 	$('#fila_d_m'+cont_l).remove();
@@ -404,31 +450,43 @@ function eliminarFila(cont_l,id_turno_l,id_especialidad_l,id_detalle_turno_l) {
 
 }
 
-function eliminarFilaHora(conth_l,id_turno_l,id_especialidad_l)
+function eliminarFilaHora(conth_l,id_turno_l,id_personal_l)
 {
-	
-	if (id_turno_l == -1 && id_especialidad_l == -1) {
+	console.log(conth_l);
+	if (id_turno_l == -1 && id_personal_l == -1) {
 		$('#fila_h'+conth_l).remove();
-		return
+		return;
 	}
 
-	// var n_i = getIndDato(id_turno_l,array_auxa,1);
-	// while( n_i != -1 ){
-	// 	var fila='<tr hidden>'+
-	//       '<td><input type="hidden" name="id_rol_dias_delete[]" value="'+array_auxa[n_i][0]+'"></td>'+
-	//     '</tr>';
-	//   	$('#fila_datos'+id_especialidad_l).append(fila);
-	//   	array_auxa.splice(n_i,1);
-	// 	n_i = getIndDato(id_turno_l,array_auxa,1);
-	// }
-	// console.log(array_auxa);
 
 	var fila='<tr hidden>'+
       '<td><input type="hidden" name="id_turnos_delete[]" value="'+id_turno_l+'"></td>'+
     '</tr>';
-  	$('#fila_datos'+id_especialidad_l).append(fila);
+  	$('#fila_datos_body_id'+id_personal_l).append(fila);
 
   	$('#fila_h'+conth_l).remove();
+}
+
+function eliminarFilaPersonal(id_personal_l,w)
+{
+	console.log(id_personal_l);	
+	if (w == -1) {//es nuevo
+		$('#fila_datos_body'+id_personal_l).remove();
+		$('#fila_datos_head'+id_personal_l).remove();
+		return;
+	}
+	
+	$('#fila_datos_body_id'+id_personal_l).remove();
+	$('#fila_datos_head_id'+id_personal_l).remove();
+
+	var fila_personal = '<thead>'+
+	'</thead>'+
+		'<tr hidden>'+
+	      '<td><input type="hidden" name="id_personal_delete[]" value="'+id_personal_l+'"></td>'+
+	    '</tr>'+
+	'<tbody id="fila_datos_body'+contp+'">'+
+	'</tbody>';
+	$('#table_personal').append(fila_personal);
 }
 
 
@@ -442,7 +500,6 @@ function getIndDato(ind, array_l, indr) {
   }
   return -1;
 }
-
 </script>
 @endpush
 @endsection

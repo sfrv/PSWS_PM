@@ -7,7 +7,7 @@
 			    <div class="example-wrap">
 			      	<div class="row">
 			      		<div class="col-lg-9 col-xs-12">
-			      			<h4>Editar Rol de Turno - Etapa Emergencia</h4>
+			      			<h4>Editar Rol de Turno - Etapa Hospitalizacion</h4>
 			      		</div>
 			      		<div class="col-lg-3 col-xs-12">
 			      			<ol class="breadcrumb">
@@ -18,15 +18,15 @@
 			      		</div>
 			      	</div>
 			      	<br>
-			      	{!! Form::model($id_rol_turno,['method'=>'PATCH','autocomplete'=>'off','route'=>['update-rol-turno-emergencia',$id_rol_turno,$id_centro]])!!}
+			      	{!! Form::model($id_rol_turno,['method'=>'PATCH','autocomplete'=>'off','route'=>['update-rol-turno-hospitalizacion',$id_rol_turno,$id_centro]])!!}
 					{{Form::token()}} 
 		              	<div>
-		              		<h4>Consulta Externa</h4>
+		              		<h4>Etapa Hospitalizacion</h4>
 		      			  	<div class="example table-responsive">
 		      			  		<div id="table-scroll" class="table-scroll">
           							<div class="table-wrap">
 					          			<table class="table table-striped">
-					          				@foreach($especialidades_etapa_emergencia as $var)
+					          				@foreach($especialidades_etapa_hospitalizacion as $var)
 		          							<thead style="background-color:#A9D0F5">
 		          								<tr>
 		          									<th class="text-center" scope="col">{{$var -> nombre}}</th>

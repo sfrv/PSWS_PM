@@ -44,11 +44,20 @@ class Servicio extends Model
 
 	public function scope_editarServicio($query, $nombre, $dias, $hora, $observacion, $id)
 	{
-	  $servicio = Servicio::findOrFail($id);
-	  $servicio->nombre = $nombre;
-	  $servicio->dias = $dias;
-	  $servicio->hora = $hora;
-	  $servicio->observacion = $observacion;
-	  $servicio->update();
+		if ($dias == null) {
+			$dias = "";
+		}
+		if ($hora == null) {
+			$hora = "";
+		}
+		if ($observacion == null) {
+			$observacion = "";
+		}
+	  	$servicio = Servicio::findOrFail($id);
+	  	$servicio->nombre = $nombre;
+	  	$servicio->dias = $dias;
+	  	$servicio->hora = $hora;
+	  	$servicio->observacion = $observacion;
+	  	$servicio->update();
 	}
 }

@@ -7,7 +7,7 @@
 			    <div class="example-wrap">
 			      	<div class="row">
 			      		<div class="col-lg-9 col-xs-12">
-			      			<h4>Editar Rold de Turno: {{$rol_turno->mes}} {{$rol_turno->anio}}</h4>	
+			      			<h4>Vizualizar Rold de Turno: {{$rol_turno->mes}} {{$rol_turno->anio}}</h4>	
 			      		</div>
 			      		<div class="col-lg-3 col-xs-12">
 			      			<ol class="breadcrumb">
@@ -18,43 +18,25 @@
 			      		</div>
 			      	</div>
 			      	<br>
-			      	{!! Form::model($rol_turno,['method'=>'PATCH','autocomplete'=>'off','route'=>['update-rol-turno',$rol_turno->id]])!!}
-					{{Form::token()}} 
 		              	<div class="row">
 		              		<div class="col-lg-4 col-xs-12">
 		                  		<div class="form-group form-material floating" data-plugin="formMaterial">
-				                	<input required type="text" class="form-control" value="{{$rol_turno->titulo}}" name="titulo"/>
+				                	<input disabled type="text" class="form-control" value="{{$rol_turno->titulo}}" name="titulo"/>
 				                    <label class="floating-label">Titulo</label>
 				                </div>
 			              	</div>
 			              	<div class="col-lg-4 col-xs-12">
-		                  		<div class="form-group" data-plugin="formMaterial">
-				                	<label class="floating-label">Mes</label>
-				                	<select name="mes" class="form-control">
-					                    @foreach($meses as $var)
-							                @if($var == $rol_turno->mes)
-							                  <option value="{{$var}}" selected>{{$var}}</option>
-							                @else
-							                  <option value="{{$var}}">{{$var}}</option>
-							                @endif
-							            @endforeach
-				              		</select>
+		                  		<div class="form-group form-material floating" data-plugin="formMaterial">
+				                	<input disabled required type="text" class="form-control" value="{{$rol_turno->mes}}" name="titulo"/>
+				                    <label class="floating-label">Mes</label>
 				                </div>
-				            </div>
+			              	</div>
 				            <div class="col-lg-4 col-xs-12">
-		                  		<div class="form-group" data-plugin="formMaterial">
-				                	<label class="floating-label">Anio</label>
-				                	<select name="anio" class="form-control">
-					                    @foreach($anios as $var)
-							                @if($var == $rol_turno->anio)
-							                  <option value="{{$var}}" selected>{{$var}}</option>
-							                @else
-							                  <option value="{{$var}}">{{$var}}</option>
-							                @endif
-							            @endforeach
-				              		</select>
+		                  		<div class="form-group form-material floating" data-plugin="formMaterial">
+				                	<input disabled type="text" class="form-control" value="{{$rol_turno->anio}}"/>
+				                    <label class="floating-label">Anio</label>
 				                </div>
-				            </div>
+			              	</div>
 				            <div class="col-lg-3 col-xs-12">
 				                <div class="card card-block p-30">
 				                  	<div class="counter counter-md text-left">
@@ -77,7 +59,7 @@
 				                      		</div>
 				                      		<div class="counter counter-sm text-left">
 				                        		<div class="counter-number-group">
-				                          			<span class="counter-icon blue-600 mr-5"><a href="{{ route('edit-rol-turno-emergencia', [$rol_turno->id,$id_centro]) }}" class="small-box-footer">Gestionar Etapa <i class="md-edit"></i></a></span>
+				                          			<span class="counter-icon blue-600 mr-5"><a href="{{ route('show-rol-turno-emergencia', [$rol_turno->id,$id_centro]) }}" class="small-box-footer">Ver Etapa <i class="md-eye"></i></a></span>
 				                        		</div>
 				                      		</div>
 				                    	</div>
@@ -106,7 +88,7 @@
 				                      		</div>
 				                      		<div class="counter counter-sm text-left">
 				                        		<div class="counter-number-group">
-				                          			<span class="counter-icon blue-600 mr-5"><a href="{{ route('edit-rol-turno-consulta', [$rol_turno->id,$id_centro]) }}" class="small-box-footer">Gestionar Etapa <i class="md-edit"></i></a></span>
+				                          			<span class="counter-icon blue-600 mr-5"><a href="{{ route('show-rol-turno-consulta', [$rol_turno->id,$id_centro]) }}" class="small-box-footer">Ver Etapa <i class="md-eye"></i></a></span>
 				                        		</div>
 				                      		</div>
 				                    	</div>
@@ -135,7 +117,7 @@
 				                      		</div>
 				                      		<div class="counter counter-sm text-left">
 				                        		<div class="counter-number-group">
-				                          			<span class="counter-icon blue-600 mr-5"><a href="{{ route('edit-rol-turno-hospitalizacion', [$rol_turno->id,$id_centro]) }}" class="small-box-footer">Gestionar Etapa <i class="md-edit"></i></a></span>
+				                          			<span class="counter-icon blue-600 mr-5"><a href="{{ route('show-rol-turno-hospitalizacion', [$rol_turno->id,$id_centro]) }}" class="small-box-footer">Ver Etapa <i class="md-eye"></i></a></span>
 				                        		</div>
 				                      		</div>
 				                    	</div>
@@ -164,7 +146,7 @@
 				                      		</div>
 				                      		<div class="counter counter-sm text-left">
 				                        		<div class="counter-number-group">
-				                          			<span class="counter-icon blue-600 mr-5"><a href="{{ route('edit-rol-turno-personal-encargado', [$rol_turno->id,$id_centro]) }}" class="small-box-footer">Gestionar Etapa <i class="md-edit"></i></a></span>
+				                          			<span class="counter-icon blue-600 mr-5"><a href="{{ route('show-rol-turno-personal-encargado', [$rol_turno->id,$id_centro]) }}" class="small-box-footer">Ver Etapa <i class="md-eye"></i></a></span>
 				                        		</div>
 				                      		</div>
 				                    	</div>
@@ -173,12 +155,13 @@
 			                </div>
 		              	</div>
 		              	<br>
-		              	<div class="col-sm-8 col-sm-offset-2" id="guardar">
-		              		<button type="submit" class="btn btn-primary btn-block btn-round" data-style="slide-right" data-plugin="ladda">
-		              			<span class="ladda-label">Editar Rol De Turno<i class="icon md-long-arrow-right ml-10" aria-hidden="true"></i></span>
-		              		</button>
+		              	<div class="col-sm-8 col-sm-offset-2">
+		              		<a href="{{url('adm/centro/index_rol_turno/'.$id_centro)}}">
+			              		<button class="btn btn-primary btn-block btn-round" data-style="slide-left" data-plugin="ladda">
+			              			<span class="ladda-label"><i class="icon md-long-arrow-left ml-10" aria-hidden="true"></i> Volver Inicio</span>
+			              		</button>
+			              	</a>
 		              	</div>
-		            {!! Form::close() !!}
 			    </div>
 			</div>
 		</div>

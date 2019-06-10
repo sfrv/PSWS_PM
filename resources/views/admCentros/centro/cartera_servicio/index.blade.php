@@ -33,7 +33,7 @@
 						              	<td>{{ $var->id }}</td>
 					              		<td class="text-center">
 					              			<a href="{{ route('edit-cartera-servicio',[$var->id,$centro->id]) }}" class="panel-action icon md-edit ml-15" data-toggle="tooltip" data-original-title="Editar" data-container="body" title=""></a>
-                            				<a href="{{ route('renovate-cartera-servicio',[$var->id,$centro->id] ) }}" class="panel-action icon md-mail-reply ml-15" data-toggle="tooltip" data-original-title="Renovar" data-container="body" title=""></a>
+                            				<a href="{{ route('renovate-cartera-servicio',[$var->id,$centro->id] ) }}" class="panel-action icon md-refresh-alt ml-15" data-toggle="tooltip" data-original-title="Renovar" data-container="body" title=""></a>
                             				<i class="icon md-delete ml-15" aria-hidden="true"
                             				data-toggle="tooltip" data-original-title="help" data-container="body"
                             				title=""></i>

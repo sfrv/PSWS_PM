@@ -58,8 +58,8 @@
 	              	
 	              	<div class="col-sm-8 col-sm-offset-2" id="guardar">
 	              		<a href="javascript:history.back(1)">
-	              			<button type="submit" class="btn btn-primary btn-block btn-round" data-style="slide-right" data-plugin="ladda">
-	              			<span class="ladda-label">Volver Atras<i class="icon md-long-arrow-right ml-10" aria-hidden="true"></i></span>
+	              			<button type="submit" class="btn btn-primary btn-block btn-round" data-style="slide-left" data-plugin="ladda">
+	              			<span class="ladda-label"><i class="icon md-long-arrow-left ml-10" aria-hidden="true"></i> Atras</span>
 	              		</button>
 	              		</a>
 	              	</div>

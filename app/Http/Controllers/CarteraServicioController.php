@@ -224,36 +224,54 @@ class CarteraServicioController extends Controller
                 $a++;
             }
         }
-        return Redirect::to('adm/centro/index_cartera_servicio/'.$id_centro);
+        return Redirect::to('adm/centro/index_cartera_servicio/'.$id_centro)->with('msj', 'Cartera de Servicio: "' . $mes . "/" . $anio . '" se creo exitosamente.');
     }
 
-    public function actualizar_cartera_servicio()
+    public function update_cartera_servicio(Request $request,$id_cartera_servicio)
     {
-    	$my_json = $_REQUEST['my_json'];
-        $titulo = $my_json['titulo'];
-        $mes = $my_json['mes'];
-        $anio = $my_json['anio'];
-        $id = $my_json['id'];
+        // return $request->all();
+    	$titulo = $request->get('titulo');
+        $mes = $request->get('mes');
+        $anio = $request->get('anio');
+        $id_centro = CarteraServicio::_editarCarteraServicio($titulo,$mes,$anio,$id_cartera_servicio);
 
-        if ($my_json['datos_new'] != -1) {
-            $datos_new = (array)$my_json['datos_new'];
-            for ($i=0; $i < count($datos_new) ; $i++) { 
-                Servicio::_insertarServicio($datos_new[$i][1],$datos_new[$i][2],$datos_new[$i][3],$datos_new[$i][4],$id,$datos_new[$i][0]);
+        if ($request->get('id_detalle_servicios_nuevos') != null) {
+            $id_detalle_servicios_nuevos = $request->get('id_detalle_servicios_nuevos');
+            $a = 0;
+            while ($a < count($id_detalle_servicios_nuevos)) {
+                $nombre = $request->get('nuevo_nombre_servicio_'.$id_detalle_servicios_nuevos[$a]);
+                $dias = $request->get('nuevo_dias_'.$id_detalle_servicios_nuevos[$a]);
+                $hora = $request->get('nuevo_hora_'.$id_detalle_servicios_nuevos[$a]);
+                $observacion = $request->get('nuevo_observacion_'.$id_detalle_servicios_nuevos[$a]);
+                $id_especialidad = $request->get('nuevo_id_especialidad_'.$id_detalle_servicios_nuevos[$a]);
+                Servicio::_insertarServicio($nombre,$dias,$hora,$observacion,$id_cartera_servicio,$id_especialidad);
+                $a++;
             }
         }
-
-        if ($my_json['datos_filas_delete'] != -1) {
-            $datos_filas_delete = (array)$my_json['datos_filas_delete'];
-            for ($i=0; $i < count($datos_filas_delete) ; $i++) { 
-                Servicio::destroy($datos_filas_delete[$i]);
+        if ($request->get('id_servicios_eliminar') != null) {
+            $id_servicios_eliminar = $request->get('id_servicios_eliminar');
+            $a = 0;
+            while ($a < count($id_servicios_eliminar)) {
+                $id_detalle_servicio = $id_servicios_eliminar[$a];
+                Servicio::destroy($id_detalle_servicio);
+                $a++;
             }
         }
         
-        CarteraServicio::_editarCarteraServicio($titulo,$mes,$anio,$id);
-        $datos = (array)$my_json['datos'];
-        for ($i=0; $i < count($datos) ; $i++) { 
-            Servicio::_editarServicio($datos[$i][1],$datos[$i][2],$datos[$i][3],$datos[$i][4],$datos[$i][0]);
+        if ($request->get('id_detalle_servicios_editar') != null) {
+            $servicios_actualizar = $request->get('id_detalle_servicios_editar');
+            $a = 0;
+            while ($a < count($servicios_actualizar)) {
+                $nombre = $request->get('nombre_servicio_'.$servicios_actualizar[$a]);
+                $dias = $request->get('dias_'.$servicios_actualizar[$a]);
+                $hora = $request->get('hora_'.$servicios_actualizar[$a]);
+                $observacion = $request->get('observacion_'.$servicios_actualizar[$a]);
+                $id_detalle_servicio = $servicios_actualizar[$a];
+                Servicio::_editarServicio($nombre,$dias,$hora,$observacion,$id_detalle_servicio);
+                $a++;
+            }
         }
+        return Redirect::to('adm/centro/index_cartera_servicio/'.$id_centro)->with('msj', 'Cartera de Servicio: "' . $mes . "/" . $anio . '" se edito exitosamente.');
     }
 
     public function renovate_cartera_servicio($id,$id_centro)

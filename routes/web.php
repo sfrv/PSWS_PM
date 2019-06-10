@@ -63,9 +63,9 @@ Route::post('adm/centro/store_cartera_servicio/{id}',[
 	'as' => 'store-cartera-servicio',
 	'uses' => 'CarteraServicioController@store_cartera_servicio'
 ]);
-Route::get('adm/centro/actualizar_cartera_servicio',[
-	'as' => 'actualizar-cartera-servicio',
-	'uses' => 'CarteraServicioController@actualizar_cartera_servicio'
+Route::patch('adm/centro/update_cartera_servicio/{id_cartera_servicio}/{id_centro}',[
+	'as' => 'update-cartera-servicio',
+	'uses' => 'CarteraServicioController@update_cartera_servicio'
 ]);
 Route::get('adm/centro/index_cartera_servicio/{id}',[
 	'as' => 'index-cartera-servicio',
