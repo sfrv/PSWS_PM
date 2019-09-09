@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\CentroMedico;
@@ -31,6 +32,9 @@ class RolTurnoController extends Controller
 
     public function edit_rol_turno($id_rol_turno,$id_centro)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_rol_turno/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
         $anios = array("2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030");
 
@@ -40,6 +44,9 @@ class RolTurnoController extends Controller
 
     public function edit_rol_turno_emergencia($id_rol_turno,$id_centro)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_rol_turno/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         // $rol_turno = RolTurno::findOrFail($id_rol_turno);
         $etapa_servicio_uno = RolTurno::_getEtapaServicio($id_rol_turno,'Etapa de Emergencia');
         // $especialidades = RolTurno::_getEspecialidadesPorIdEtapaServicio($etapa_servicio_uno->id);
@@ -61,6 +68,9 @@ class RolTurnoController extends Controller
 
     public function edit_rol_turno_consulta($id_rol_turno,$id_centro)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_rol_turno/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $etapa_servicio = RolTurno::_getEtapaServicio($id_rol_turno,'Etapa de Consulta Externa');
         if (!isset($etapa_servicio->id)) {
             $aux = EtapaServicio::_insertarEtapaServicio('Etapa de Consulta Externa',$id_rol_turno);
@@ -83,6 +93,9 @@ class RolTurnoController extends Controller
 
     public function edit_rol_turno_hospitalizacion($id_rol_turno,$id_centro)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_rol_turno/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $etapa_servicio = RolTurno::_getEtapaServicio($id_rol_turno,'Etapa de Hospitalizacion');
         if (!isset($etapa_servicio->id)) {
             $aux = EtapaServicio::_insertarEtapaServicio('Etapa de Hospitalizacion',$id_rol_turno);
@@ -105,6 +118,9 @@ class RolTurnoController extends Controller
 
     public function edit_rol_turno_personal_encargado($id_rol_turno,$id_centro)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_rol_turno/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $etapa_servicio = RolTurno::_getEtapaServicio($id_rol_turno,'ETAPA DE PERSONAL ENCARGADO');
         if (!isset($etapa_servicio->id)) {
             $aux = EtapaServicio::_insertarEtapaServicio('ETAPA DE PERSONAL ENCARGADO',$id_rol_turno);
@@ -643,6 +659,9 @@ class RolTurnoController extends Controller
 
     public function create_rol_turno_emergencia($id_centro)//id centro
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_rol_turno/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
         $anios = array("2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030");
         $anio_actual = date("Y");
@@ -657,6 +676,9 @@ class RolTurnoController extends Controller
 
     public function create_rol_turno_consulta($id_centro,$id_rol_turno)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_rol_turno/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $especialidades_etapa_consulta = CentroMedico::_obtenerEspecialidadesEtapaConsultaExt($id_centro);
         $medicos = Medico::_getAllMedicos("")->get();
 
@@ -665,6 +687,9 @@ class RolTurnoController extends Controller
 
     public function create_rol_turno_hospitalizacion($id_centro,$id_rol_turno)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_rol_turno/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $especialidades_etapa_hospitalizacion = CentroMedico::_obtenerEspecialidadesEtapaHospitalizacion($id_centro);
         $medicos = Medico::_getAllMedicos("")->get();
 
@@ -673,6 +698,9 @@ class RolTurnoController extends Controller
 
     public function create_rol_turno_personal_encargado($id_centro,$id_rol_turno)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_rol_turno/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $especialidades_etapa_hospitalizacion = CentroMedico::_obtenerEspecialidadesEtapaHospitalizacion($id_centro);
         $medicos = Medico::_getAllMedicos("")->get();
 
@@ -1723,6 +1751,9 @@ class RolTurnoController extends Controller
 
     public function build_rol_turno($id_rol_turno,$id_centro)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_rol_turno/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $etapas_servicios = EtapaServicio::_obtejerEtapasPorIdRolTurno($id_rol_turno);
         
         if (count($etapas_servicios) == 1) {//le toca la etapa 2 CONSULTA

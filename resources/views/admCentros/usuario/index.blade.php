@@ -20,7 +20,9 @@
 					              	<th>Name</th>
 					              	<th>Tipo</th>
 					              	<th>Centro Medico</th>
-					              	<th class="text-center">Opciones</th>
+					              	@if(Auth::user()->tipo == 'Administrador')
+						             	<th class="text-center">Opciones</th>
+						            @endif
 				            	</tr>
 				          	</thead>
 				          	<tbody>
@@ -37,10 +39,12 @@
 					                    <td>{{ $var->name }}</td>
 					                    <td>{{ $var->tipo }}</td>
 					                    <td>{{ $var->id_centro_medico }}</td>
-					              		<td class="text-center">
-					              			<a href="{{URL::action('UsuarioController@edit',$var->id)}}" class="panel-action icon md-edit ml-15" data-toggle="tooltip" data-original-title="Editar" data-container="body" title=""></a>
-					              			<a href="" data-target="#modal-delete-{{$var->id}}" class="panel-action icon md-delete ml-15" data-toggle="modal" data-original-title="Eliminar" data-placement="top" title="Eliminar"></a>
-					              		</td>
+					                    @if(Auth::user()->tipo == 'Administrador')
+							             	<td class="text-center">
+						              			<a href="{{URL::action('UsuarioController@edit',$var->id)}}" class="panel-action icon md-edit ml-15" data-toggle="tooltip" data-original-title="Editar" data-container="body" title=""></a>
+						              			<a href="" data-target="#modal-delete-{{$var->id}}" class="panel-action icon md-delete ml-15" data-toggle="modal" data-original-title="Eliminar" data-placement="top" title="Eliminar"></a>
+						              		</td>
+						                @endif
 					            	</tr>
 					            	@include('admCentros.usuario.modal')
 				            	@endforeach
@@ -49,14 +53,16 @@
 			      	</div>
 			      	<div>
 				      	{{ $usuarios->links('admCentros.custom') }}
-						<div class="site-action" data-plugin="actionBtn">
-							<a href="usuario/create">
-								<button type="button" class="site-action-toggle btn-raised btn btn-primary btn-floating">
-									<i class="front-icon md-plus animation-scale-up" aria-hidden="true"></i>
-					        		<i class="back-icon md-close animation-scale-up" aria-hidden="true"></i>
-								</button>
-							</a>
-					    </div>
+				      	@if(Auth::user()->tipo == 'Administrador')
+							<div class="site-action" data-plugin="actionBtn">
+								<a href="usuario/create">
+									<button type="button" class="site-action-toggle btn-raised btn btn-primary btn-floating">
+										<i class="front-icon md-plus animation-scale-up" aria-hidden="true"></i>
+						        		<i class="back-icon md-close animation-scale-up" aria-hidden="true"></i>
+									</button>
+								</a>
+						    </div>
+					    @endif
 			      	</div>
 			    </div>
 			</div>

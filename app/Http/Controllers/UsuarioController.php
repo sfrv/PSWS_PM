@@ -5,13 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\CentroMedico;
+use App\Models\ServicioMetodo;
 use App\User;
+use Illuminate\Support\Facades\Auth;
+use Route;
+use Illuminate\Routing\Redirector;
 
 class UsuarioController extends Controller
 {
-    public function __construct()
+    public function __construct(Redirector $redirect)
     {
-        // $this->middleware('auth');
+        $acctionName = explode('@', Route::getCurrentRoute()->getActionName())[1];
+        $result = ServicioMetodo::_verificarServicioMetodo('UsuarioController',$acctionName);
+        if ($result->estado == 0) {
+            $redirect->to('dashboard')->with('msj_e_sm', 'La operacion a realizar: '. $acctionName . ' de '. $result->seccion . ' fue dada de baja por los administradores.')->send();
+        }
+        $this->middleware('auth');
     }
     
     public function index(Request $request)
@@ -22,6 +31,9 @@ class UsuarioController extends Controller
 
     public function create()
     {
+        if (Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/usuario/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
     	$centros = CentroMedico::all();
         return view('admCentros.usuario.create', compact('centros'));
     }
@@ -34,6 +46,9 @@ class UsuarioController extends Controller
 
     public function edit($id)
     {
+        if (Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/usuario/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
     	$tipos_usuario = array("Usuario","Administrador");
     	$centros = CentroMedico::_getAllCentrosMedicos("","")->get();
     	$usuario = User::findOrFail($id);

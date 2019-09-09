@@ -302,4 +302,5 @@ function getIndDato2(ind,array_l) {
 window.addEventListener("load",comenzar, false);
 </script>
 @endpush
+@include('admCentros.alertas.logrado')
 @endsection

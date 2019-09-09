@@ -32,12 +32,14 @@
 						              	<td>{{ $var->mes }} / {{ $var->anio }} </td>
 						              	<td>{{ $var->id }}</td>
 					              		<td class="text-center">
-					              			<a href="{{ route('edit-rol-turno', [$var->id,$centro->id]) }}" class="panel-action icon md-edit ml-15" data-toggle="tooltip" data-original-title="Editar" data-container="body" title=""></a>
-                            				<a href="{{ route('build-rol-turno', [$var->id,$centro->id]) }}" class="panel-action icon md-redo ml-15" data-toggle="tooltip" data-original-title="Reanudar" data-container="body" title=""></a>
-                            				<a href="{{ route('renovate-cartera-servicio',[$var->id,$centro->id] ) }}" class="panel-action icon md-refresh-alt ml-15" data-toggle="tooltip" data-original-title="Renovar" data-container="body" title=""></a>
-                            				<i class="icon md-delete ml-15" aria-hidden="true"
-                            				data-toggle="tooltip" data-original-title="help" data-container="body"
-                            				title=""></i>
+					              			@if(Auth::user()->id_centro_medico == $centro->id || Auth::user()->tipo == 'Administrador' )
+						              			<a href="{{ route('edit-rol-turno', [$var->id,$centro->id]) }}" class="panel-action icon md-edit ml-15" data-toggle="tooltip" data-original-title="Editar" data-container="body" title=""></a>
+	                            				<a href="{{ route('build-rol-turno', [$var->id,$centro->id]) }}" class="panel-action icon md-redo ml-15" data-toggle="tooltip" data-original-title="Reanudar" data-container="body" title=""></a>
+	                            				<a href="{{ route('renovate-cartera-servicio',[$var->id,$centro->id] ) }}" class="panel-action icon md-refresh-alt ml-15" data-toggle="tooltip" data-original-title="Renovar" data-container="body" title=""></a>
+	                            				<i class="icon md-delete ml-15" aria-hidden="true"
+	                            				data-toggle="tooltip" data-original-title="help" data-container="body"
+	                            				title=""></i>
+	                            			@endif
                             				<a href="{{ route('show-rol-turno', [$var->id,$centro->id]) }}" class="panel-action icon md-eye ml-15" data-toggle="tooltip" data-original-title="Ver Mas" data-container="body" title=""></a>
                             				<a href="{{ route('generar-excel-rol-turno',[$var->id,$centro->id] ) }}" class="panel-action icon md-download ml-15" data-toggle="tooltip" data-original-title="Generar Excel" data-container="body" title=""></a>
 					              			<!-- <div class="btn-group" role="group">
@@ -62,14 +64,16 @@
 			      	</div>
 			      	<div>
 				      	{{ $rol_turnos->links('admCentros.custom') }}
-						<div class="site-action" data-plugin="actionBtn">
-							<a href="{{ route('create-rol-turno-emergencia', $centro->id) }}">
-								<button type="button" class="site-action-toggle btn-raised btn btn-primary btn-floating">
-									<i class="front-icon md-plus animation-scale-up" aria-hidden="true"></i>
-					        		<i class="back-icon md-close animation-scale-up" aria-hidden="true"></i>
-								</button>
-							</a>
-					    </div>
+				      	@if(Auth::user()->id_centro_medico == $centro->id || Auth::user()->tipo == 'Administrador' )
+							<div class="site-action" data-plugin="actionBtn">
+								<a href="{{ route('create-rol-turno-emergencia', $centro->id) }}">
+									<button type="button" class="site-action-toggle btn-raised btn btn-primary btn-floating">
+										<i class="front-icon md-plus animation-scale-up" aria-hidden="true"></i>
+						        		<i class="back-icon md-close animation-scale-up" aria-hidden="true"></i>
+									</button>
+								</a>
+						    </div>
+						@endif
 			      	</div>
 			    </div>
 			</div>

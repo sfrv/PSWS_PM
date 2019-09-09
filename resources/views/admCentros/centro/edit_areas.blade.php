@@ -184,4 +184,5 @@ function getIndDato(ind,array_l) {
 }
 </script>
 @endpush
+@include('admCentros.alertas.logrado')
 @endsection

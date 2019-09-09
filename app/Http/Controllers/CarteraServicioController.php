@@ -8,11 +8,14 @@ use App\Models\CarteraServicio;
 use App\Models\CentroMedico;
 use App\Models\Servicio;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
+use Route;
 
 class CarteraServicioController extends Controller
 {
     public function __construct()
     {
+        //dd(explode('@', Route::getCurrentRoute()->getActionName())[1]);
         // $this->middleware('auth');
     }
     
@@ -174,6 +177,9 @@ class CarteraServicioController extends Controller
 
     public function create_cartera_servicio($id_centro)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_cartera_servicio/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
         $anios = array("2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030");
         $nombres_servicios = array("Emergencia","Consulta Externa","Internacion","Quirofano");
@@ -187,6 +193,9 @@ class CarteraServicioController extends Controller
 
     public function edit_cartera_servicio($id,$id_centro)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_cartera_servicio/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $nombres_servicios = array("Emergencia","Consulta Externa","Internacion","Quirofano");
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
         $anios = array("2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030");
@@ -276,6 +285,9 @@ class CarteraServicioController extends Controller
 
     public function renovate_cartera_servicio($id,$id_centro)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_cartera_servicio/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $nombres_servicios = array("Emergencia","Consulta Externa","Internacion","Quirofano");
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
         $anios = array("2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030");

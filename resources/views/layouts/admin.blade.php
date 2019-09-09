@@ -170,13 +170,96 @@
               </li>
               <li class="site-menu-category">Elementos</li>
               <li class="site-menu-item has-sub">
-                <a href="{{url('adm/centro')}}">
+                <!-- <a href="{{url('adm/centro')}}"> -->
+                <a>
                     <i class="site-menu-icon md-balance" aria-hidden="true"></i>
                     <span class="site-menu-title">Centros Medicos</span>
                     <span class="site-menu-arrow"></span>
                 </a>
+                <ul class="site-menu-sub">
+                  <li class="site-menu-item">
+                    <a class="animsition-link" href="{{url('adm/centro')}}">
+                      <span class="site-menu-title">Gest. Centros Medicos</span>
+                    </a>
+                  </li>
+                  <li class="site-menu-item">
+                    <a class="animsition-link" href="{{url('adm/especialidad')}}">
+                      <span class="site-menu-title">Gest. Especialidades</span>
+                    </a>
+                  </li>
+                  <li class="site-menu-item">
+                    <a class="animsition-link" href="{{url('adm/medico')}}">
+                      <span class="site-menu-title">Gest. Medicos</span>
+                    </a>
+                  </li>
+                  <li class="site-menu-item">
+                    <a class="animsition-link" href="{{url('adm/servicio')}}">
+                      <span class="site-menu-title">Gest. Tipo Servicios</span>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="site-menu-item has-sub">
+                <!-- <a href="{{url('adm/centro')}}"> -->
+                <a>
+                    <i class="site-menu-icon md-shield-security" aria-hidden="true"></i>
+                    <span class="site-menu-title">Seguridad</span>
+                    <span class="site-menu-arrow"></span>
+                </a>
+                <ul class="site-menu-sub">
+                  <li class="site-menu-item">
+                    <a class="animsition-link" href="{{url('adm/usuario')}}">
+                      <span class="site-menu-title">Gest. Usuarios</span>
+                    </a>
+                  </li>
+                  <li class="site-menu-item">
+                    <a class="animsition-link" href="{{url('adm/servicio_metodo')}}">
+                      <span class="site-menu-title">Gest. Previlegios</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="site-menu-item has-sub">
+                <!-- <a href="{{url('adm/centro')}}"> -->
+                <a>
+                    <i class="site-menu-icon md-input-composite" aria-hidden="true"></i>
+                    <span class="site-menu-title">Estructura y Distribucion</span>
+                    <span class="site-menu-arrow"></span>
+                </a>
+                <ul class="site-menu-sub">
+                  <li class="site-menu-item">
+                    <a class="animsition-link" href="{{url('adm/red')}}">
+                      <span class="site-menu-title">Gest. Redes</span>
+                    </a>
+                  </li>
+                  <li class="site-menu-item">
+                    <a class="animsition-link" href="{{url('adm/zona')}}">
+                      <span class="site-menu-title">Gest. Zonas</span>
+                    </a>
+                  </li>
+                  <li class="site-menu-item">
+                    <a class="animsition-link" href="{{url('adm/nivel')}}">
+                      <span class="site-menu-title">Gest. Niveles</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="site-menu-item has-sub">
+                <!-- <a href="{{url('adm/centro')}}"> -->
+                <a>
+                    <i class="site-menu-icon md-swap-vertical" aria-hidden="true"></i>
+                    <span class="site-menu-title">Servicios</span>
+                    <span class="site-menu-arrow"></span>
+                </a>
+                <ul class="site-menu-sub">
+                  <li class="site-menu-item">
+                    <a class="animsition-link" href="{{url('adm/servicio_metodo')}}">
+                      <span class="site-menu-title">Gest. Servicios</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!-- <li class="site-menu-item has-sub">
                 <a href="{{url('adm/nivel')}}">
                     <i class="site-menu-icon md-format-clear-all" aria-hidden="true"></i>
                     <span class="site-menu-title">Niveles</span>
@@ -224,7 +307,7 @@
                     <span class="site-menu-title">Usuarios</span>
                             <span class="site-menu-arrow"></span>
                 </a>
-              </li>
+              </li> -->
               <li class="site-menu-category">App</li>
               <li class="site-menu-item has-sub">
                 <a href="javascript:void(0)">
@@ -318,38 +401,11 @@
                   </li>
                 </ul>
               </li>
-            </ul>
-            <div class="site-menubar-section">
-              <h5>
-                Milestone
-                <span class="float-right">30%</span>
-              </h5>
-              <div class="progress progress-xs">
-                <div class="progress-bar active" style="width: 30%;" role="progressbar"></div>
-              </div>
-              <h5>
-                Release
-                <span class="float-right">60%</span>
-              </h5>
-              <div class="progress progress-xs">
-                <div class="progress-bar progress-bar-warning" style="width: 60%;" role="progressbar"></div>
-              </div>
-            </div>      </div>
+            </ul>     </div>
         </div>
       </div>
     
-      <div class="site-menubar-footer">
-        <a href="javascript: void(0);" class="fold-show" data-placement="top" data-toggle="tooltip"
-          data-original-title="Settings">
-          <span class="icon md-settings" aria-hidden="true"></span>
-        </a>
-        <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Lock">
-          <span class="icon md-eye-off" aria-hidden="true"></span>
-        </a>
-        <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
-          <span class="icon md-power" aria-hidden="true"></span>
-        </a>
-      </div></div>    <div class="site-gridmenu">
+      </div>    <div class="site-gridmenu">
       <div>
         <div>
           <ul>

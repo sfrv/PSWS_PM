@@ -34,10 +34,14 @@
 						              	<td>{{ $var->camas_total - $var->camas_ocupadas }}</td>
 						              	<td>{{ $var->camas_total }}</td>
 					              		<td class="text-center">
-					              			<a href="{{URL::action('CentroMedicoController@edit',$var->id)}}" class="panel-action icon md-edit ml-15" data-toggle="tooltip" data-original-title="Editar" data-container="body" title=""></a>
-					              			<i class="icon md-delete ml-15" aria-hidden="true"
-                            				data-toggle="tooltip" data-original-title="Eliminar" data-container="body"
-                            				title=""></i>
+					              			@if(Auth::user()->tipo == 'Administrador')
+						              			<i class="icon md-delete ml-15" aria-hidden="true"
+	                            				data-toggle="tooltip" data-original-title="Eliminar" data-container="body"
+	                            				title=""></i>
+                            				@endif
+                            				@if(Auth::user()->id_centro_medico == $var->id || Auth::user()->tipo == 'Administrador')
+                            					<a href="{{URL::action('CentroMedicoController@edit',$var->id)}}" class="panel-action icon md-edit ml-15" data-toggle="tooltip" data-original-title="Editar" data-container="body" title=""></a>
+                            				@endif
 					              			<a href="{{URL::action('CentroMedicoController@show',$var->id)}}" class="panel-action icon md-eye ml-15" data-toggle="tooltip" data-original-title="Ver Mas" data-container="body" title=""></a>
 					              			<a href="{{ route('index-cartera-servicio', $var->id) }}" class="panel-action icon md-format-indent-increase ml-15" data-toggle="tooltip" data-original-title="Cartera de Servicio" data-container="body" title=""></a>
 					              			<a href="{{ route('index-rol-turno', $var->id) }}" class="panel-action icon md-account-box-phone ml-15" data-toggle="tooltip" data-original-title="Rol de Turno" data-container="body" title=""></a>
@@ -65,14 +69,16 @@
 			      	</div>
 			      	<div>
 				      	{{ $centros->links('admCentros.custom') }}
-						<div class="site-action" data-plugin="actionBtn">
-							<a href="centro/create">
-								<button type="button" class="site-action-toggle btn-raised btn btn-primary btn-floating">
-									<i class="front-icon md-plus animation-scale-up" aria-hidden="true"></i>
-					        		<i class="back-icon md-close animation-scale-up" aria-hidden="true"></i>
-								</button>
-							</a>
-					    </div>
+				      	@if(Auth::user()->tipo == 'Administrador')
+							<div class="site-action" data-plugin="actionBtn">
+								<a href="centro/create">
+									<button type="button" class="site-action-toggle btn-raised btn btn-primary btn-floating">
+										<i class="front-icon md-plus animation-scale-up" aria-hidden="true"></i>
+						        		<i class="back-icon md-close animation-scale-up" aria-hidden="true"></i>
+									</button>
+								</a>
+						    </div>
+						@endif
 			      	</div>
 			    </div>
 			</div>

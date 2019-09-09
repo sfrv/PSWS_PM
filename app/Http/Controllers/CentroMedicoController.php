@@ -13,6 +13,7 @@ use App\Models\Especialidad;
 use App\Models\Medico;
 use App\Models\AreaCama;
 use Illuminate\Support\Facades\Auth;
+use Route;
 use DB;
 
 
@@ -20,6 +21,7 @@ class CentroMedicoController extends Controller
 {
     public function __construct()
     {
+        //dd(explode('@', Route::getCurrentRoute()->getActionName())[1]);
         // $this->middleware('auth');
     }
 
@@ -33,6 +35,9 @@ class CentroMedicoController extends Controller
 
     public function create()
     {
+        if (Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $redes = Red::_getAllRedes("")->get();
         $tiposervicios = TipoServicio::_getAllTipoServicios("")->get();
         $zonas = Zona::_getAllZonas("")->get();
@@ -59,7 +64,7 @@ class CentroMedicoController extends Controller
     public function edit($id)
     {
         if (Auth::user()->id_centro_medico != $id && Auth::user()->tipo == 'Usuario') {
-            return Redirect::to('adm/centro/'.Auth::user()->id_centro_medico.'/edit');
+            return Redirect::to('adm/centro/'.Auth::user()->id_centro_medico.'/edit')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
         }
         $centro = CentroMedico::_obtenerCentro($id);
         $detalle = CentroMedico::_obtenerDetalleCentro($id);
@@ -85,7 +90,7 @@ class CentroMedicoController extends Controller
     public function edit_especialidades($id)
     {
         if (Auth::user()->id_centro_medico != $id && Auth::user()->tipo == 'Usuario') {
-            return Redirect::to('adm/centro/'.Auth::user()->id_centro_medico.'/edit_especialidades');
+            return Redirect::to('adm/centro/'.Auth::user()->id_centro_medico.'/edit_especialidades')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
         }
         
         $centro = CentroMedico::_obtenerCentro($id);
@@ -105,7 +110,7 @@ class CentroMedicoController extends Controller
     public function edit_medicos($id)
     {
         if (Auth::user()->id_centro_medico != $id && Auth::user()->tipo == 'Usuario') {
-            return Redirect::to('adm/centro/'.Auth::user()->id_centro_medico.'/edit_medicos');
+            return Redirect::to('adm/centro/'.Auth::user()->id_centro_medico.'/edit_medicos')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
         }
         $centro = CentroMedico::_obtenerCentro($id);
         $medicos = Medico::_getAllMedicos("")->get();
@@ -127,7 +132,7 @@ class CentroMedicoController extends Controller
     public function edit_areas($id)
     {
         if (Auth::user()->id_centro_medico != $id && Auth::user()->tipo == 'Usuario') {
-            return Redirect::to('adm/centro/'.Auth::user()->id_centro_medico.'/edit_areas');
+            return Redirect::to('adm/centro/'.Auth::user()->id_centro_medico.'/edit_areas')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
         }
         $centro = CentroMedico::_obtenerCentro($id);
         $areas_camas = AreaCama::_getAllAreasCamasPorIdCentro($id);

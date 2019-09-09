@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\Especialidad;
@@ -22,6 +23,9 @@ class EspecialidadController extends Controller
 
     public function create()
     {
+        if (Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/especialidad/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         return view('admCentros.especialidad.create');
     }
 
@@ -33,6 +37,9 @@ class EspecialidadController extends Controller
 
     public function edit($id)
     {
+        if (Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/especialidad/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         return view("admCentros.especialidad.edit",["especialidad"=>Especialidad::findOrFail($id)]);
     }
 

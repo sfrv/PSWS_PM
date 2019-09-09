@@ -16,8 +16,9 @@
 					              	<th>Estado</th>
 					              	<th>Nombre</th>
 					              	<th>Descripcion</th>
-					              	<th>Id</th>
-					              	<th>Opciones</th>
+					              	@if(Auth::user()->tipo == 'Administrador')
+						             	<th class="text-center">Opciones</th>
+						            @endif
 				            	</tr>
 				          	</thead>
 				          	<tbody>
@@ -30,20 +31,12 @@
 					                    @endif
 					              		<td>{{ $var->nombre }}</td>
 						              	<td>{{ $var->descripcion }}</td>
-						              	<td>{{ $var->id }}</td>
-					              		<td>
-					              			<div class="btn-group" role="group">
-						                      <button type="button" class="btn btn-info dropdown-toggle" id="exampleIconDropdown{{ $var->id }}"
-						                        data-toggle="dropdown" aria-expanded="false">
-						                        <i class="icon md-settings" aria-hidden="true"></i>
-						                      </button>
-						                      <div class="dropdown-menu" aria-labelledby="exampleIconDropdown{{ $var->id }}" role="menu">
-						                        <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-edit" aria-hidden="true"></i> {{ $var->id }}</a>
-						                        <a class="dropdown-item" href="{{URL::action('NivelController@edit',$var->id)}}" role="menuitem"><i class="icon md-edit" aria-hidden="true"></i> Editar</a>
-						                        <a class="dropdown-item" href="" data-target="#modal-delete-{{$var->id}}" data-toggle="modal" class="btn btn-danger" data-placement="top" data-original-title="Remove"><i class="icon md-delete" aria-hidden="true"></i> Eliminar</a>
-						                      </div>
-						                    </div>
-					              		</td>
+						              	@if(Auth::user()->tipo == 'Administrador')
+							             	<td class="text-center">
+						              			<a href="{{URL::action('NivelController@edit',$var->id)}}" class="panel-action icon md-edit ml-15" data-toggle="tooltip" data-original-title="Editar" data-container="body" title=""></a>
+						              			<a href="" data-target="#modal-delete-{{$var->id}}" class="panel-action icon md-delete ml-15" data-toggle="modal" data-original-title="Eliminar" data-placement="top" title="Eliminar"></a>
+						              		</td>
+						                @endif
 					            	</tr>
 					            	@include('admCentros.nivel.modal')
 				            	@endforeach
@@ -52,14 +45,16 @@
 			      	</div>
 			      	<div>
 				      	{{ $niveles->links('admCentros.custom') }}
-				      	<div class="site-action" data-plugin="actionBtn">
-							<a href="nivel/create">
-								<button type="button" class="site-action-toggle btn-raised btn btn-primary btn-floating">
-									<i class="front-icon md-plus animation-scale-up" aria-hidden="true"></i>
-					        		<i class="back-icon md-close animation-scale-up" aria-hidden="true"></i>
-								</button>
-							</a>
-					    </div>
+				      	@if(Auth::user()->tipo == 'Administrador')
+					      	<div class="site-action" data-plugin="actionBtn">
+								<a href="nivel/create">
+									<button type="button" class="site-action-toggle btn-raised btn btn-primary btn-floating">
+										<i class="front-icon md-plus animation-scale-up" aria-hidden="true"></i>
+						        		<i class="back-icon md-close animation-scale-up" aria-hidden="true"></i>
+									</button>
+								</a>
+						    </div>
+						@endif
 			      	</div>
 			    </div>
 			</div>

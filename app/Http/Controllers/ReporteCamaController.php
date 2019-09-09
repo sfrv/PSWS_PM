@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\ReporteCama;
@@ -25,6 +26,9 @@ class ReporteCamaController extends Controller
 
     public function create_reporte_cama($id_centro)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_reporte_cama/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $fecha_actual = Carbon::now()->toDateString();
         $areas = AreaCama::_getAllAreasCamasPorIdCentro($id_centro);
         $areas_json = json_encode($areas, JSON_UNESCAPED_SLASHES );
@@ -64,6 +68,9 @@ class ReporteCamaController extends Controller
 
     public function edit_reporte_cama($id,$id_centro)
     {
+        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/centro/index_reporte_cama/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         $reporte_cama = ReporteCama::findOrFail($id);
         $detalle_reporte_cama = DetalleReporteCama::_getAllDetalleReporteCamaPorIdReporteCama($reporte_cama->id);
         // dd($detalle_reporte_cama);

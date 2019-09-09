@@ -5,12 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\Zona;
+use Illuminate\Support\Facades\Auth;
+use Route;
+use Illuminate\Routing\Redirector;
+use App\Models\ServicioMetodo;
 
 class ZonaController extends Controller
 {
-    public function __construct()
+    public function __construct(Redirector $redirect)
     {
-        // $this->middleware('auth');
+        $acctionName = explode('@', Route::getCurrentRoute()->getActionName())[1];
+        $result = ServicioMetodo::_verificarServicioMetodo('ZonaController',$acctionName);
+        if ($result->estado == 0) {
+            $redirect->to('dashboard')->with('msj_e_sm', 'La operacion a realizar: '. $acctionName . ' de '. $result->seccion . ' fue dada de baja por los administradores.')->send();
+        }
+        $this->middleware('auth');
     }
     
   	public function index(Request $request)
@@ -21,7 +30,10 @@ class ZonaController extends Controller
 
   	public function create()
   	{
-    	return view('admCentros.zona.create');
+        if (Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/zona/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
+    	  return view('admCentros.zona.create');
   	}
 
   	public function store(Request $request){
@@ -31,7 +43,10 @@ class ZonaController extends Controller
 
   	public function edit($id)
   	{
-    	return view("admCentros.zona.edit",["zona"=>Zona::findOrFail($id)]);
+        if (Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/zona/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
+    	  return view("admCentros.zona.edit",["zona"=>Zona::findOrFail($id)]);
   	}
 
   	public function update(Request $request, $id)

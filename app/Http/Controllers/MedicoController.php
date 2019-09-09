@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\Medico;
@@ -22,6 +22,9 @@ class MedicoController extends Controller
 
     public function create()
     {
+        if (Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/medico/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         return view('admCentros.medico.create');
     }
 
@@ -33,6 +36,9 @@ class MedicoController extends Controller
 
     public function edit($id)
     {
+        if (Auth::user()->tipo == 'Usuario') {
+            return Redirect::to('adm/medico/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        }
         return view("admCentros.medico.edit", ["medico" => Medico::findOrFail($id)]);
     }
 

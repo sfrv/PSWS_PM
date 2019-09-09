@@ -21,6 +21,7 @@ Route::resource('dashboard','DashBoardController');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::resource('adm/servicio_metodo','ServicioMetodoController');
 Route::resource('adm/nivel','NivelController');
 Route::resource('adm/zona','ZonaController');
 Route::resource('adm/especialidad','EspecialidadController');
