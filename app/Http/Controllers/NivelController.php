@@ -15,7 +15,7 @@ class NivelController extends Controller
     public function __construct(Redirector $redirect)
     {
         $acctionName = explode('@', Route::getCurrentRoute()->getActionName())[1];
-        $result = ServicioMetodo::_verificarServicioMetodo('ZonaController',$acctionName);
+        $result = ServicioMetodo::_verificarServicioMetodo('NivelController',$acctionName);
         if ($result->estado == 0) {
             $redirect->to('dashboard')->with('msj_e_sm', 'La operacion a realizar: '. $acctionName . ' de '. $result->seccion . ' fue dada de baja por los administradores.')->send();
         }

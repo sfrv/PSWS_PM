@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\CentroMedico;
 use App\Models\ServicioMetodo;
+use App\Models\Previlegio;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Route;
@@ -40,7 +41,8 @@ class UsuarioController extends Controller
 
     public function store(Request $request)
     {
-        User::_insertarUsuario($request);
+        $id_user = User::_insertarUsuario($request);
+        Previlegio::_insertarPrevilegioUsuario($id_user);
         return Redirect::to('adm/usuario')->with('msj', 'El Usuario: "' . $request['name'] . '" se creo exitósamente.');
     }
 

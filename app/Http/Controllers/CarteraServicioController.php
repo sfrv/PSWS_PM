@@ -10,13 +10,19 @@ use App\Models\Servicio;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 use Route;
+use Illuminate\Routing\Redirector;
+use App\Models\ServicioMetodo;
 
 class CarteraServicioController extends Controller
 {
-    public function __construct()
+    public function __construct(Redirector $redirect)
     {
-        //dd(explode('@', Route::getCurrentRoute()->getActionName())[1]);
-        // $this->middleware('auth');
+        $acctionName = explode('@', Route::getCurrentRoute()->getActionName())[1];
+        $result = ServicioMetodo::_verificarServicioMetodo('CarteraServicioController',$acctionName);
+        if ($result->estado == 0) {
+            $redirect->to('dashboard')->with('msj_e_sm', 'La operacion a realizar: '. $acctionName . ' de '. $result->seccion . ' fue dada de baja por los administradores.')->send();
+        }
+        $this->middleware('auth');
     }
     
 	public function index_cartera_servicio($id,Request $request)

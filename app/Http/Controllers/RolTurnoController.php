@@ -14,12 +14,20 @@ use App\Models\Turno;
 use App\Models\PersonalArea;
 use App\Models\DetalleTurno;
 use Maatwebsite\Excel\Facades\Excel;
+use Route;
+use Illuminate\Routing\Redirector;
+use App\Models\ServicioMetodo;
 
 class RolTurnoController extends Controller
 {
-    public function __construct()
+    public function __construct(Redirector $redirect)
     {
-        // $this->middleware('auth');
+        $acctionName = explode('@', Route::getCurrentRoute()->getActionName())[1];
+        $result = ServicioMetodo::_verificarServicioMetodo('RolTurnoController',$acctionName);
+        if ($result->estado == 0) {
+            $redirect->to('dashboard')->with('msj_e_sm', 'La operacion a realizar: '. $acctionName . ' de '. $result->seccion . ' fue dada de baja por los administradores.')->send();
+        }
+        $this->middleware('auth');
     }
 
 	public function index_rol_turno($id,Request $request)

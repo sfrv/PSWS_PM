@@ -5,9 +5,9 @@
 		<div class="row row-lg">
 			<div class="col-lg-12">
 			    <div class="example-wrap">
-			    	<h4>Usuarios Registrados</h4>
+			    	<h4>Previlegios Registrados</h4>
 			    	<br>
-			      	@include('admCentros.usuario.search')
+			      	@include('admCentros.previlegio.search')
 			      	<br>
 			      	<div class="example table-responsive">
 				        <table class="table table-striped">
@@ -41,28 +41,17 @@
 					                    <td>{{ $var->id_centro_medico }}</td>
 					                    @if(Auth::user()->tipo == 'Administrador')
 							             	<td class="text-center">
-						              			<a href="{{URL::action('UsuarioController@edit',$var->id)}}" class="panel-action icon md-edit ml-15" data-toggle="tooltip" data-original-title="Editar" data-container="body" title=""></a>
-						              			<a href="" data-target="#modal-delete-{{$var->id}}" class="panel-action icon md-delete ml-15" data-toggle="modal" data-original-title="Eliminar" data-placement="top" title="Eliminar"></a>
+						              			<a href="{{URL::action('PrevilegioController@edit',$var->id)}}" class="panel-action icon md-edit ml-15" data-toggle="tooltip" data-original-title="Editar" data-container="body" title=""></a>
 						              		</td>
 						                @endif
 					            	</tr>
-					            	@include('admCentros.usuario.modal')
+					            	@include('admCentros.previlegio.modal')
 				            	@endforeach
 				          	</tbody>
 				        </table>
 			      	</div>
 			      	<div>
 				      	{{ $usuarios->links('admCentros.custom') }}
-				      	@if(Auth::user()->tipo == 'Administrador')
-							<div class="site-action" data-plugin="actionBtn">
-								<a href="usuario/create">
-									<button type="button" class="site-action-toggle btn-raised btn btn-primary btn-floating">
-										<i class="front-icon md-plus animation-scale-up" aria-hidden="true"></i>
-						        		<i class="back-icon md-close animation-scale-up" aria-hidden="true"></i>
-									</button>
-								</a>
-						    </div>
-					    @endif
 			      	</div>
 			    </div>
 			</div>

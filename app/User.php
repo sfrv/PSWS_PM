@@ -46,6 +46,8 @@ class User extends Authenticatable
         $user->id_centro_medico = $request->get('id_centro_medico');
         $user->estado = 1;
         $user->save();
+
+        return $user->id;
     }
 
     public function scope_editarUsuario($query, $id, $request)
@@ -67,6 +69,15 @@ class User extends Authenticatable
     public function scope_getAdministrador($query)
     {
         $result = $query->where('tipo', '=', 'Administrador');
+        return $result;
+    }
+
+    public function scope_getUsuario($query,$email)
+    {
+        $result = $query->where('email', '=', $email)->first();
+        if ($result == null) {
+            $result = '';
+        }
         return $result;
     }
 

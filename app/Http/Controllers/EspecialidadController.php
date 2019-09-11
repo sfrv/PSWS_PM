@@ -7,12 +7,20 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\Especialidad;
 use DB;
+use Route;
+use Illuminate\Routing\Redirector;
+use App\Models\ServicioMetodo;
 
 class EspecialidadController extends Controller
 {
-    public function __construct()
+    public function __construct(Redirector $redirect)
     {
-        // $this->middleware('auth');
+        $acctionName = explode('@', Route::getCurrentRoute()->getActionName())[1];
+        $result = ServicioMetodo::_verificarServicioMetodo('EspecialidadController',$acctionName);
+        if ($result->estado == 0) {
+            $redirect->to('dashboard')->with('msj_e_sm', 'La operacion a realizar: '. $acctionName . ' de '. $result->seccion . ' fue dada de baja por los administradores.')->send();
+        }
+        $this->middleware('auth');
     }
 
     public function index(Request $request)

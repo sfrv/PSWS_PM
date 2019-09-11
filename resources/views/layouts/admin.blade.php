@@ -165,100 +165,143 @@
               <li class="site-menu-item">
                 <a class="animsition-link" href="{{url('dashboard')}}">
                         <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
-                        <span class="site-menu-title">Dashboard</span>
+                        <span class="site-menu-title">Dashboard </span>
                     </a>
               </li>
               <li class="site-menu-category">Elementos</li>
-              <li class="site-menu-item has-sub">
-                <!-- <a href="{{url('adm/centro')}}"> -->
-                <a>
-                    <i class="site-menu-icon md-balance" aria-hidden="true"></i>
-                    <span class="site-menu-title">Centros Medicos</span>
-                    <span class="site-menu-arrow"></span>
-                </a>
-                <ul class="site-menu-sub">
-                  <li class="site-menu-item">
-                    <a class="animsition-link" href="{{url('adm/centro')}}">
-                      <span class="site-menu-title">Gest. Centros Medicos</span>
-                    </a>
-                  </li>
-                  <li class="site-menu-item">
-                    <a class="animsition-link" href="{{url('adm/especialidad')}}">
-                      <span class="site-menu-title">Gest. Especialidades</span>
-                    </a>
-                  </li>
-                  <li class="site-menu-item">
-                    <a class="animsition-link" href="{{url('adm/medico')}}">
-                      <span class="site-menu-title">Gest. Medicos</span>
-                    </a>
-                  </li>
-                  <li class="site-menu-item">
-                    <a class="animsition-link" href="{{url('adm/servicio')}}">
-                      <span class="site-menu-title">Gest. Tipo Servicios</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="site-menu-item has-sub">
-                <!-- <a href="{{url('adm/centro')}}"> -->
-                <a>
-                    <i class="site-menu-icon md-shield-security" aria-hidden="true"></i>
-                    <span class="site-menu-title">Seguridad</span>
-                    <span class="site-menu-arrow"></span>
-                </a>
-                <ul class="site-menu-sub">
-                  <li class="site-menu-item">
-                    <a class="animsition-link" href="{{url('adm/usuario')}}">
-                      <span class="site-menu-title">Gest. Usuarios</span>
-                    </a>
-                  </li>
-                  <li class="site-menu-item">
-                    <a class="animsition-link" href="{{url('adm/servicio_metodo')}}">
-                      <span class="site-menu-title">Gest. Previlegios</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="site-menu-item has-sub">
-                <!-- <a href="{{url('adm/centro')}}"> -->
-                <a>
-                    <i class="site-menu-icon md-input-composite" aria-hidden="true"></i>
-                    <span class="site-menu-title">Estructura y Distribucion</span>
-                    <span class="site-menu-arrow"></span>
-                </a>
-                <ul class="site-menu-sub">
-                  <li class="site-menu-item">
-                    <a class="animsition-link" href="{{url('adm/red')}}">
-                      <span class="site-menu-title">Gest. Redes</span>
-                    </a>
-                  </li>
-                  <li class="site-menu-item">
-                    <a class="animsition-link" href="{{url('adm/zona')}}">
-                      <span class="site-menu-title">Gest. Zonas</span>
-                    </a>
-                  </li>
-                  <li class="site-menu-item">
-                    <a class="animsition-link" href="{{url('adm/nivel')}}">
-                      <span class="site-menu-title">Gest. Niveles</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="site-menu-item has-sub">
-                <!-- <a href="{{url('adm/centro')}}"> -->
-                <a>
-                    <i class="site-menu-icon md-swap-vertical" aria-hidden="true"></i>
-                    <span class="site-menu-title">Servicios</span>
-                    <span class="site-menu-arrow"></span>
-                </a>
-                <ul class="site-menu-sub">
-                  <li class="site-menu-item">
-                    <a class="animsition-link" href="{{url('adm/servicio_metodo')}}">
-                      <span class="site-menu-title">Gest. Servicios</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
+              @if($modulos[0][0]->cant > 0)
+                <li class="site-menu-item has-sub">
+                  <a>
+                      <i class="site-menu-icon md-balance" aria-hidden="true"></i>
+                      <span class="site-menu-title">Centros Medicos</span>
+                      <span class="site-menu-arrow"></span>
+                  </a>
+                  <ul class="site-menu-sub">
+                    @if($modulos[1][0]->id_caso_uso == 1 && $modulos[1][0]->estado == 1)
+                      <li class="site-menu-item">
+                        <a class="animsition-link" href="{{url('adm/centro')}}">
+                          <span class="site-menu-title">Gest. Centros Medicos</span>
+                        </a>
+                      </li>
+                    @endif
+
+                    @if($modulos[1][1]->id_caso_uso == 2 && $modulos[1][1]->estado == 1)
+                      <li class="site-menu-item">
+                        <a class="animsition-link" href="{{url('adm/especialidad')}}">
+                          <span class="site-menu-title">Gest. Especialidades</span>
+                        </a>
+                      </li>
+                    @endif
+
+                    @if($modulos[1][2]->id_caso_uso == 3 && $modulos[1][2]->estado == 1)
+                      <li class="site-menu-item">
+                        <a class="animsition-link" href="{{url('adm/medico')}}">
+                          <span class="site-menu-title">Gest. Medicos</span>
+                        </a>
+                      </li>
+                    @endif
+
+                    @if($modulos[1][3]->id_caso_uso == 4 && $modulos[1][3]->estado == 1)
+                      <li class="site-menu-item">
+                        <a class="animsition-link" href="{{url('adm/servicio')}}">
+                          <span class="site-menu-title">Gest. Tipo Servicios</span>
+                        </a>
+                      </li>
+                    @endif
+                  </ul>
+                </li>
+              @endif
+
+              @if($modulos[0][1]->cant > 0)
+                <li class="site-menu-item has-sub">
+                  <a>
+                      <i class="site-menu-icon md-shield-security" aria-hidden="true"></i>
+                      <span class="site-menu-title">Seguridad</span>
+                      <span class="site-menu-arrow"></span>
+                  </a>
+                  <ul class="site-menu-sub">
+                    @if($modulos[1][4]->id_caso_uso == 5 && $modulos[1][4]->estado == 1)
+                      <li class="site-menu-item">
+                        <a class="animsition-link" href="{{url('adm/usuario')}}">
+                          <span class="site-menu-title">Gest. Usuarios</span>
+                        </a>
+                      </li>
+                    @endif
+
+                    @if($modulos[1][5]->id_caso_uso == 6 && $modulos[1][5]->estado == 1)
+                      <li class="site-menu-item">
+                        <a class="animsition-link" href="{{url('adm/previlegio')}}">
+                          <span class="site-menu-title">Gest. Previlegios</span>
+                        </a>
+                      </li>
+                    @endif
+
+                    @if($modulos[1][6]->id_caso_uso == 7 && $modulos[1][6]->estado == 1)
+                      <li class="site-menu-item">
+                        <a class="animsition-link" href="{{url('adm/tipo_usuario')}}">
+                          <span class="site-menu-title">Gest. Tipo de Usuario</span>
+                        </a>
+                      </li>
+                    @endif
+
+                  </ul>
+                </li>
+              @endif
+
+              @if($modulos[0][2]->cant > 0)
+                <li class="site-menu-item has-sub">
+                  <a>
+                      <i class="site-menu-icon md-input-composite" aria-hidden="true"></i>
+                      <span class="site-menu-title">Estructura y Distribucion</span>
+                      <span class="site-menu-arrow"></span>
+                  </a>
+                  <ul class="site-menu-sub">
+                    @if($modulos[1][7]->id_caso_uso == 8 && $modulos[1][7]->estado == 1)
+                      <li class="site-menu-item">
+                        <a class="animsition-link" href="{{url('adm/red')}}">
+                          <span class="site-menu-title">Gest. Redes</span>
+                        </a>
+                      </li>
+                    @endif
+
+                    @if($modulos[1][8]->id_caso_uso == 9 && $modulos[1][8]->estado == 1)
+                      <li class="site-menu-item">
+                        <a class="animsition-link" href="{{url('adm/zona')}}">
+                          <span class="site-menu-title">Gest. Zonas</span>
+                        </a>
+                      </li>
+                    @endif
+
+                    @if($modulos[1][9]->id_caso_uso == 10 && $modulos[1][9]->estado == 1)
+                    <li class="site-menu-item">
+                      <a class="animsition-link" href="{{url('adm/nivel')}}">
+                        <span class="site-menu-title">Gest. Niveles</span>
+                      </a>
+                    </li>
+                    @endif
+
+                  </ul>
+                </li>
+              @endif
+
+              @if($modulos[0][3]->cant > 0)
+                <li class="site-menu-item has-sub">
+                  <a>
+                      <i class="site-menu-icon md-swap-vertical" aria-hidden="true"></i>
+                      <span class="site-menu-title">Servicios</span>
+                      <span class="site-menu-arrow"></span>
+                  </a>
+                  <ul class="site-menu-sub">
+                    @if($modulos[1][10]->id_caso_uso == 11 && $modulos[1][10]->estado == 1)
+                      <li class="site-menu-item">
+                        <a class="animsition-link" href="{{url('adm/servicio_metodo')}}">
+                          <span class="site-menu-title">Gest. Servicios</span>
+                        </a>
+                      </li>
+                    @endif
+                  </ul>
+                </li>
+              @endif
               <!-- <li class="site-menu-item has-sub">
                 <a href="{{url('adm/nivel')}}">
                     <i class="site-menu-icon md-format-clear-all" aria-hidden="true"></i>

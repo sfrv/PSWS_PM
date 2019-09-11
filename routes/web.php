@@ -14,7 +14,10 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+use App\Models\Previlegio;
 
+Route::post('login','Auth\LoginController@login')->name('login');
+Route::post('logout','Auth\LoginController@logout')->name('logout');
 Route::resource('/','WelcomeController');
 Route::resource('dashboard','DashBoardController');
 
@@ -24,6 +27,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('adm/servicio_metodo','ServicioMetodoController');
 Route::resource('adm/nivel','NivelController');
 Route::resource('adm/zona','ZonaController');
+Route::resource('adm/previlegio','PrevilegioController');
+Route::resource('adm/tipo_usuario','TipoUsuarioController');
 Route::resource('adm/especialidad','EspecialidadController');
 Route::resource('adm/red','RedController');
 Route::resource('adm/servicio','TipoServicioController');
@@ -231,3 +236,15 @@ Route::get('adm/centro/generar_excel_reporte_cama/{id_reporte_cama}/{id_centro}'
 	'uses' => 'ReporteCamaController@generar_excel_reporte_cama'
 ]);
 //FIN REPORTE CAMA
+
+View::composer(['*'], function ($view) {
+	$modulos = Previlegio::_getAllPrevilegioUsuario(1);
+	// $opciones = Previlegio::_getAllPrevilegioUsuarioOpciones(1);
+	// dd($modulos);
+	// dd($modulos[0][0]->cant);
+	//{{$modulos[0]->cant}} centro
+	//{{$modulos[1]->cant}} segu
+	//{{$modulos[2]->cant}} estr
+	//{{$modulos[3]->cant}} serv
+    $view->with('modulos', $modulos);
+});

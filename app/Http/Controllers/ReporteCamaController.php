@@ -11,9 +11,22 @@ use App\Models\AreaCama;
 use App\Models\DetalleReporteCama;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
+use Route;
+use Illuminate\Routing\Redirector;
+use App\Models\ServicioMetodo;
 
 class ReporteCamaController extends Controller
 {
+    public function __construct(Redirector $redirect)
+    {
+        // $acctionName = explode('@', Route::getCurrentRoute()->getActionName())[1];
+        // $result = ServicioMetodo::_verificarServicioMetodo('ReporteCamaController',$acctionName);
+        // if ($result->estado == 0) {
+        //     $redirect->to('dashboard')->with('msj_e_sm', 'La operacion a realizar: '. $acctionName . ' de '. $result->seccion . ' fue dada de baja por los administradores.')->send();
+        // }
+        // $this->middleware('auth');
+    }
+
     public function index_reporte_cama($id,Request $request)
     {
         $fecha_actual = Carbon::now()->toDateString();
