@@ -28,6 +28,32 @@ class Previlegio extends Model
     	return $result;
   	}
 
+    public function scope_esAdministrador($query)
+    {
+      $result = DB::table('tipo_usuario as a')
+                ->select('a.nombre','a.id')
+                ->where('a.id','=',2)
+                ->first();
+
+      if (Auth::user()->tipo == $result->nombre) {
+        return true;
+      }
+      return false;
+    }
+
+    public function scope_tienePermiso($query,$id)
+    {
+      $result = DB::table('tipo_usuario as a')
+                ->select('a.nombre','a.id')
+                ->where('a.id','=',1)
+                ->first();
+
+      if (Auth::user()->id_centro_medico != $id && Auth::user()->tipo == $result->nombre) {
+        return Auth::user()->id_centro_medico;
+      }
+      return -1;
+    }
+
   	public function scope_getAllModulos($query, $id)
   	{
   		$result = DB::table('modulo as a')->get();
@@ -55,9 +81,10 @@ class Previlegio extends Model
 
   	public function scope_getAllPrevilegioUsuario($query, $id)
   	{
-  		// if (Auth::user() == null) {
-  		// 	return[[''],['']];
-  		// }
+  		if (Auth::user() == null) {
+  			return[[''],['']];
+  		}
+
   		$result = DB::table('previlegio as a')
 	    ->groupBy('a.id_modulo')
 	    ->select('a.id_modulo',DB::raw('SUM(a.estado) as cant'))

@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TipoServicio;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Auth;
 use Route;
 use Illuminate\Routing\Redirector;
+use App\Models\Previlegio;
 use App\Models\ServicioMetodo;
 
 class TipoServicioController extends Controller
@@ -30,10 +30,10 @@ class TipoServicioController extends Controller
 
   	public function create()
   	{
-        if (Auth::user()->tipo == 'Usuario') {
+        if (!Previlegio::_esAdministrador())
             return Redirect::to('adm/servicio/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
-    	  return view('admCentros.servicio.create');//,['trabajadores'=>$trabajadores,'alimentos'=>$alimentos]);
+        
+    	  return view('admCentros.servicio.create');
   	}
 
   	public function store(Request $request)
@@ -44,9 +44,9 @@ class TipoServicioController extends Controller
 
   	public function edit($id)
   	{
-        if (Auth::user()->tipo == 'Usuario') {
+        if (!Previlegio::_esAdministrador())
             return Redirect::to('adm/servicio/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        
     	  return view("admCentros.servicio.edit",["servicio"=>TipoServicio::findOrFail($id)]);
   	}
 

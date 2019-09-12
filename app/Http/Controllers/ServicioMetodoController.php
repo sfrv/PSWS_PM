@@ -6,12 +6,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\ServicioMetodo;
+use App\Models\Previlegio;
 
 class ServicioMetodoController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
     }
     
     public function index(Request $request)
@@ -22,9 +23,9 @@ class ServicioMetodoController extends Controller
 
     public function edit($id)
     {
-        if (Auth::user()->tipo == 'Usuario') {
+        if (!Previlegio::_esAdministrador())
             return Redirect::to('adm/centro')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        
         return view("admCentros.servicio_metodo.edit",["servicio"=>ServicioMetodo::findOrFail($id)]);
     }
 

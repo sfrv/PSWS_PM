@@ -12,10 +12,10 @@ use App\Models\Nivel;
 use App\Models\Especialidad;
 use App\Models\Medico;
 use App\Models\AreaCama;
-use Illuminate\Support\Facades\Auth;
 use Route;
 use Illuminate\Routing\Redirector;
 use App\Models\ServicioMetodo;
+use App\Models\Previlegio;
 use DB;
 
 
@@ -41,9 +41,9 @@ class CentroMedicoController extends Controller
 
     public function create()
     {
-        if (Auth::user()->tipo == 'Usuario') {
+        if (!Previlegio::_esAdministrador())
             return Redirect::to('adm/centro/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        
         $redes = Red::_getAllRedes("")->get();
         $tiposervicios = TipoServicio::_getAllTipoServicios("")->get();
         $zonas = Zona::_getAllZonas("")->get();
@@ -69,9 +69,10 @@ class CentroMedicoController extends Controller
 
     public function edit($id)
     {
-        if (Auth::user()->id_centro_medico != $id && Auth::user()->tipo == 'Usuario') {
-            return Redirect::to('adm/centro/'.Auth::user()->id_centro_medico.'/edit')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        $w = Previlegio::_tienePermiso($id);
+        if ($w != -1)
+            return Redirect::to('adm/centro/'.$w.'/edit')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        
         $centro = CentroMedico::_obtenerCentro($id);
         $detalle = CentroMedico::_obtenerDetalleCentro($id);
         $detalle_medicos = CentroMedico::_obtenerDetalleCentroMedicos($id);
@@ -80,9 +81,6 @@ class CentroMedicoController extends Controller
         $tiposervicios = TipoServicio::_getAllTipoServicios("")->get();
         $zonas = Zona::_getAllZonas("")->get();
         $niveles = Nivel::_getAllNiveles("")->get();
-        // $especialidades = Especialidad::_getAllEspecialidades("")->get();
-
-        // $detalle_json = json_encode($detalle, JSON_UNESCAPED_SLASHES );
   
         return view('admCentros.centro.edit',compact('centro','redes','tiposervicios','zonas','niveles','detalle','detalle_medicos','areas_camas'));
     }
@@ -95,9 +93,10 @@ class CentroMedicoController extends Controller
 
     public function edit_especialidades($id)
     {
-        if (Auth::user()->id_centro_medico != $id && Auth::user()->tipo == 'Usuario') {
-            return Redirect::to('adm/centro/'.Auth::user()->id_centro_medico.'/edit_especialidades')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        $w = Previlegio::_tienePermiso($id);
+        if ($w != -1)
+            return Redirect::to('adm/centro/'.$w.'/edit_especialidades')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        
         
         $centro = CentroMedico::_obtenerCentro($id);
         $detalle = CentroMedico::_obtenerDetalleCentro($id);
@@ -115,9 +114,10 @@ class CentroMedicoController extends Controller
 
     public function edit_medicos($id)
     {
-        if (Auth::user()->id_centro_medico != $id && Auth::user()->tipo == 'Usuario') {
-            return Redirect::to('adm/centro/'.Auth::user()->id_centro_medico.'/edit_medicos')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        $w = Previlegio::_tienePermiso($id);
+        if ($w != -1)
+            return Redirect::to('adm/centro/'.$w.'/edit_medicos')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        
         $centro = CentroMedico::_obtenerCentro($id);
         $medicos = Medico::_getAllMedicos("")->get();
         $detalle_medicos = CentroMedico::_obtenerDetalleCentroMedicos($id);
@@ -137,9 +137,10 @@ class CentroMedicoController extends Controller
 
     public function edit_areas($id)
     {
-        if (Auth::user()->id_centro_medico != $id && Auth::user()->tipo == 'Usuario') {
-            return Redirect::to('adm/centro/'.Auth::user()->id_centro_medico.'/edit_areas')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        $w = Previlegio::_tienePermiso($id);
+        if ($w != -1)
+            return Redirect::to('adm/centro/'.$w.'/edit_areas')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+
         $centro = CentroMedico::_obtenerCentro($id);
         $areas_camas = AreaCama::_getAllAreasCamasPorIdCentro($id);
         $areas_camas_json = json_encode($areas_camas, JSON_UNESCAPED_SLASHES );

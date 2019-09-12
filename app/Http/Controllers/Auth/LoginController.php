@@ -46,7 +46,6 @@ class LoginController extends Controller
     public function login(request $request)
     {
         $user = User::_getUsuario($request->email);
-        // dd($user);
         if ($user != '' && Hash::check($request->password, $user->password )) {
             Auth::login($user);
             // session()->put(['nombre' => $user->nombre]);

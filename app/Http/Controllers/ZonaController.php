@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\Zona;
-use Illuminate\Support\Facades\Auth;
-use Route;
+use App\Models\Previlegio;
 use Illuminate\Routing\Redirector;
 use App\Models\ServicioMetodo;
+use Route;
 
 class ZonaController extends Controller
 {
@@ -30,9 +30,9 @@ class ZonaController extends Controller
 
   	public function create()
   	{
-        if (Auth::user()->tipo == 'Usuario') {
-            return Redirect::to('adm/zona/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        if (!Previlegio::_esAdministrador())
+          return Redirect::to('adm/zona/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+
     	  return view('admCentros.zona.create');
   	}
 
@@ -43,9 +43,9 @@ class ZonaController extends Controller
 
   	public function edit($id)
   	{
-        if (Auth::user()->tipo == 'Usuario') {
-            return Redirect::to('adm/zona/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        if (!Previlegio::_esAdministrador())
+          return Redirect::to('adm/zona/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+
     	  return view("admCentros.zona.edit",["zona"=>Zona::findOrFail($id)]);
   	}
 
@@ -56,9 +56,9 @@ class ZonaController extends Controller
   	}
 
   	public function destroy($id){
-		Zona::_eliminarZona($id);
-		return Redirect::to('adm/zona')->with('msj','La Zona: '.$id.' se Elimino exitosamente.');
-	}
+  		Zona::_eliminarZona($id);
+  		return Redirect::to('adm/zona')->with('msj','La Zona: '.$id.' se Elimino exitosamente.');
+  	}
 
   // public function getZonas(){
   //     return json_encode(array("zonas" => Zona::_getAllZona()->get()));

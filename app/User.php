@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
@@ -36,11 +37,16 @@ class User extends Authenticatable
 
     public function scope_insertarUsuario($query, $request)
     {
+        $result = DB::table('tipo_usuario as a')
+                ->select('a.nombre','a.id')
+                ->where('a.id','=',$request->get('tipo'))
+                ->first();
+
         $user = new User;
         $user->nombre = $request->get('nombre');
         $user->apellido = $request->get('apellido');
         $user->name = $request->get('name');
-        $user->tipo = $request->get('tipo');
+        $user->tipo = $result->nombre;
         $user->password = Hash::make($request->get('password'));
         $user->email = $request->get('email');
         $user->id_centro_medico = $request->get('id_centro_medico');
@@ -52,12 +58,17 @@ class User extends Authenticatable
 
     public function scope_editarUsuario($query, $id, $request)
     {
+        $result = DB::table('tipo_usuario as a')
+                ->select('a.nombre','a.id')
+                ->where('a.id','=',$request->get('tipo'))
+                ->first();
+
         $user = User::findOrFail($id);
 
         $user->nombre = $request->get('nombre');
         $user->apellido = $request->get('apellido');
         $user->name = $request->get('name');
-        $user->tipo = $request->get('tipo');
+        $user->tipo = $result->nombre;
         if($request->get('password') != ""){
             $user->password = Hash::make($request->get('password'));
         }

@@ -48,8 +48,11 @@
 		                  		<div class="form-group" data-plugin="formMaterial">
 				                	<label class="floating-label">Tipo Servicio</label>
 				                	<select name="tipo" id="tipo" class="form-control selectpicker">
-						                <option value="Usuario">Usuario</option>
-						                <option value="Administrador">Administrador</option>
+<!-- 						                <option value="Usuario">Usuario</option>
+						                <option value="Administrador">Administrador</option> -->
+						                @foreach($tipos_usuario as $var)
+						                  	<option value="{{$var->id}}" selected>{{$var->nombre}}</option>
+						                @endforeach
 						            </select>
 				                </div>
 			              	</div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\Red;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Previlegio;
 use Route;
 use Illuminate\Routing\Redirector;
 use App\Models\ServicioMetodo;
@@ -30,9 +30,9 @@ class RedController extends Controller
 
     public function create()
     {
-        if (Auth::user()->tipo == 'Usuario') {
+        if (!Previlegio::_esAdministrador())
             return Redirect::to('adm/red/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        
         return view('admCentros.red.create');
     }
 
@@ -44,9 +44,9 @@ class RedController extends Controller
 
     public function edit($id)
     {
-        if (Auth::user()->tipo == 'Usuario') {
+        if (!Previlegio::_esAdministrador())
             return Redirect::to('adm/red/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        
         return view("admCentros.red.edit",["red"=>Red::findOrFail($id)]);
     }
 

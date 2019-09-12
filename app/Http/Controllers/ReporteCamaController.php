@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\ReporteCama;
 use App\Models\CentroMedico;
 use App\Models\AreaCama;
 use App\Models\DetalleReporteCama;
+use App\Models\Previlegio;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use Route;
@@ -19,12 +19,12 @@ class ReporteCamaController extends Controller
 {
     public function __construct(Redirector $redirect)
     {
-        // $acctionName = explode('@', Route::getCurrentRoute()->getActionName())[1];
-        // $result = ServicioMetodo::_verificarServicioMetodo('ReporteCamaController',$acctionName);
-        // if ($result->estado == 0) {
-        //     $redirect->to('dashboard')->with('msj_e_sm', 'La operacion a realizar: '. $acctionName . ' de '. $result->seccion . ' fue dada de baja por los administradores.')->send();
-        // }
-        // $this->middleware('auth');
+        $acctionName = explode('@', Route::getCurrentRoute()->getActionName())[1];
+        $result = ServicioMetodo::_verificarServicioMetodo('ReporteCamaController',$acctionName);
+        if ($result->estado == 0) {
+            $redirect->to('dashboard')->with('msj_e_sm', 'La operacion a realizar: '. $acctionName . ' de '. $result->seccion . ' fue dada de baja por los administradores.')->send();
+        }
+        $this->middleware('auth');
     }
 
     public function index_reporte_cama($id,Request $request)
@@ -32,16 +32,17 @@ class ReporteCamaController extends Controller
         $fecha_actual = Carbon::now()->toDateString();
         $centro = CentroMedico::_obtenerCentro($id);
         $reporte_camas = ReporteCama::_getAllRerporteCamasPorIdCentro($id,$request['fecha_desde'],$request['fecha_hasta'])->paginate(6);
-        // dd($request['searchText']);
+        
         $searchText = $request->get('searchText');
         return view('admCentros.centro.reporte_cama.index',compact('reporte_camas','centro','fecha_actual'));
     }
 
     public function create_reporte_cama($id_centro)
     {
-        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
-            return Redirect::to('adm/centro/index_reporte_cama/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        $w = Previlegio::_tienePermiso($id_centro);
+        if ($w != -1)
+            return Redirect::to('adm/centro/index_reporte_cama/'.$w)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        
         $fecha_actual = Carbon::now()->toDateString();
         $areas = AreaCama::_getAllAreasCamasPorIdCentro($id_centro);
         $areas_json = json_encode($areas, JSON_UNESCAPED_SLASHES );
@@ -81,12 +82,12 @@ class ReporteCamaController extends Controller
 
     public function edit_reporte_cama($id,$id_centro)
     {
-        if (Auth::user()->id_centro_medico != $id_centro && Auth::user()->tipo == 'Usuario') {
-            return Redirect::to('adm/centro/index_reporte_cama/'.Auth::user()->id_centro_medico)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        $w = Previlegio::_tienePermiso($id_centro);
+        if ($w != -1)
+            return Redirect::to('adm/centro/index_reporte_cama/'.$w)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
+        
         $reporte_cama = ReporteCama::findOrFail($id);
         $detalle_reporte_cama = DetalleReporteCama::_getAllDetalleReporteCamaPorIdReporteCama($reporte_cama->id);
-        // dd($detalle_reporte_cama);
         return view('admCentros.centro.reporte_cama.edit',compact('id_centro','reporte_cama','detalle_reporte_cama'));
     }
 

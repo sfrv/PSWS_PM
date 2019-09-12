@@ -8,7 +8,7 @@ use App\Models\CentroMedico;
 use App\Models\ServicioMetodo;
 use App\Models\Previlegio;
 use App\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\TipoUsuario;
 use Route;
 use Illuminate\Routing\Redirector;
 
@@ -32,11 +32,12 @@ class UsuarioController extends Controller
 
     public function create()
     {
-        if (Auth::user()->tipo == 'Usuario') {
+        if (!Previlegio::_esAdministrador())
             return Redirect::to('adm/usuario/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
+        
     	$centros = CentroMedico::all();
-        return view('admCentros.usuario.create', compact('centros'));
+        $tipos_usuario = TipoUsuario::_getAllTipoUsuarios("")->get();
+        return view('admCentros.usuario.create', compact('centros','tipos_usuario'));
     }
 
     public function store(Request $request)
@@ -48,10 +49,10 @@ class UsuarioController extends Controller
 
     public function edit($id)
     {
-        if (Auth::user()->tipo == 'Usuario') {
+        if (!Previlegio::_esAdministrador())
             return Redirect::to('adm/usuario/')->with('msj_e', 'Usted no tiene los previlegios necesarios.');
-        }
-    	$tipos_usuario = array("Usuario","Administrador");
+        
+        $tipos_usuario = TipoUsuario::_getAllTipoUsuarios("")->get();
     	$centros = CentroMedico::_getAllCentrosMedicos("","")->get();
     	$usuario = User::findOrFail($id);
         return view("admCentros.usuario.edit", compact('centros','usuario','tipos_usuario'));

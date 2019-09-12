@@ -53,10 +53,10 @@
 				                	<label class="floating-label">Tipo Servicio</label>
 				                	<select name="tipo" id="tipo" class="form-control selectpicker">
 						                @foreach($tipos_usuario as $var)
-					                    	@if($var == $usuario->tipo)
-					                      		<option value="{{$var}}" selected>{{$var}}</option>
+					                    	@if($var->nombre == $usuario->tipo)
+					                      		<option value="{{$var->id}}" selected>{{$var->nombre}}</option>
 					                    	@else
-					                      		<option value="{{$var}}">{{$var}}</option>
+					                      		<option value="{{$var->id}}">{{$var->nombre}}</option>
 					                    	@endif
 					                  	@endforeach
 						            </select>
