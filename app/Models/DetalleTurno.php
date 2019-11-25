@@ -19,7 +19,7 @@ class DetalleTurno extends Model
 
     public function scope_insertarDetalleTurno($query, $observacion, $id_turno)
 	{
-		if ($observacion == null) {
+		if ($observacion == null || $observacion == "null") {
 			$observacion = "";
 		}
 		

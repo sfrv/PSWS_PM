@@ -71,6 +71,16 @@ class WebServiceController extends Controller
         return json_encode(array("centros" => CentroMedico::_getAllCentroMedico()->get()));
     }
 
+    public function getCentrosMedicosPorDistancia($distancia,$lat,$lon)
+    {
+        return json_encode(array("centros" => CentroMedico::_getAllCentroMedicoPorDistancia($distancia,$lat,$lon)));
+    }
+
+    public function getCentrosMedicosPorNivel($nivel)
+    {
+        return json_encode(array("centros" => CentroMedico::_getAllCentroMedicoPorNivel($nivel)->get()));
+    }
+
     public function getCentrosMedicos_por_red_tipo_nivel($id_red, $id_tipo_servicio, $id_nivel)
     {
         return json_encode(array("centros" => CentroMedico::_getCentrosMedicos_por_red_tipo_nivel($id_red, $id_tipo_servicio, $id_nivel)->get()));

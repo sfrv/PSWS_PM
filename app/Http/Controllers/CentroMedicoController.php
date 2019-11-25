@@ -48,8 +48,8 @@ class CentroMedicoController extends Controller
         $tiposervicios = TipoServicio::_getAllTipoServicios("")->get();
         $zonas = Zona::_getAllZonas("")->get();
         $niveles = Nivel::_getAllNiveles("")->get();
-        $especialidades = Especialidad::_getAllEspecialidades("")->get();
-        return view('admCentros.centro.create', compact('redes','tiposervicios','zonas','niveles','especialidades'));
+        // $especialidades = Especialidad::_getAllEspecialidades("")->get();
+        return view('admCentros.centro.create', compact('redes','tiposervicios','zonas','niveles'));
     }
 
     public function store(Request $request)

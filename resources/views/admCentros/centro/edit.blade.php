@@ -245,6 +245,14 @@
 				                  	</div>
 				                </div>
 			              	</div>
+			              	<div class="col-sm-8 col-sm-offset-2">
+		                  		<div class="example-wrap">
+				                  	<div class="example">
+				                  		<label class="floating-label">Ubicacion</label>
+				                    	<div id="map" style="height: 250px;width: 100%"></div>
+				                  	</div>
+				                </div>
+			              	</div>
 		              	</div>
 		              	<br>
 		              	<div class="col-sm-8 col-sm-offset-2" id="guardar">
@@ -275,6 +283,21 @@
 <script src="{{asset('global/js/Plugin/dropify.js')}}"></script>
 <script src="{{asset('base/assets/examples/js/forms/uploads.js')}}"></script>
 <script>
+//AIzaSyCdA-O4tdOrCC7z0zb_1ifNpcx3l237VIY 01
+//AIzaSyCdA-O4tdOrCC7z0zb_1ifNpcx3l237VIY
+//AIzaSyCw7M5nqepqivSaf7HPEexb9sHB414GY3c
+function iniciarMap(){
+    var coord = {lat:-34.5956145 ,lng: -58.4431949};
+    var map = new google.maps.Map(document.getElementById('map'),{
+      zoom: 10,
+      center: coord
+    });
+    var marker = new google.maps.Marker({
+      position: coord,
+      map: map
+    });
+}
+
 function validaNumericos(event) {
     if(event.charCode >= 48 && event.charCode <= 57){
       return true;
@@ -298,5 +321,7 @@ function calcular() {
   console.log(camas_total);
 }
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&callback=iniciarMap"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdA-O4tdOrCC7z0zb_1ifNpcx3l237VIY&callback=iniciarMap"></script> -->
 @endpush
 @endsection
