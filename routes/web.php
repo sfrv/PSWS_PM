@@ -301,6 +301,10 @@ Route::get('get-last_CS/{id}', [
 	'uses' => 'WebServiceController@get_lastCarteraServicio'
 ]);
 // obtiene las especilidades de una cartera por el id de la cartera 
+Route::get('get-all-cartera-servicio/{id}', [//mb1
+	'uses' => 'WebServiceController@get_allCartertaServicio'
+]);
+
 Route::get('get-especialidadesPorID/{id}', [
 	'uses' => 'WebServiceController@get_especialidadesPorId'
 ]);

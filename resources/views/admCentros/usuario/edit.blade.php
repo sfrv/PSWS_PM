@@ -50,7 +50,7 @@
 			              	</div>
 			              	<div class="col-lg-6 col-xs-12">
 		                  		<div class="form-group" data-plugin="formMaterial">
-				                	<label class="floating-label">Tipo Servicio</label>
+				                	<label class="floating-label">Tipo Usuario</label>
 				                	<select name="tipo" id="tipo" class="form-control selectpicker">
 						                @foreach($tipos_usuario as $var)
 					                    	@if($var->nombre == $usuario->tipo)

@@ -35,6 +35,40 @@ class CentroMedico extends Model
     ];
 
 
+    // public function scope_getAllCentrosMedicos($query, $searchText, $filtro)
+    // {
+    //     // dd($filtro);
+    //     // return $filtro;
+    //     if ($filtro != "") {
+    //         if ($filtro == 1) {
+    //             $text = trim($searchText);
+    //             $result = $query->where('nombre', 'LIKE', '%' . $text . '%')
+
+    //                 ->where('estado', '=', '1')
+    //                 ->distinct()
+    //                 ->orderBy('id', 'desc');
+    //         }
+    //         if ($filtro == 2) {
+    //             $text = trim($searchText);
+    //             $result = DB::table('centro_medico as a')
+    //                 ->join('detalle_centro_especialidad as b', 'b.id_centro_medico', '=', 'a.id')
+    //                 ->join('especialidad as c', 'c.id', '=', 'b.id_especialidad')
+    //                 ->select('a.*')
+    //                 ->where('c.nombre', 'LIKE', '%' . $text . '%')
+    //                 ->where('a.estado', '=', '1')
+    //                 ->distinct()
+    //                 ->orderBy('id', 'desc');
+    //         }
+    //     } else {
+    //         $text = trim($searchText);
+    //         $result = $query->where('nombre', 'LIKE', '%' . $text . '%')
+
+    //             ->where('estado', '=', '1')
+    //             ->orderBy('id', 'desc');
+    //     }
+    //     // ->paginate(7);
+    //     return $result;
+    // }
     public function scope_getAllCentrosMedicos($query, $searchText, $filtro)
     {
         // dd($filtro);
@@ -42,18 +76,31 @@ class CentroMedico extends Model
         if ($filtro != "") {
             if ($filtro == 1) {
                 $text = trim($searchText);
-                $result = $query->where('nombre', 'LIKE', '%' . $text . '%')
+                $result = DB::table('centro_medico as a')
+                    ->join('red as r', 'r.id', '=', 'a.id_red')
+                    ->join('tipo_servicio as t', 't.id', '=', 'a.id_tipo_servicio')
+                    ->join('zona as z', 'z.id', '=', 'a.id_zona')
+                    ->join('nivel as n', 'n.id', '=', 'a.id_nivel')
+                    ->select('a.*', 'r.nombre as nombreRed', 't.nombre as nombreServicio', 'z.nombre as nombreZona', 'n.nombre as nombreNivel', 'a.estado')
 
-                    ->where('estado', '=', '1')
+                    ->where('a.nombre', 'LIKE', '%' . $text . '%')
+
+                    ->where('a.estado', '=', '1')
+
                     ->distinct()
-                    ->orderBy('id', 'desc');
+                    ->orderBy('a.id', 'desc');
             }
             if ($filtro == 2) {
                 $text = trim($searchText);
                 $result = DB::table('centro_medico as a')
                     ->join('detalle_centro_especialidad as b', 'b.id_centro_medico', '=', 'a.id')
                     ->join('especialidad as c', 'c.id', '=', 'b.id_especialidad')
-                    ->select('a.*')
+                    ->join('red as r', 'r.id', '=', 'a.id_red')
+                    ->join('tipo_servicio as t', 't.id', '=', 'a.id_tipo_servicio')
+                    ->join('zona as z', 'z.id', '=', 'a.id_zona')
+                    ->join('nivel as n', 'n.id', '=', 'a.id_nivel')
+                    ->select('a.*', 'r.nombre as nombreRed', 't.nombre as nombreServicio', 'z.nombre as nombreZona', 'n.nombre as nombreNivel', 'a.estado')
+                    // ->select('a.*')
                     ->where('c.nombre', 'LIKE', '%' . $text . '%')
                     ->where('a.estado', '=', '1')
                     ->distinct()

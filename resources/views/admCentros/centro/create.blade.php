@@ -81,15 +81,15 @@
 				              		</select>
 				                </div>
 			              	</div>
-			              	<div class="col-lg-6 col-xs-12">
+			              	<div hidden class="col-lg-6 col-xs-12">
 		                  		<div class="form-group form-material floating" data-plugin="formMaterial">
-				                	<input required name="latitud" type="number" class="form-control">
+				                	<input id="latitud" name="latitud" type="number" step="any" class="form-control">
 				                    <label class="floating-label">Latitud</label>
 				                </div>
 			              	</div>
-			              	<div class="col-lg-6 col-xs-12">
+			              	<div hidden class="col-lg-6 col-xs-12">
 		                  		<div class="form-group form-material floating" data-plugin="formMaterial">
-				                	<input required name="longitud" type="number" class="form-control">
+				                	<input id="longitud" name="longitud" type="number" step="any" class="form-control">
 				                    <label class="floating-label">Longitud</label>
 				                </div>
 			              	</div>
@@ -174,17 +174,50 @@
 //AIzaSyCdA-O4tdOrCC7z0zb_1ifNpcx3l237VIY 01
 //AIzaSyCdA-O4tdOrCC7z0zb_1ifNpcx3l237VIY
 //AIzaSyCw7M5nqepqivSaf7HPEexb9sHB414GY3c
+var infoWindow = null;
+var map = null;
+var marker = null;
+
+function openInfoWindow(marker_l) {
+    var markerLatLng = marker_l.getPosition();
+    infoWindow.setContent([
+        'La posicion del marcador es:',
+        markerLatLng.lat(),
+        ', ',
+        markerLatLng.lng(),
+        ' Arrastra y haz click para actualizar la posicion.'
+    ].join(''));
+    infoWindow.open(map, marker_l);
+}
+
 function iniciarMap(){
-    var coord = {lat:-34.5956145 ,lng: -58.4431949};
-    var map = new google.maps.Map(document.getElementById('map'),{
-      zoom: 10,
-      center: coord
+    var coord = {lat:-17.783297555038317
+    	        ,lng:-63.18029759765625};
+    map = new google.maps.Map(document.getElementById('map'),{
+      zoom: 13,
+      center: coord,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-    var marker = new google.maps.Marker({
+    marker = new google.maps.Marker({
       position: coord,
+      draggable: true,
       map: map
     });
+
+    infoWindow = new google.maps.InfoWindow();
+
+    google.maps.event.addListener(marker, 'click', function(){
+        openInfoWindow(marker);
+    });
+
+    google.maps.event.addListener(marker, "mouseup", function (e) { 
+    	document.getElementById('latitud').value = marker.getPosition().lat();
+        document.getElementById('longitud').value = marker.getPosition().lng();
+    });
 }
+
+
+
 function validaNumericos(event) {
     if(event.charCode >= 48 && event.charCode <= 57){
       return true;

@@ -54,6 +54,7 @@ class CentroMedicoController extends Controller
 
     public function store(Request $request)
     {
+        // return $request->all();
         CentroMedico::_insertarCentroMedico($request);
         return Redirect::to('adm/centro')->with('msj','El Centro Medico: "'.$request['nombre'].'" se creo exitósamente.');
     }

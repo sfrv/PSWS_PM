@@ -90,6 +90,11 @@ class WebServiceController extends Controller
         return json_encode(array("carteras" => CentroMedico::_getLastCarteraServicio($id)->get()));
     }
 
+    public function get_allCartertaServicio($id){//mb1
+        return json_encode(array("array1" => CarteraServicio::_getEspecialidadesPorId($id),
+                                 "array2" => CarteraServicio::_getServiciosPorIDCartera($id)->get()));
+    }
+
     public function get_especialidadesPorId($id){
         return json_encode(array("especialidades" => CarteraServicio::_getEspecialidadesPorId($id)));
     }
