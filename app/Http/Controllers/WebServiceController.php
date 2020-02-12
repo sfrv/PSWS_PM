@@ -91,8 +91,28 @@ class WebServiceController extends Controller
     }
 
     public function get_allCartertaServicio($id){//mb1
-        return json_encode(array("array1" => CarteraServicio::_getEspecialidadesPorId($id),
-                                 "array2" => CarteraServicio::_getServiciosPorIDCartera($id)->get()));
+        return json_encode(array("especialidades" => CarteraServicio::_getEspecialidadesPorId($id),
+                                 "servicios" => CarteraServicio::_getServiciosPorIDCartera($id)->get()));
+    }
+
+    public function get_allRolTurno($id,$nom){//mb2
+        if ($nom == 'ETAPA DE PERSONAL ENCARGADO'){
+            return json_encode(array(
+                "cargosPersonal" => PersonalArea::_obtenerPersonalEtapaPersonalArea($id),
+                "turnos" => RolTurno::_getTurnosPorIdEtapaServicio($id),
+                "rolesDia" => RolTurno::_getRolDiasPorIdEtapaServicio($id),
+                "medicos" => Medico::_getAllMedicos("")->get(),
+                "observaciones" => RolTurno::_getDetalleTurnosPorIdEtapaServicio($id)
+                            ));
+        }else{
+            return json_encode(array(
+                "especialidades" => RolTurno::_getEspecialidadesPorIdEtapaServicio($id),
+                "turnos" => RolTurno::_getTurnosPorIdEtapaServicio($id),
+                "rolesDia" => RolTurno::_getRolDiasPorIdEtapaServicio($id),
+                "medicos" => Medico::_getAllMedicos("")->get(),
+                "observaciones" => RolTurno::_getDetalleTurnosPorIdEtapaServicio($id)
+                            ));
+        }
     }
 
     public function get_especialidadesPorId($id){

@@ -304,6 +304,9 @@ Route::get('get-last_CS/{id}', [
 Route::get('get-all-cartera-servicio/{id}', [//mb1
 	'uses' => 'WebServiceController@get_allCartertaServicio'
 ]);
+Route::get('get-all-rol-turno/{id}/{nom}', [//mb2
+	'uses' => 'WebServiceController@get_allRolTurno'
+]);
 
 Route::get('get-especialidadesPorID/{id}', [
 	'uses' => 'WebServiceController@get_especialidadesPorId'
