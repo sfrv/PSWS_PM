@@ -484,7 +484,9 @@ class CentroMedico extends Model
 
     public function scope_getAllCentroMedicoPorDistancia($query,$distancia,$lat,$lon)
     {
-        $result = DB::table('centro_medico')->get();
+        $result = DB::table('centro_medico')
+        ->select('id','latitud','longitud')->get();
+        
         $centros_menor_distancia = array();
         $lat_a = $lat;
         $lon_a = $lon;
