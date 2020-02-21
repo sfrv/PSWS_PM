@@ -508,11 +508,20 @@ class CentroMedico extends Model
             $c = asin(min(1, sqrt($a)));
             $distance = 2*$earth_radius * $c;
             $distance = round($distance, 4);
-            $measure = $distance * (1000);
+            $measure = $distance * (1000);//distancia calculada
 
             if($measure <= $distancia){
-                $centro->distancia_metro = $measure;
-                array_push($centros_menor_distancia, $centro);
+                // $centro->distancia_metro = $measure;
+                $centro_aux = DB::table('centro_medico as c')
+                    ->join('red as r', 'r.id', '=', 'c.id_red')
+                    ->join('tipo_servicio as t', 't.id', '=', 'c.id_tipo_servicio')
+                    ->join('zona as z', 'z.id', '=', 'c.id_zona')
+                    ->join('nivel as n', 'n.id', '=', 'c.id_nivel')
+                    ->select('c.id', 'c.nombre', 'c.latitud', 'c.longitud', 'c.direccion', 'c.descripcion', 'c.distrito', 'c.uv', 'c.manzano', 'c.horas_atencion', 'c.imagen', 'c.telefono', 'c.camas_total', 'c.camas_ocupadas', 'c.estado', 'r.nombre as nombreRed', 't.nombre as nombreServicio', 'z.nombre as nombreZona', 'n.nombre as nombreNivel')
+                    ->where('c.id', '=', $centro->id)
+                    ->first();
+                    $centro_aux->distancia_metro = $measure;
+                array_push($centros_menor_distancia, $centro_aux);
             }
 
         }
