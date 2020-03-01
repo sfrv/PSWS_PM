@@ -34,6 +34,10 @@ class DetalleTurno extends Model
 
 	public function scope_editarDetalleTurno($query, $id, $observacion)
 	{
+		if ($observacion == null || $observacion == "null") {
+			$observacion = "";
+		}
+		
 	  	$detalle_turno = DetalleTurno::findOrFail($id);
 	  	$detalle_turno->observacion = $observacion;
 	  	$detalle_turno->save();

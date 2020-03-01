@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Medico extends Model
 {
@@ -26,6 +27,17 @@ class Medico extends Model
                 ->orWhere('id', 'LIKE', '%' . $text . '%')
                 ->orderBy('id', 'desc');
         }
+        return $result;
+    }
+
+    public function scope_getAllMedicosIdCentro($query, $id_centro)
+    {
+        $result = DB::table('medico as a')
+        ->join('detalle_medico_centro_medico as b', 'b.id_medico', '=', 'a.id')
+        ->select('a.*')
+        ->where('b.id_centro_medico','=', $id_centro)
+        ->where('a.estado','=', '1');
+
         return $result;
     }
 

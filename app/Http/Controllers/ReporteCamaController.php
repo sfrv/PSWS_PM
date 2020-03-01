@@ -94,7 +94,7 @@ class ReporteCamaController extends Controller
     public function show_reporte_cama($id,$id_centro)
     {
         $reporte_cama = ReporteCama::findOrFail($id);
-        $detalle_reporte_cama = DetalleReporteCama::_   ($reporte_cama->id);
+        $detalle_reporte_cama = DetalleReporteCama::_getAllDetalleReporteCamaPorIdReporteCama($reporte_cama->id);
         // dd($detalle_reporte_cama);
         return view('admCentros.centro.reporte_cama.show',compact('id_centro','reporte_cama','detalle_reporte_cama'));
     }

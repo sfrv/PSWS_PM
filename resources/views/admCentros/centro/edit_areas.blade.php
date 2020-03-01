@@ -99,6 +99,8 @@
 </div>
 @push ('scripts')
 <script>
+
+var areas_json = {!! $areas_camas_json !!};
 var cont=0;
 var array_areas_id_eliminar = [];
 
@@ -113,7 +115,7 @@ function agregar()
 	}
 
   	var fila='<tr class="text-center" id="fila'+cont+'">'+
-      '<td><button type="button" class="btn btn-icon btn-danger" onclick="eliminar('+cont+');"><i class="icon md-close"></i></button>'+
+      '<td><button type="button" class="btn btn-icon btn-danger" onclick="eliminar_nuevos('+cont+');"><i class="icon md-close"></i></button>'+
       '</td>'+
       '<td>'+
       	'<input class="form-control" name="nombres_nuevos[]" value="'+nombre+'">'+
@@ -127,6 +129,11 @@ function agregar()
   	$('#detalles').append(fila);
   	document.getElementById("pnombre").value = "";
 	document.getElementById("pdescripcion").value = "";
+}
+
+function eliminar_nuevos(cont)
+{
+    $('#fila'+cont).remove();
 }
 
 function eliminar(id) { 
@@ -157,7 +164,6 @@ function habi(id) {
 	   		array_areas_id_eliminar.splice(n_i,1);
 	 	}
 		$('#fila_hab'+id).remove();
-		consolo.log("s");
 	}
 
   	document.getElementById("btn_el_"+id).disabled = false;

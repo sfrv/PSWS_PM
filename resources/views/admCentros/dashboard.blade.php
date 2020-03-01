@@ -22,20 +22,30 @@
 						    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 						    <li data-target="#myCarousel" data-slide-to="1"></li>
 						    <li data-target="#myCarousel" data-slide-to="2"></li>
+						    <li data-target="#myCarousel" data-slide-to="3"></li>
+						    <li data-target="#myCarousel" data-slide-to="4"></li>
 						</ol>
 
 					  <!-- Wrapper for slides -->
 					  <div class="carousel-inner">
 					    <div class="item active">
-					      <img src="{{asset('images/Centros/Centro3.png')}}" style="width:100%;height: 350px;opacity: 0.8;" alt="Los Angeles">
+					      <img src="{{asset('images/Centros/carrrusel_01.jpg')}}" style="width:100%;height: 350px;opacity: 0.8;" alt="Los Angeles">
 					    </div>
 
 					    <div class="item">
-					      <img src="{{asset('images/Centros/Centro2.png')}}" style="width:100%;height: 350px;opacity: 0.8;" alt="Chicago">
+					      <img src="{{asset('images/Centros/carrrusel_02.jpg')}}" style="width:100%;height: 350px;opacity: 0.8;" alt="Chicago">
 					    </div>
 
 					    <div class="item">
-					      <img src="{{asset('images/Centros/Centro1.png')}}" style="width:100%;height: 350px;opacity: 0.8;" alt="New York">
+					      <img src="{{asset('images/Centros/carrrusel_03.jpg')}}" style="width:100%;height: 350px;opacity: 0.8;" alt="New York">
+					    </div>
+
+					    <div class="item">
+					      <img src="{{asset('images/Centros/carrrusel_04.jpg')}}" style="width:100%;height: 350px;opacity: 0.8;" alt="Chicago">
+					    </div>
+
+					    <div class="item">
+					      <img src="{{asset('images/Centros/carrrusel_05.jpg')}}" style="width:100%;height: 350px;opacity: 0.8;" alt="New York">
 					    </div>
 					  </div>
 

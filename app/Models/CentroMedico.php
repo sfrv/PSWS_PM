@@ -81,7 +81,8 @@ class CentroMedico extends Model
                     ->join('tipo_servicio as t', 't.id', '=', 'a.id_tipo_servicio')
                     ->join('zona as z', 'z.id', '=', 'a.id_zona')
                     ->join('nivel as n', 'n.id', '=', 'a.id_nivel')
-                    ->select('a.*', 'r.nombre as nombreRed', 't.nombre as nombreServicio', 'z.nombre as nombreZona', 'n.nombre as nombreNivel', 'a.estado')
+                    ->select('a.*', 'r.nombre as nombreRed', 't.nombre as nombreServicio', 'z.nombre as nombreZona', 'n.nombre as nombreNivel', 'a.estado',
+                     DB::raw('substr(a.direccion, 1, 100) as direccion_corta'))
 
                     ->where('a.nombre', 'LIKE', '%' . $text . '%')
 
@@ -99,7 +100,8 @@ class CentroMedico extends Model
                     ->join('tipo_servicio as t', 't.id', '=', 'a.id_tipo_servicio')
                     ->join('zona as z', 'z.id', '=', 'a.id_zona')
                     ->join('nivel as n', 'n.id', '=', 'a.id_nivel')
-                    ->select('a.*', 'r.nombre as nombreRed', 't.nombre as nombreServicio', 'z.nombre as nombreZona', 'n.nombre as nombreNivel', 'a.estado')
+                    ->select('a.*', 'r.nombre as nombreRed', 't.nombre as nombreServicio', 'z.nombre as nombreZona', 'n.nombre as nombreNivel', 'a.estado',
+                     DB::raw('substr(a.direccion, 1, 100) as direccion_corta'))
                     // ->select('a.*')
                     ->where('c.nombre', 'LIKE', '%' . $text . '%')
                     ->where('a.estado', '=', '1')
@@ -107,11 +109,13 @@ class CentroMedico extends Model
                     ->orderBy('id', 'desc');
             }
         } else {
+            // dd('as');
             $text = trim($searchText);
-            $result = $query->where('nombre', 'LIKE', '%' . $text . '%')
-
-                ->where('estado', '=', '1')
-                ->orderBy('id', 'desc');
+            $result = DB::table('centro_medico as a')
+                ->select('a.*',DB::raw('substr(a.direccion, 1, 100) as direccion_corta'))
+                ->where('a.nombre', 'LIKE', '%' . $text . '%')
+                ->where('a.estado', '=', '1')
+                ->orderBy('a.id', 'desc');
         }
         // ->paginate(7);
         return $result;

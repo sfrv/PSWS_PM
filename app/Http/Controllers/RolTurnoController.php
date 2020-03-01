@@ -62,7 +62,7 @@ class RolTurnoController extends Controller
         $turnos = RolTurno::_getTurnosPorIdEtapaServicio($etapa_servicio_uno->id);
         $detalle_turnos = RolTurno::_getDetalleTurnosPorIdEtapaServicio($etapa_servicio_uno->id);
         $rol_dias = RolTurno::_getRolDiasPorIdEtapaServicio($etapa_servicio_uno->id);
-        $medicos = Medico::_getAllMedicos("")->get();
+        $medicos = Medico::_getAllMedicosIdCentro($id_centro)->get();
         
         $turnos_json = json_encode($turnos, JSON_UNESCAPED_SLASHES );
         $detalle_turnos_json = json_encode($detalle_turnos, JSON_UNESCAPED_SLASHES );
@@ -88,7 +88,7 @@ class RolTurnoController extends Controller
         $turnos = RolTurno::_getTurnosPorIdEtapaServicio($etapa_servicio->id);
         $detalle_turnos = RolTurno::_getDetalleTurnosPorIdEtapaServicio($etapa_servicio->id);
         $rol_dias = RolTurno::_getRolDiasPorIdEtapaServicio($etapa_servicio->id);
-        $medicos = Medico::_getAllMedicos("")->get();
+        $medicos = Medico::_getAllMedicosIdCentro($id_centro)->get();
         
         $turnos_json = json_encode($turnos, JSON_UNESCAPED_SLASHES );
         $detalle_turnos_json = json_encode($detalle_turnos, JSON_UNESCAPED_SLASHES );
@@ -114,7 +114,7 @@ class RolTurnoController extends Controller
         $turnos = RolTurno::_getTurnosPorIdEtapaServicio($etapa_servicio->id);
         $detalle_turnos = RolTurno::_getDetalleTurnosPorIdEtapaServicio($etapa_servicio->id);
         $rol_dias = RolTurno::_getRolDiasPorIdEtapaServicio($etapa_servicio->id);
-        $medicos = Medico::_getAllMedicos("")->get();
+        $medicos = Medico::_getAllMedicosIdCentro($id_centro)->get();
         
         $turnos_json = json_encode($turnos, JSON_UNESCAPED_SLASHES );
         $detalle_turnos_json = json_encode($detalle_turnos, JSON_UNESCAPED_SLASHES );
@@ -140,7 +140,7 @@ class RolTurnoController extends Controller
         $turnos = RolTurno::_getTurnosPorIdEtapaServicio($etapa_servicio->id);
         $detalle_turnos = RolTurno::_getDetalleTurnosPorIdEtapaServicio($etapa_servicio->id);
         $rol_dias = RolTurno::_getRolDiasPorIdEtapaServicio($etapa_servicio->id);
-        $medicos = Medico::_getAllMedicos("")->get();
+        $medicos = Medico::_getAllMedicosIdCentro($id_centro)->get();
         
         $turnos_json = json_encode($turnos, JSON_UNESCAPED_SLASHES );
         $detalle_turnos_json = json_encode($detalle_turnos, JSON_UNESCAPED_SLASHES );
@@ -164,7 +164,7 @@ class RolTurnoController extends Controller
         $turnos = RolTurno::_getTurnosPorIdEtapaServicio($etapa_servicio_uno->id);
         $detalle_turnos = RolTurno::_getDetalleTurnosPorIdEtapaServicio($etapa_servicio_uno->id);
         $rol_dias = RolTurno::_getRolDiasPorIdEtapaServicio($etapa_servicio_uno->id);
-        $medicos = Medico::_getAllMedicos("")->get();
+        $medicos = Medico::_getAllMedicosIdCentro($id_centro)->get();
         
         $turnos_json = json_encode($turnos, JSON_UNESCAPED_SLASHES );
         $detalle_turnos_json = json_encode($detalle_turnos, JSON_UNESCAPED_SLASHES );
@@ -181,7 +181,7 @@ class RolTurnoController extends Controller
         $turnos = RolTurno::_getTurnosPorIdEtapaServicio($etapa_servicio_uno->id);
         $detalle_turnos = RolTurno::_getDetalleTurnosPorIdEtapaServicio($etapa_servicio_uno->id);
         $rol_dias = RolTurno::_getRolDiasPorIdEtapaServicio($etapa_servicio_uno->id);
-        $medicos = Medico::_getAllMedicos("")->get();
+        $medicos = Medico::_getAllMedicosIdCentro($id_centro)->get();
         
         $turnos_json = json_encode($turnos, JSON_UNESCAPED_SLASHES );
         $detalle_turnos_json = json_encode($detalle_turnos, JSON_UNESCAPED_SLASHES );
@@ -198,7 +198,7 @@ class RolTurnoController extends Controller
         $turnos = RolTurno::_getTurnosPorIdEtapaServicio($etapa_servicio_uno->id);
         $detalle_turnos = RolTurno::_getDetalleTurnosPorIdEtapaServicio($etapa_servicio_uno->id);
         $rol_dias = RolTurno::_getRolDiasPorIdEtapaServicio($etapa_servicio_uno->id);
-        $medicos = Medico::_getAllMedicos("")->get();
+        $medicos = Medico::_getAllMedicosIdCentro($id_centro)->get();
         
         $turnos_json = json_encode($turnos, JSON_UNESCAPED_SLASHES );
         $detalle_turnos_json = json_encode($detalle_turnos, JSON_UNESCAPED_SLASHES );
@@ -215,7 +215,7 @@ class RolTurnoController extends Controller
         $turnos = RolTurno::_getTurnosPorIdEtapaServicio($etapa_servicio->id);
         $detalle_turnos = RolTurno::_getDetalleTurnosPorIdEtapaServicio($etapa_servicio->id);
         $rol_dias = RolTurno::_getRolDiasPorIdEtapaServicio($etapa_servicio->id);
-        $medicos = Medico::_getAllMedicos("")->get();
+        $medicos = Medico::_getAllMedicosIdCentro($id_centro)->get();
         
         $turnos_json = json_encode($turnos, JSON_UNESCAPED_SLASHES );
         $detalle_turnos_json = json_encode($detalle_turnos, JSON_UNESCAPED_SLASHES );
@@ -680,7 +680,7 @@ class RolTurnoController extends Controller
 
         // $detalle = CentroMedico::_obtenerDetalleCentro($id);
         $especialidades_etapa_emergencia = CentroMedico::_obtenerEspecialidadesEtapaEmergencia($id_centro);
-        $medicos = Medico::_getAllMedicos("")->get();
+        $medicos = Medico::_getAllMedicosIdCentro($id_centro)->get();
 
         return view('admCentros.centro.rol_turno.create_emergencia',compact('id_centro','especialidades_etapa_emergencia','medicos','meses','mes_actual','anios','anio_actual'));
     }
@@ -692,7 +692,7 @@ class RolTurnoController extends Controller
             return Redirect::to('adm/centro/index_rol_turno/'.$w)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
         
         $especialidades_etapa_consulta = CentroMedico::_obtenerEspecialidadesEtapaConsultaExt($id_centro);
-        $medicos = Medico::_getAllMedicos("")->get();
+        $medicos = Medico::_getAllMedicosIdCentro($id_centro)->get();
 
         return view('admCentros.centro.rol_turno.create_consulta_ext',compact('id_centro','id_rol_turno','especialidades_etapa_consulta','medicos'));
     }
@@ -704,7 +704,7 @@ class RolTurnoController extends Controller
             return Redirect::to('adm/centro/index_rol_turno/'.$w)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
         
         $especialidades_etapa_hospitalizacion = CentroMedico::_obtenerEspecialidadesEtapaHospitalizacion($id_centro);
-        $medicos = Medico::_getAllMedicos("")->get();
+        $medicos = Medico::_getAllMedicosIdCentro($id_centro)->get();
 
         return view('admCentros.centro.rol_turno.create_hospitalizacion',compact('id_centro','id_rol_turno','especialidades_etapa_hospitalizacion','medicos'));
     }
@@ -716,7 +716,7 @@ class RolTurnoController extends Controller
             return Redirect::to('adm/centro/index_rol_turno/'.$w)->with('msj_e', 'Usted no tiene los previlegios necesarios.');
         
         // $especialidades_etapa_hospitalizacion = CentroMedico::_obtenerEspecialidadesEtapaHospitalizacion($id_centro);
-        $medicos = Medico::_getAllMedicos("")->get();
+        $medicos = Medico::_getAllMedicosIdCentro($id_centro)->get();
 
         return view('admCentros.centro.rol_turno.create_personal_enc',compact('id_centro','id_rol_turno','medicos'));
     }

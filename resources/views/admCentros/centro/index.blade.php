@@ -14,9 +14,9 @@
 					              	<th>Estado</th>
 					              	<th>Nombre</th>
 					              	<th>Direccion</th>
-					              	<th>Camas Ocupadas</th>
+<!-- 					              	<th>Camas Ocupadas</th>
 					              	<th>Camas Libres</th>
-					              	<th>Camas Total</th>
+					              	<th>Camas Total</th> -->
 					              	<th class="text-center">Opciones</th>
 				            	</tr>
 				          	</thead>
@@ -29,10 +29,10 @@
 					                      <td><span class="badge badge-pill badge-danger float-left">Inactivo</span></td>
 					                    @endif
 					              		<td>{{ $var->nombre }}</td>
-						              	<td>{{ $var->direccion }}</td>
-						              	<td>{{ $var->camas_ocupadas }}</td>
+						              	<td >{{ $var->direccion_corta }}</td>
+						              	<!-- <td>{{ $var->camas_ocupadas }}</td>
 						              	<td>{{ $var->camas_total - $var->camas_ocupadas }}</td>
-						              	<td>{{ $var->camas_total }}</td>
+						              	<td>{{ $var->camas_total }}</td> -->
 					              		<td class="text-center">
 					              			@if(Auth::user()->tipo == 'Administrador')
 						              			<i class="icon md-delete ml-15" aria-hidden="true"

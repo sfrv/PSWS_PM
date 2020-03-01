@@ -96,7 +96,7 @@ class WebServiceController extends Controller
     }
 
     public function get_allRolTurno($id,$nom){//mb2
-        if ($nom == 'ETAPA DE PERSONAL ENCARGADO'){
+        if ($nom == 'Etapa de Personal Encargado'){
             return json_encode(array(
                 "cargosPersonal" => PersonalArea::_obtenerPersonalEtapaPersonalArea($id),
                 "turnos" => RolTurno::_getTurnosPorIdEtapaServicio($id),
@@ -994,8 +994,8 @@ class WebServiceController extends Controller
                     $cells->setBackground('#76923B');
                     $cells->setBorder('thin','thin','thin','thin');//BORDE
                 });
-                $sheet->row($cont_filas, ['ETAPA DE PERSONAL ENCARGADO']);
-                $etapa_servicio_cuatro = RolTurno::_getEtapaServicio($id_rol_turno,'ETAPA DE PERSONAL ENCARGADO');
+                $sheet->row($cont_filas, ['Etapa de Personal Encargado']);
+                $etapa_servicio_cuatro = RolTurno::_getEtapaServicio($id_rol_turno,'Etapa de Personal Encargado');
                 $personal_etapa_personal_area = PersonalArea::_obtenerPersonalEtapaPersonalArea($etapa_servicio_cuatro->id);
                 $cont_filas = $cont_filas + 3;
                 foreach ($personal_etapa_personal_area as $personal) {

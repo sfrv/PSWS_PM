@@ -33,7 +33,7 @@ class CentroMedicoController extends Controller
 
     public function index(Request $request)
     {
-        $centros = CentroMedico::_getAllCentrosMedicos($request['searchText'],$request['filtro'])->paginate(6);
+        $centros = CentroMedico::_getAllCentrosMedicos($request['searchText'],$request['filtro'])->paginate(8);
         
         return view('admCentros.centro.index', ["centros" => $centros, "searchText" => $request->get('searchText')]);
     }

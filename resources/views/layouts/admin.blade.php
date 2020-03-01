@@ -351,7 +351,7 @@
                             <span class="site-menu-arrow"></span>
                 </a>
               </li> -->
-              <li class="site-menu-category">App</li>
+              <!-- <li class="site-menu-category">App</li>
               <li class="site-menu-item has-sub">
                 <a href="javascript:void(0)">
                         <i class="site-menu-icon md-apps" aria-hidden="true"></i>
@@ -443,7 +443,7 @@
                     </a>
                   </li>
                 </ul>
-              </li>
+              </li> -->
             </ul>     </div>
         </div>
       </div>
