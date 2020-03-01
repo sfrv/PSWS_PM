@@ -372,4 +372,8 @@ Route::get('get-cargosPersonal/{id}', [
 	'uses' => 'WebServiceController@get_obtenerPersonalEtapaPersonalArea'
 ]);
 
+Route::get('get-excelReporteCama/{idCentro}', [
+	'uses' => 'WebServiceController@generar_excel_reporte_cama'
+]);
+
 //FIN DE WEB SERVICES MOVIL

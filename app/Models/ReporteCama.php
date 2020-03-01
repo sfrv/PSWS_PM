@@ -11,7 +11,7 @@ class ReporteCama extends Model
   	protected $table = 'reporte_cama';
 
   	protected $fillable = [
-      	'fecha','titulo','estado'
+      	'fecha','titulo','estado','id_centro_medico'
   	];
 
     // public function scope_getAllRerporteCamas($query, $searchText){

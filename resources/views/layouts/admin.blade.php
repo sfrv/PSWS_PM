@@ -130,12 +130,12 @@
                 </form>
               </div>
             </li>
-            <li class="nav-item" id="toggleChat">
+<!--             <li class="nav-item" id="toggleChat">
               <a class="nav-link" data-toggle="site-sidebar" href="javascript:void(0)" title="Chat"
                 data-url="../site-sidebar.tpl">
                 <i class="icon md-comment" aria-hidden="true"></i>
               </a>
-            </li>
+            </li> -->
           </ul>
           <!-- End Navbar Toolbar Right -->
         </div>
@@ -231,7 +231,7 @@
                     @if($modulos[1][5]->id_caso_uso == 6 && $modulos[1][5]->estado == 1)
                       <li class="site-menu-item">
                         <a class="animsition-link" href="{{url('adm/previlegio')}}">
-                          <span class="site-menu-title">Gest. Previlegios</span>
+                          <span class="site-menu-title">Gest. Privilegios</span>
                         </a>
                       </li>
                     @endif

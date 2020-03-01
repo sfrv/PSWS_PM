@@ -84,7 +84,7 @@
 		              	
 		              	<div class="col-sm-8 col-sm-offset-2" id="guardar">
 		              		<button type="submit" class="btn btn-primary btn-block btn-round" data-style="slide-right" data-plugin="ladda">
-		              			<span class="ladda-label">Registrar Cartera de Servicio<i class="icon md-long-arrow-right ml-10" aria-hidden="true"></i></span>
+		              			<span class="ladda-label">Registrar Reporte de Cama<i class="icon md-long-arrow-right ml-10" aria-hidden="true"></i></span>
 		              		</button>
 		              	</div>
 		            {!! Form::close() !!}
