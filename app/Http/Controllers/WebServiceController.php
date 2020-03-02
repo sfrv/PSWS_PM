@@ -567,9 +567,9 @@ class WebServiceController extends Controller
                 });
 
                 // $rol_turno = RolTurno::findOrFail($id_rol_turno);
-                $etapa_servicio_uno = RolTurno::_getEtapaServicio($id_rol_turno,'ETAPA DE EMERGENCIA');
+                $etapa_servicio_uno = RolTurno::_getEtapaServicio($id_rol_turno,'Etapa de Emergencia');
                 // $centro = CentroMedico::findOrFail($id_centro);
-                $sheet->row(2, ['ETAPA DE EMERGENCIA']);
+                $sheet->row(2, ['Etapa de Emergencia']);
                 $especialidades_etapa_emergencia = CentroMedico::_obtenerEspecialidadesEtapaEmergencia($id_centro);
                 $cont_filas = 5;
                 foreach ($especialidades_etapa_emergencia as $especialidad) {
@@ -784,8 +784,8 @@ class WebServiceController extends Controller
                     $cells->setBackground('#76923B');
                     $cells->setBorder('thin','thin','thin','thin');//BORDE
                 });
-                $sheet->row($cont_filas, ['ETAPA DE CONSULTA EXTERNA']);
-                $etapa_servicio_dos = RolTurno::_getEtapaServicio($id_rol_turno,'ETAPA DE CONSULTA EXTERNA');
+                $sheet->row($cont_filas, ['Etapa de Consulta Externa']);
+                $etapa_servicio_dos = RolTurno::_getEtapaServicio($id_rol_turno,'Etapa de Consulta Externa');
                 $especialidades_etapa_consulta = CentroMedico::_obtenerEspecialidadesEtapaConsultaExt($id_centro);
                 $cont_filas = $cont_filas + 3;
                 foreach ($especialidades_etapa_consulta as $especialidad) {
@@ -998,8 +998,8 @@ class WebServiceController extends Controller
                     $cells->setBackground('#76923B');
                     $cells->setBorder('thin','thin','thin','thin');//BORDE
                 });
-                $sheet->row($cont_filas, ['ETAPA DE HOSPITALIZACION']);
-                $etapa_servicio_tres = RolTurno::_getEtapaServicio($id_rol_turno,'ETAPA DE HOSPITALIZACION');
+                $sheet->row($cont_filas, ['Etapa de Hospitalizacion']);
+                $etapa_servicio_tres = RolTurno::_getEtapaServicio($id_rol_turno,'Etapa de Hospitalizacion');
                 $especialidades_etapa_hospitalizacion = CentroMedico::_obtenerEspecialidadesEtapaHospitalizacion($id_centro);
                 $cont_filas = $cont_filas + 3;
                 foreach ($especialidades_etapa_hospitalizacion as $especialidad) {
