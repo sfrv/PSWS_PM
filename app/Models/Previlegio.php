@@ -92,7 +92,7 @@ class Previlegio extends Model
 	    ->get();
 
 	    $result2 = DB::table('previlegio as a')
-	    ->select('a.id_caso_uso','a.estado')
+	    ->select('a.id_caso_uso','a.estado')//DB::raw("'/u0001' as estado"))
 	    ->where('a.id_usuario','=',Auth::user()->id)
 	    ->get();
 
