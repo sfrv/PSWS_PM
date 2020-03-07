@@ -60,7 +60,7 @@ class MedicoController extends Controller
     public function destroy($id)
     {
         Medico::_eliminarMedico($id);
-        return Redirect::to('adm/medico')->with('msj','EL Medico: '.$id.' se Elimino exitosamente.');
+        return Redirect::to('adm/medico')->with('msj','EL Medico: '.$id.' se Cambio de Estado exitosamente.');
     }
 
     public function getMedicos()

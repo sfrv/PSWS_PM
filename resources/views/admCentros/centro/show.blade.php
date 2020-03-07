@@ -56,16 +56,22 @@
 			                    <label class="floating-label">Longitud</label>
 			                </div>
 		              	</div>
-		              	<div class="col-lg-6 col-xs-12">
+		              	<div class="col-lg-4 col-xs-12">
 	                  		<div class="form-group form-material floating" data-plugin="formMaterial">
 			                	<input disabled type="text" class="form-control" value="{{$centro->distrito}}" />
 			                    <label class="floating-label">Distrito</label>
 			                </div>
 		              	</div>
-		              	<div class="col-lg-6 col-xs-12">
+		              	<div class="col-lg-4 col-xs-12">
 	                  		<div class="form-group form-material floating" data-plugin="formMaterial">
 			                	<input disabled type="text" class="form-control" value="{{$centro->uv}}" />
 			                    <label class="floating-label">UV</label>
+			                </div>
+		              	</div>
+		              	<div class="col-lg-4 col-xs-12">
+	                  		<div class="form-group form-material floating" data-plugin="formMaterial">
+			                	<input disabled type="text" class="form-control" value="{{$centro->camas_total}}" />
+			                    <label class="floating-label">Total Camas</label>
 			                </div>
 		              	</div>
 		              	<div class="col-lg-4 col-xs-12">

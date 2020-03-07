@@ -17,10 +17,12 @@ class Especialidad extends Model
   	public function scope_getAllEspecialidades($query, $searchText){
 	    $text = trim($searchText);
 	    if ($text == "") {
-	      $result=$query->where('estado','=',1)
+	      $result=$query
+	                    // ->where('estado','=',1)
 	                    ->orderBy('id','desc');
 	    }else{
-	      $result=$query->where('estado','=',1)
+	      $result=$query
+	                  // ->where('estado','=',1)
 	                  ->where('nombre','LIKE','%'.$text.'%')
 	                    ->orWhere('id','LIKE','%'.$text.'%')
 	                    ->orderBy('id','desc');
@@ -50,7 +52,10 @@ class Especialidad extends Model
   	public function scope_eliminarEspecialidad($query, $id)
   	{
 	    $especialidad = Especialidad::findOrFail($id);
-	    $especialidad->estado = 0;
+	    if($especialidad->estado == 0)
+            $$especialidad->estado = 1;
+        else
+            $especialidad->estado = 0;
 	    $especialidad->update(); 
   	}
 

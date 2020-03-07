@@ -55,6 +55,7 @@ class ReporteCamaController extends Controller
         $fecha = $request->get('fecha');
 
         $id_reporte_cama = ReporteCama::_insertarReporteCama($titulo,$fecha,$id_centro);
+        $camas_total = 0;
 
         if ($request->get('id_areas') != null) {
             $id_areas = $request->get('id_areas');
@@ -63,6 +64,7 @@ class ReporteCamaController extends Controller
                 $coc_m = $request->get('cocm_'.$id_areas[$a]);
                 $cof_m = $request->get('cofm_'.$id_areas[$a]);
                 $cdi_m = $request->get('cdim_'.$id_areas[$a]);
+                $camas_total = $camas_total + $cof_m;
 
                 $coc_t = $request->get('coct_'.$id_areas[$a]);
                 $cof_t = $request->get('coft_'.$id_areas[$a]);
@@ -76,6 +78,7 @@ class ReporteCamaController extends Controller
                 DetalleReporteCama::_insertarDetalleReporteCama($coc_m,$cof_m,$cdi_m,$coc_t,$cof_t,$cdi_t,$coc_n,$cof_n,$cdi_n,$id_area,$id_reporte_cama);
                 $a++;
             }
+            CentroMedico::_actualizarTotalCamas($id_centro,$camas_total);
         }
         return Redirect::to('adm/centro/index_reporte_cama/'.$id_centro)->with('msj', 'Reporte de Cama: "' . $fecha . '" se creo exitosamente.');
     }
@@ -104,6 +107,7 @@ class ReporteCamaController extends Controller
         $titulo = $request->get('titulo');
         $fecha = $request->get('fecha');
         $id_centro = ReporteCama::_editarReporteCama($titulo,$fecha,$id_reporte_cama);
+        $camas_total = 0;
 
         if ($request->get('id_detalle_areas_editar') != null) {
             $id_detalle_areas_editar = $request->get('id_detalle_areas_editar');
@@ -121,10 +125,17 @@ class ReporteCamaController extends Controller
                 $cof_n = $request->get('cofn_'.$id_detalle_areas_editar[$a]);
                 $cdi_n = $request->get('cdin_'.$id_detalle_areas_editar[$a]);
 
+                if ($cof_m != 0 && $cof_n == 0)
+                    $camas_total = $camas_total + $cof_t;
+                else
+                    $camas_total = $camas_total + $cof_n;
+                
+
                 $id_detalle_area = $id_detalle_areas_editar[$a];
                 DetalleReporteCama::_editarDetalleReporteCama($coc_m,$cof_m,$cdi_m,$coc_t,$cof_t,$cdi_t,$coc_n,$cof_n,$cdi_n,$id_detalle_area);
                 $a++;
             }
+            CentroMedico::_actualizarTotalCamas($id_centro,$camas_total);
         }
 
         return Redirect::to('adm/centro/index_reporte_cama/'.$id_centro)->with('msj', 'Reporte de Cama: "' . $fecha . '" se edito exitosamente.');

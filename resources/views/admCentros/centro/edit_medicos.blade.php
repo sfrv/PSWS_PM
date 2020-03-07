@@ -57,8 +57,8 @@
 		                        		<button id="btn_el_{{$var -> id}}" type="button" class="btn btn-icon btn-danger" onclick="eliminar_esp({{$var -> id_medico}},{{$var -> id}});"><i class="icon md-close" aria-hidden="true"></i></button>
 	                          			<button disabled id="btn_hab_{{$var -> id}}" type="button" class="btn btn-icon btn-primary" onclick="hab_esp({{$var -> id_medico}},{{$var -> id}});"><i class="icon md-check" aria-hidden="true"></i></button>
 		                        	@else
-		                        		<button disabled id="btn_el_{{$var -> id}}" type="button" class="btn btn-icon btn-danger" onclick="eliminar_esp({{$var -> id_medico}},{{$var -> id}});"><i class="icon md--close" aria-hidden="true"></i></button>
-	                          			<button id="btn_hab_{{$var -> id}}" type="button" class="btn btn btn-icon-primary" onclick="hab_esp({{$var -> id_medico}},{{$var -> id}});"><i class="icon md-check" aria-hidden="true"></i></button>
+		                        		<button disabled id="btn_el_{{$var -> id}}" type="button" class="btn btn-icon btn-danger" onclick="eliminar_esp({{$var -> id_medico}},{{$var -> id}});"><i class="icon md-close" aria-hidden="true"></i></button>
+	                          			<button id="btn_hab_{{$var -> id}}" type="button" class="btn btn-icon btn-primary" onclick="hab_esp({{$var -> id_medico}},{{$var -> id}});"><i class="icon md-check" aria-hidden="true"></i></button>
 		                        	@endif
 		                          	</td>
 		                          	<td>{{$var -> nombre}}</td>

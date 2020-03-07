@@ -15,4 +15,27 @@ class DetalleCentroMedico extends Model
 	  'id_medico',
 	  'estado'
 	];
+
+	public function scope_insertarDetalle($query, $id_centro, $id_medico)
+    {
+    	$detalle_medico = new DetalleCentroMedico();
+        $detalle_medico->id_centro_medico = $id_centro;
+        $detalle_medico->id_medico = $id_medico;
+        $detalle_medico->estado = 1;
+        $detalle_medico->save();
+    }
+
+    public function scope_eliminarDetalle($query, $id)
+    {
+    	$detalle_medico = DetalleCentroMedico::findOrFail($id);
+        $detalle_medico->estado = 0;
+        $detalle_medico->update();
+    }
+
+    public function scope_habilitarDetalle($query, $id)
+    {
+    	$detalle_medico = DetalleCentroMedico::findOrFail($id);
+        $detalle_medico->estado = 1;
+        $detalle_medico->update();
+    }
 }

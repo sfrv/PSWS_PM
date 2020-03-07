@@ -59,8 +59,8 @@ class EspecialidadController extends Controller
 
     public function destroy($id)
     {
-		    Especialidad::_eliminarEspecialidad($id);
-        return Redirect::to('adm/especialidad');
+		Especialidad::_eliminarEspecialidad($id);
+        return Redirect::to('adm/especialidad')->with('msj','La Especialidad: '.$id.' se Cambio de Estado exitosamente.');
 	}
 
     public function getEspecialidades()

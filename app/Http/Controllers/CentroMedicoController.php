@@ -16,6 +16,8 @@ use Route;
 use Illuminate\Routing\Redirector;
 use App\Models\ServicioMetodo;
 use App\Models\Previlegio;
+use App\Models\DetalleCentroEspecialidad;
+use App\Models\DetalleCentroMedico;
 use DB;
 
 
@@ -109,7 +111,23 @@ class CentroMedicoController extends Controller
 
     public function update_especialidades(Request $request, $id)
     {
-        CentroMedico::_editarCentroMedicoEspecialidades($request, $id);
+        if ($request->get('idespecialidad_edit') != null) {
+            $idespecialidad = $request->get('idespecialidad_edit');
+            $cont = 0;
+            while ($cont < count($idespecialidad)) {
+                DetalleCentroEspecialidad::_editarDetalle($idespecialidad[$cont],$request->get($idespecialidad[$cont].'_ef'),$request->get($idespecialidad[$cont].'_cf'),$request->get($idespecialidad[$cont].'_hf'));
+                $cont = $cont + 1;
+            }
+        }
+
+        if ($request->get('idespecialidad_e') != null) {
+            $idespecialidad = $request->get('idespecialidad_e');
+            $cont = 0;
+            while ($cont < count($idespecialidad)) {
+                DetalleCentroEspecialidad::_insertarDetalle($id,$idespecialidad[$cont],$request->get($idespecialidad[$cont].'_e'),$request->get($idespecialidad[$cont].'_c'),$request->get($idespecialidad[$cont].'_h'));
+                $cont = $cont + 1;
+            }
+        }
         return Redirect::to('adm/centro/'.$id.'/edit')->with('msj', 'Especialidades del Centro: "' . $id  . '" se editaron exitosamente.');
     }
 
@@ -131,8 +149,33 @@ class CentroMedicoController extends Controller
 
     public function update_medicos(Request $request, $id)
     {
-        // return $request->all();
-        CentroMedico::_editarCentroMedicoMedicos($request, $id);
+        $centro = CentroMedico::findOrFail($id);
+        if ($request->get('idmedicos') != null) {
+            $idmedicos = $request->get('idmedicos');
+            $cont = 0;
+            while ($cont < count($idmedicos)) {
+                DetalleCentroMedico::_insertarDetalle($id,$idmedicos[$cont]);
+                $cont = $cont + 1;
+            }
+        }
+
+        if ($request->get('idmedico_delete') != null) {
+            $idmedico_delete = $request->get('idmedico_delete');
+            $cont = 0;
+            while ($cont < count($idmedico_delete)) {
+                DetalleCentroMedico::_eliminarDetalle($idmedico_delete[$cont]);
+                $cont = $cont + 1;
+            }
+        }
+
+        if ($request->get('idmedico_habilitar') != null) {
+            $idmedico_habilitar = $request->get('idmedico_habilitar');
+            $cont = 0;
+            while ($cont < count($idmedico_habilitar)) {
+                DetalleCentroMedico::_habilitarDetalle($idmedico_habilitar[$cont]);
+                $cont = $cont + 1;
+            }
+        }
         return Redirect::to('adm/centro/'.$id.'/edit')->with('msj', 'Medicos del Centro: "' . $id  . '" se editaron exitosamente.');
     }
 
@@ -194,7 +237,7 @@ class CentroMedicoController extends Controller
     public function destroy($id)
     {
         CentroMedico::_eliminarCentroMedico($id);
-        return Redirect::to('adm/centro');
+        return Redirect::to('adm/centro')->with('msj','EL Centro Medico: '.$id.' se Cambio de Estado exitosamente.');
     }
 
  

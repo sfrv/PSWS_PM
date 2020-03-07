@@ -14,9 +14,6 @@
 					              	<th>Estado</th>
 					              	<th>Nombre</th>
 					              	<th>Direccion</th>
-<!-- 					              	<th>Camas Ocupadas</th>
-					              	<th>Camas Libres</th>
-					              	<th>Camas Total</th> -->
 					              	<th class="text-center">Opciones</th>
 				            	</tr>
 				          	</thead>
@@ -30,14 +27,12 @@
 					                    @endif
 					              		<td>{{ $var->nombre }}</td>
 						              	<td >{{ $var->direccion_corta }}</td>
-						              	<!-- <td>{{ $var->camas_ocupadas }}</td>
-						              	<td>{{ $var->camas_total - $var->camas_ocupadas }}</td>
-						              	<td>{{ $var->camas_total }}</td> -->
 					              		<td class="text-center">
 					              			@if(Auth::user()->tipo == 'Administrador')
-						              			<i class="icon md-delete ml-15" aria-hidden="true"
+						              			<!-- <i class="icon md-delete ml-15" aria-hidden="true"
 	                            				data-toggle="tooltip" data-original-title="Eliminar" data-container="body"
-	                            				title=""></i>
+	                            				title=""></i> -->
+	                            				<a href="" data-target="#modal-delete-{{$var->id}}" class="panel-action icon md-delete ml-15" data-toggle="modal" data-original-title="Eliminar" data-placement="top" title="Eliminar"></a>
                             				@endif
                             				@if(Auth::user()->id_centro_medico == $var->id || Auth::user()->tipo == 'Administrador')
                             					<a href="{{URL::action('CentroMedicoController@edit',$var->id)}}" class="panel-action icon md-edit ml-15" data-toggle="tooltip" data-original-title="Editar" data-container="body" title=""></a>

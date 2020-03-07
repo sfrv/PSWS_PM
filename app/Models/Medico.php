@@ -19,10 +19,12 @@ class Medico extends Model
     {
         $text = trim($searchText);
         if ($text == "") {
-            $result = $query->where('estado', '=', 1)
+            $result = $query
+                // ->where('estado', '=', 1)
                 ->orderBy('id', 'desc');
         } else {
-            $result = $query->where('estado', '=', 1)
+            $result = $query
+                // ->where('estado', '=', 1)
                 ->where('nombre', 'LIKE', '%' . $text . '%')
                 ->orWhere('id', 'LIKE', '%' . $text . '%')
                 ->orderBy('id', 'desc');
@@ -74,7 +76,10 @@ class Medico extends Model
     public function scope_eliminarMedico($query, $id)
     {
         $medico = Medico::findOrFail($id);
-        $medico->estado = 0;
+        if($medico->estado == 0)
+            $medico->estado = 1;
+        else
+            $medico->estado = 0;
         $medico->update();
     }
 

@@ -20,25 +20,6 @@
 			      	{!! Form::model($centro,['method'=>'PATCH','route'=>['centro.update',$centro->id],'files'=>'true'])!!}
           			{{Form::token()}} 
 		              	<div class="row">
-		              		<div class="col-lg-4 col-xs-12">
-		                  		<div class="form-group form-material floating" data-plugin="formMaterial">
-				                	<input onkeypress='return validaNumericos(event)' onkeyup="calcular()" required name="camas_total" id="camas_total" class="form-control" type="number" step="any" value="{{$centro->camas_total}}">
-				                    <label class="floating-label">Camas Total</label>
-				                </div>
-
-			              	</div>
-			              	<div class="col-lg-4 col-xs-12">
-		                  		<div class="form-group form-material floating" data-plugin="formMaterial">
-				                	<input onkeypress='return validaNumericos(event)' onkeyup="calcular()" required name="camas_ocupadas" id="camas_ocupadas" class="form-control" type="number" step="any" value="{{$centro->camas_ocupadas}}">
-				                    <label class="floating-label">Camas Ocupadas</label>
-				                </div>
-			              	</div>
-			              	<div class="col-lg-4 col-xs-12">
-		                  		<div class="form-group form-material floating" data-plugin="formMaterial">
-				                	<input disabled min="0" onkeypress='return validaNumericos(event)' required name="camas_libres" id="camas_libres" class="form-control" type="number" step="any" value="{{$centro->camas_total - $centro->camas_ocupadas}}">
-				                    <label class="floating-label" id="letra_camas_libres">Camas Libres</label>
-				                </div>
-			              	</div>
 			              	<div class="col-lg-4 col-xs-12">
 				                <div class="card card-block p-30">
 				                  	<div class="counter counter-md text-left">
@@ -337,21 +318,21 @@ function validaNumericos(event) {
      return false;        
 }
 
-function calcular() {
-  var camas_total = document.getElementById('camas_total').value;
-  var camas_ocupadas = document.getElementById('camas_ocupadas').value;
+// function calcular() {
+//   var camas_total = document.getElementById('camas_total').value;
+//   var camas_ocupadas = document.getElementById('camas_ocupadas').value;
 
-  var camas_libres = camas_total - camas_ocupadas;
-  if (camas_libres < 0) {
-    document.getElementById("camas_libres").value = 0;
-    document.getElementById('letra_camas_libres').innerText = 'CAMAS LIBRES: (' + camas_libres +')';
-  }else{
-    document.getElementById('letra_camas_libres').innerText = 'CAMAS LIBRES:';
-    document.getElementById("camas_libres").value = camas_libres;
-  }
+//   var camas_libres = camas_total - camas_ocupadas;
+//   if (camas_libres < 0) {
+//     document.getElementById("camas_libres").value = 0;
+//     document.getElementById('letra_camas_libres').innerText = 'CAMAS LIBRES: (' + camas_libres +')';
+//   }else{
+//     document.getElementById('letra_camas_libres').innerText = 'CAMAS LIBRES:';
+//     document.getElementById("camas_libres").value = camas_libres;
+//   }
   
-  console.log(camas_total);
-}
+//   console.log(camas_total);
+// }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFVmAfeLqztTq_UehyrHBZYxMWliHzRq4&callback=iniciarMap"></script>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?sensor=false&callback=iniciarMap"></script> -->
