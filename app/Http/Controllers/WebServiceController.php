@@ -129,6 +129,7 @@ class WebServiceController extends Controller
         return json_encode(array("servicios" => CarteraServicio::_getServiciosPorIDCartera($id)->get()));
     }
 
+
     public function generar_excel_reporte_cama($id_centro)
     {
         Excel::create('ReporteDeCamaApp', function($excel) use ($id_centro) {
@@ -486,6 +487,16 @@ class WebServiceController extends Controller
                 $sheet->mergeCells('K3:L3');
                 $sheet->mergeCells('M3:N3');
                 $sheet->mergeCells('O3:P3');
+
+                //LUNES-DOMINGO
+                $sheet->mergeCells('C4:D4');
+                $sheet->mergeCells('E4:F4');
+                $sheet->mergeCells('G4:H4');
+                $sheet->mergeCells('I4:J4');
+                $sheet->mergeCells('K4:L4');
+                $sheet->mergeCells('M4:N4');
+                $sheet->mergeCells('O4:P4');
+
                 $sheet->setWidth(array(
                     'A'     =>  25,
                     'B'     =>  10,
@@ -520,20 +531,20 @@ class WebServiceController extends Controller
                 $sheet->setCellValue('M3', 'SABADO');
                 $sheet->setCellValue('O3', 'DOMINGO');
                 $sheet->setCellValue('Q3', 'OBSERVACION');
-                $sheet->setCellValue('C4', 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('D4', 'N° CELULAR');
-                $sheet->setCellValue('E4', 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('F4', 'N° CELULAR');
-                $sheet->setCellValue('G4', 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('H4', 'N° CELULAR');
-                $sheet->setCellValue('I4', 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('J4', 'N° CELULAR');
-                $sheet->setCellValue('K4', 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('L4', 'N° CELULAR');
-                $sheet->setCellValue('M4', 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('N4', 'N° CELULAR');
-                $sheet->setCellValue('O4', 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('P4', 'N° CELULAR');
+                $sheet->setCellValue('C4', 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('D4', 'N° CELULAR');
+                $sheet->setCellValue('E4', 'DESCRIPCION DE LA ASIGNACION');
+                //$sheet->setCellValue('F4', 'N° CELULAR');
+                $sheet->setCellValue('G4', 'DESCRIPCION DE LA ASIGNACION');
+                //$sheet->setCellValue('H4', 'N° CELULAR');
+                $sheet->setCellValue('I4', 'DESCRIPCION DE LA ASIGNACION');
+                //$sheet->setCellValue('J4', 'N° CELULAR');
+                $sheet->setCellValue('K4', 'DESCRIPCION DE LA ASIGNACION');
+                //$sheet->setCellValue('L4', 'N° CELULAR');
+                $sheet->setCellValue('M4', 'DESCRIPCION DE LA ASIGNACION');
+                //$sheet->setCellValue('N4', 'N° CELULAR');
+                $sheet->setCellValue('O4', 'DESCRIPCION DE LA ASIGNACION');
+                //$sheet->setCellValue('P4', 'N° CELULAR');
 
                 $sheet->cells('A2:Q2', function($cells) {
                     $cells->setFontSize(26);
@@ -613,86 +624,86 @@ class WebServiceController extends Controller
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//LUNES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('C'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('C'.$cont_filas.':'.'D'.$cont_filas); $sheet->getStyle('C'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('C'.$cont_filas.':D'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('C'.$cont_filas, $nombre);
-                            $sheet->setCellValue('D'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('D'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MARTES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('E'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('E'.$cont_filas.':'.'F'.$cont_filas); $sheet->getStyle('E'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('E'.$cont_filas.':F'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('E'.$cont_filas, $nombre);
-                            $sheet->setCellValue('F'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('F'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MIERCOLES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('G'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('G'.$cont_filas.':'.'H'.$cont_filas); $sheet->getStyle('G'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('G'.$cont_filas.':H'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('G'.$cont_filas, $nombre);
-                            $sheet->setCellValue('H'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('H'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//JUEVES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('I'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('I'.$cont_filas.':'.'J'.$cont_filas); $sheet->getStyle('I'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('I'.$cont_filas.':J'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('I'.$cont_filas, $nombre);
-                            $sheet->setCellValue('J'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('J'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//VIERNES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('K'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('K'.$cont_filas.':'.'L'.$cont_filas); $sheet->getStyle('K'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('K'.$cont_filas.':L'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('K'.$cont_filas, $nombre);
-                            $sheet->setCellValue('L'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('L'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//SABADO
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('M'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('M'.$cont_filas.':'.'N'.$cont_filas); $sheet->getStyle('M'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('M'.$cont_filas.':N'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('M'.$cont_filas, $nombre);
-                            $sheet->setCellValue('N'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('N'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//DOMINGO
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('O'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('O'.$cont_filas.':'.'P'.$cont_filas); $sheet->getStyle('O'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('O'.$cont_filas.':P'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('O'.$cont_filas, $nombre);
-                            $sheet->setCellValue('P'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('P'.$cont_filas, $telefono);
                             $i++;
 
                             $sheet->getStyle('Q'.$cont_filas)->getAlignment()->setWrapText(true);
@@ -725,6 +736,15 @@ class WebServiceController extends Controller
                 $sheet->mergeCells('M'. ($cont_filas + 1) .':N' . ($cont_filas + 1));
                 $sheet->mergeCells('O'. ($cont_filas + 1) .':P' . ($cont_filas + 1));
 
+                //LUNES-DOMINGO
+                $sheet->mergeCells('C'. ($cont_filas + 2) .':D' . ($cont_filas + 2));
+                $sheet->mergeCells('E'. ($cont_filas + 2) .':F' . ($cont_filas + 2));
+                $sheet->mergeCells('G'. ($cont_filas + 2) .':H' . ($cont_filas + 2));
+                $sheet->mergeCells('I'. ($cont_filas + 2) .':J' . ($cont_filas + 2));
+                $sheet->mergeCells('K'. ($cont_filas + 2) .':L' . ($cont_filas + 2));
+                $sheet->mergeCells('M'. ($cont_filas + 2) .':N' . ($cont_filas + 2));
+                $sheet->mergeCells('O'. ($cont_filas + 2) .':P' . ($cont_filas + 2));
+
                 $sheet->setHeight(array(
                     $cont_filas     =>  45
                 ));
@@ -739,20 +759,20 @@ class WebServiceController extends Controller
                 $sheet->setCellValue('M'. ($cont_filas + 1), 'SABADO');
                 $sheet->setCellValue('O'. ($cont_filas + 1), 'DOMINGO');
                 $sheet->setCellValue('Q'. ($cont_filas + 1), 'OBSERVACION');
-                $sheet->setCellValue('C'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('D'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('E'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('F'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('G'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('H'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('I'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('J'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('K'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('L'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('M'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('N'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('O'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('P'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('C'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('D'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('E'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('F'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('G'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                //$sheet->setCellValue('H'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('I'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('J'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('K'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('L'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('M'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('N'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('O'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('P'. ($cont_filas + 2), 'N° CELULAR');
                 
                 $sheet->cells('A'. $cont_filas .':Q' . $cont_filas, function($cells) {
                     $cells->setFontSize(26);
@@ -828,86 +848,86 @@ class WebServiceController extends Controller
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//LUNES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('C'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('C'.$cont_filas.':'.'D'.$cont_filas); $sheet->getStyle('C'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('C'.$cont_filas.':D'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('C'.$cont_filas, $nombre);
-                            $sheet->setCellValue('D'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('D'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MARTES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('E'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('E'.$cont_filas.':'.'F'.$cont_filas); $sheet->getStyle('E'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('E'.$cont_filas.':F'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('E'.$cont_filas, $nombre);
-                            $sheet->setCellValue('F'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('F'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MIERCOLES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('G'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('G'.$cont_filas.':'.'H'.$cont_filas); $sheet->getStyle('G'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('G'.$cont_filas.':H'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('G'.$cont_filas, $nombre);
-                            $sheet->setCellValue('H'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('H'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//JUEVES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('I'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('I'.$cont_filas.':'.'J'.$cont_filas); $sheet->getStyle('I'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('I'.$cont_filas.':J'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('I'.$cont_filas, $nombre);
-                            $sheet->setCellValue('J'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('J'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//VIERNES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('K'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('K'.$cont_filas.':'.'L'.$cont_filas); $sheet->getStyle('K'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('K'.$cont_filas.':L'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('K'.$cont_filas, $nombre);
-                            $sheet->setCellValue('L'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('L'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//SABADO
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('M'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('M'.$cont_filas.':'.'N'.$cont_filas); $sheet->getStyle('M'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('M'.$cont_filas.':N'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('M'.$cont_filas, $nombre);
-                            $sheet->setCellValue('N'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('N'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//DOMINGO
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('O'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('O'.$cont_filas.':'.'P'.$cont_filas); $sheet->getStyle('O'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('O'.$cont_filas.':P'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('O'.$cont_filas, $nombre);
-                            $sheet->setCellValue('P'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('P'.$cont_filas, $telefono);
                             $i++;
                             $sheet->getStyle('Q'.$cont_filas)->getAlignment()->setWrapText(true);
                             $sheet->setCellValue('Q'.$cont_filas,$detalle_turnos[($i / 7)-1]->observacion);
@@ -939,6 +959,15 @@ class WebServiceController extends Controller
                 $sheet->mergeCells('M'. ($cont_filas + 1) .':N' . ($cont_filas + 1));
                 $sheet->mergeCells('O'. ($cont_filas + 1) .':P' . ($cont_filas + 1));
 
+                //LUNES-DOMINGO
+                $sheet->mergeCells('C'. ($cont_filas + 2) .':D' . ($cont_filas + 2));
+                $sheet->mergeCells('E'. ($cont_filas + 2) .':F' . ($cont_filas + 2));
+                $sheet->mergeCells('G'. ($cont_filas + 2) .':H' . ($cont_filas + 2));
+                $sheet->mergeCells('I'. ($cont_filas + 2) .':J' . ($cont_filas + 2));
+                $sheet->mergeCells('K'. ($cont_filas + 2) .':L' . ($cont_filas + 2));
+                $sheet->mergeCells('M'. ($cont_filas + 2) .':N' . ($cont_filas + 2));
+                $sheet->mergeCells('O'. ($cont_filas + 2) .':P' . ($cont_filas + 2));
+
                 $sheet->setHeight(array(
                     $cont_filas     =>  45
                 ));
@@ -953,20 +982,20 @@ class WebServiceController extends Controller
                 $sheet->setCellValue('M'. ($cont_filas + 1), 'SABADO');
                 $sheet->setCellValue('O'. ($cont_filas + 1), 'DOMINGO');
                 $sheet->setCellValue('Q'. ($cont_filas + 1), 'OBSERVACION');
-                $sheet->setCellValue('C'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('D'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('E'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('F'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('G'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('H'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('I'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('J'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('K'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('L'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('M'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('N'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('O'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('P'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('C'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('D'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('E'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('F'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('G'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                //$sheet->setCellValue('H'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('I'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('J'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('K'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('L'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('M'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('N'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('O'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('P'. ($cont_filas + 2), 'N° CELULAR');
                 
                 $sheet->cells('A'. $cont_filas .':Q' . $cont_filas, function($cells) {
                     $cells->setFontSize(26);
@@ -1042,86 +1071,86 @@ class WebServiceController extends Controller
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//LUNES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('C'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('C'.$cont_filas.':'.'D'.$cont_filas); $sheet->getStyle('C'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('C'.$cont_filas.':D'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('C'.$cont_filas, $nombre);
-                            $sheet->setCellValue('D'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('D'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MARTES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('E'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('E'.$cont_filas.':'.'F'.$cont_filas); $sheet->getStyle('E'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('E'.$cont_filas.':F'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('E'.$cont_filas, $nombre);
-                            $sheet->setCellValue('F'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('F'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MIERCOLES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('G'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('G'.$cont_filas.':'.'H'.$cont_filas); $sheet->getStyle('G'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('G'.$cont_filas.':H'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('G'.$cont_filas, $nombre);
-                            $sheet->setCellValue('H'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('H'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//JUEVES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('I'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('I'.$cont_filas.':'.'J'.$cont_filas); $sheet->getStyle('I'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('I'.$cont_filas.':J'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('I'.$cont_filas, $nombre);
-                            $sheet->setCellValue('J'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('J'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//VIERNES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('K'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('K'.$cont_filas.':'.'L'.$cont_filas); $sheet->getStyle('K'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('K'.$cont_filas.':L'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('K'.$cont_filas, $nombre);
-                            $sheet->setCellValue('L'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('L'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//SABADO
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('M'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('M'.$cont_filas.':'.'N'.$cont_filas); $sheet->getStyle('M'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('M'.$cont_filas.':N'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('M'.$cont_filas, $nombre);
-                            $sheet->setCellValue('N'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('N'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//DOMINGO
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('O'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('O'.$cont_filas.':'.'P'.$cont_filas); $sheet->getStyle('O'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('O'.$cont_filas.':P'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('O'.$cont_filas, $nombre);
-                            $sheet->setCellValue('P'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('P'.$cont_filas, $telefono);
                             $i++;
                             $sheet->getStyle('Q'.$cont_filas)->getAlignment()->setWrapText(true);
                             $sheet->setCellValue('Q'.$cont_filas,$detalle_turnos[($i / 7)-1]->observacion);
@@ -1153,6 +1182,15 @@ class WebServiceController extends Controller
                 $sheet->mergeCells('M'. ($cont_filas + 1) .':N' . ($cont_filas + 1));
                 $sheet->mergeCells('O'. ($cont_filas + 1) .':P' . ($cont_filas + 1));
 
+                //LUNES-DOMINGO
+                $sheet->mergeCells('C'. ($cont_filas + 2) .':D' . ($cont_filas + 2));
+                $sheet->mergeCells('E'. ($cont_filas + 2) .':F' . ($cont_filas + 2));
+                $sheet->mergeCells('G'. ($cont_filas + 2) .':H' . ($cont_filas + 2));
+                $sheet->mergeCells('I'. ($cont_filas + 2) .':J' . ($cont_filas + 2));
+                $sheet->mergeCells('K'. ($cont_filas + 2) .':L' . ($cont_filas + 2));
+                $sheet->mergeCells('M'. ($cont_filas + 2) .':N' . ($cont_filas + 2));
+                $sheet->mergeCells('O'. ($cont_filas + 2) .':P' . ($cont_filas + 2));
+
                 $sheet->setHeight(array(
                     $cont_filas     =>  45
                 ));
@@ -1167,20 +1205,20 @@ class WebServiceController extends Controller
                 $sheet->setCellValue('M'. ($cont_filas + 1), 'SABADO');
                 $sheet->setCellValue('O'. ($cont_filas + 1), 'DOMINGO');
                 $sheet->setCellValue('Q'. ($cont_filas + 1), 'OBSERVACION');
-                $sheet->setCellValue('C'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('D'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('E'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('F'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('G'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('H'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('I'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('J'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('K'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('L'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('M'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('N'. ($cont_filas + 2), 'N° CELULAR');
-                $sheet->setCellValue('O'. ($cont_filas + 2), 'NOMBRE DEL MEDICO');
-                $sheet->setCellValue('P'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('C'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('D'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('E'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('F'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('G'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                //$sheet->setCellValue('H'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('I'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('J'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('K'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('L'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('M'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('N'. ($cont_filas + 2), 'N° CELULAR');
+                $sheet->setCellValue('O'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+                // $sheet->setCellValue('P'. ($cont_filas + 2), 'N° CELULAR');
                 
                 $sheet->cells('A'. $cont_filas .':Q' . $cont_filas, function($cells) {
                     $cells->setFontSize(26);
@@ -1256,86 +1294,86 @@ class WebServiceController extends Controller
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//LUNES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('C'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('C'.$cont_filas.':'.'D'.$cont_filas); $sheet->getStyle('C'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('C'.$cont_filas.':D'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('C'.$cont_filas, $nombre);
-                            $sheet->setCellValue('D'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('D'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MARTES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('E'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('E'.$cont_filas.':'.'F'.$cont_filas); $sheet->getStyle('E'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('E'.$cont_filas.':F'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('E'.$cont_filas, $nombre);
-                            $sheet->setCellValue('F'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('F'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MIERCOLES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('G'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('G'.$cont_filas.':'.'H'.$cont_filas); $sheet->getStyle('G'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('G'.$cont_filas.':H'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('G'.$cont_filas, $nombre);
-                            $sheet->setCellValue('H'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('H'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//JUEVES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('I'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('I'.$cont_filas.':'.'J'.$cont_filas); $sheet->getStyle('I'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('I'.$cont_filas.':J'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('I'.$cont_filas, $nombre);
-                            $sheet->setCellValue('J'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('J'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//VIERNES
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('K'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('K'.$cont_filas.':'.'L'.$cont_filas); $sheet->getStyle('K'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('K'.$cont_filas.':L'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('K'.$cont_filas, $nombre);
-                            $sheet->setCellValue('L'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('L'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//SABADO
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('M'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('M'.$cont_filas.':'.'N'.$cont_filas); $sheet->getStyle('M'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('M'.$cont_filas.':N'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('M'.$cont_filas, $nombre);
-                            $sheet->setCellValue('N'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('N'.$cont_filas, $telefono);
                             $i++;
                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//DOMINGO
                             if(!isset($medico->nombre)){
                                 $nombre = "Sin Asignar";
-                                $telefono = "Sin Asignar";
+                                // $telefono = "Sin Asignar";
                             }else{
-                                $nombre = $medico->nombre . " " . $medico->apellido;
-                                $telefono =  $medico->telefono;
+                                $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+                                // $telefono =  $medico->telefono;
                             }
-                            $sheet->getStyle('O'.$cont_filas)->getAlignment()->setWrapText(true);
+                            $sheet->mergeCells('O'.$cont_filas.':'.'P'.$cont_filas); $sheet->getStyle('O'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('O'.$cont_filas.':P'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
                             $sheet->setCellValue('O'.$cont_filas, $nombre);
-                            $sheet->setCellValue('P'.$cont_filas, $telefono);
+                            // $sheet->setCellValue('P'.$cont_filas, $telefono);
                             $i++;
                             $sheet->getStyle('Q'.$cont_filas)->getAlignment()->setWrapText(true);
                             $sheet->setCellValue('Q'.$cont_filas,$detalle_turnos[($i / 7)-1]->observacion);
@@ -1399,3 +1437,899 @@ class WebServiceController extends Controller
         return json_encode(array("centros" => CentroMedico::_getAllCentrosMedicos($searchText, $filtro)->get()));
     }
 }
+
+
+
+
+//metodo ok
+// public function generar_excel_rol_turno($id_rol_turno,$id_centro)
+//     {
+//         Excel::create('RolDeTurno', function($excel) use ($id_rol_turno,$id_centro) {
+
+//             $excel->sheet('Sheetname', function($sheet) use ($id_rol_turno,$id_centro) {
+                
+//                 $sheet->mergeCells('A1:Q1');
+//                 $sheet->mergeCells('A2:Q2');
+
+//                 $sheet->mergeCells('A3:A4');//ESPECIALIDAD
+//                 $sheet->mergeCells('B3:B4');//HORA
+
+//                 $sheet->mergeCells('C3:D3');
+//                 $sheet->mergeCells('E3:F3');
+//                 $sheet->mergeCells('G3:H3');
+//                 $sheet->mergeCells('I3:J3');
+//                 $sheet->mergeCells('K3:L3');
+//                 $sheet->mergeCells('M3:N3');
+//                 $sheet->mergeCells('O3:P3');
+//                 $sheet->setWidth(array(
+//                     'A'     =>  25,
+//                     'B'     =>  10,
+//                     'C'     =>  20,
+//                     'D'     =>  15,
+//                     'E'     =>  20,
+//                     'F'     =>  15,
+//                     'G'     =>  20,
+//                     'H'     =>  15,
+//                     'I'     =>  20,
+//                     'J'     =>  15,
+//                     'K'     =>  20,
+//                     'L'     =>  15,
+//                     'M'     =>  20,
+//                     'N'     =>  15,
+//                     'O'     =>  20,
+//                     'P'     =>  15,
+//                     'Q'     =>  35
+//                 ));
+//                 $sheet->setHeight(array(
+//                     1     =>  30,
+//                     2     =>  45
+//                 ));
+//                 $sheet->getStyle('C4')->getAlignment()->setWrapText(true);//PARA SALTAR LINEA
+//                 $sheet->setCellValue('A3', 'ESPECIALIDAD');
+//                 $sheet->setCellValue('B3', 'HORA');
+//                 $sheet->setCellValue('C3', 'LUNES');
+//                 $sheet->setCellValue('E3', 'MARTES');
+//                 $sheet->setCellValue('G3', 'MIERCOLES');
+//                 $sheet->setCellValue('I3', 'JUEVES');
+//                 $sheet->setCellValue('K3', 'VIERNES');
+//                 $sheet->setCellValue('M3', 'SABADO');
+//                 $sheet->setCellValue('O3', 'DOMINGO');
+//                 $sheet->setCellValue('Q3', 'OBSERVACION');
+//                 $sheet->setCellValue('C4', 'DESCRIPCION DE LA ASIGNACION');
+//                 $sheet->setCellValue('D4', 'N° CELULAR');
+//                 $sheet->setCellValue('E4', 'DESCRIPCION DE LA ASIGNACION');
+//                 $sheet->setCellValue('F4', 'N° CELULAR');
+//                 $sheet->setCellValue('G4', 'DESCRIPCION DE LA ASIGNACION');
+//                 $sheet->setCellValue('H4', 'N° CELULAR');
+//                 $sheet->setCellValue('I4', 'DESCRIPCION DE LA ASIGNACION');
+//                 $sheet->setCellValue('J4', 'N° CELULAR');
+//                 $sheet->setCellValue('K4', 'DESCRIPCION DE LA ASIGNACION');
+//                 $sheet->setCellValue('L4', 'N° CELULAR');
+//                 $sheet->setCellValue('M4', 'DESCRIPCION DE LA ASIGNACION');
+//                 $sheet->setCellValue('N4', 'N° CELULAR');
+//                 $sheet->setCellValue('O4', 'DESCRIPCION DE LA ASIGNACION');
+//                 $sheet->setCellValue('P4', 'N° CELULAR');
+
+//                 $sheet->cells('A2:Q2', function($cells) {
+//                     $cells->setFontSize(26);
+//                     $cells->setFontFamily('Calibri');
+//                     $cells->setAlignment('center');
+//                     $cells->setFontWeight('bold');
+//                     $cells->setValignment('center');
+//                     $cells->setFontColor('#FFFFFF');
+//                     $cells->setBackground('#506228');
+//                     $cells->setBorder('thin','thin','thin','thin');//BORDE
+//                 });
+//                 $sheet->cells('A3:Q3', function($cells) {
+//                     $cells->setFontSize(9);
+//                     $cells->setFontFamily('Calibri');
+//                     $cells->setAlignment('center');
+//                     $cells->setFontWeight('bold');
+//                     $cells->setValignment('center');
+//                     $cells->setFontColor('#FFFFFF');
+//                     $cells->setBackground('#76923B');
+//                     $cells->setBorder('thin','thin','thin','thin');//BORDE
+//                 });
+//                 $sheet->cells('C4:Q4', function($cells) {
+//                     $cells->setFontSize(9);
+//                     $cells->setFontFamily('Calibri');
+//                     $cells->setAlignment('center');
+//                     $cells->setFontWeight('bold');
+//                     $cells->setValignment('center');
+//                     $cells->setFontColor('#FFFFFF');
+//                     $cells->setBackground('#76923B');
+//                     $cells->setBorder('thin','thin','thin','thin');//BORDE
+//                 });
+
+//                 // $rol_turno = RolTurno::findOrFail($id_rol_turno);
+//                 $etapa_servicio_uno = RolTurno::_getEtapaServicio($id_rol_turno,'Etapa de Emergencia');
+//                 // $centro = CentroMedico::findOrFail($id_centro);
+//                 $sheet->row(2, ['Etapa de Emergencia']);
+//                 $especialidades_etapa_emergencia = CentroMedico::_obtenerEspecialidadesEtapaEmergencia($id_centro);
+//                 $cont_filas = 5;
+//                 foreach ($especialidades_etapa_emergencia as $especialidad) {
+//                     $celdas_ini = $cont_filas;
+//                     $sheet->setCellValue('A'.$celdas_ini, $especialidad->nombre . " - " . $especialidad->id);
+//                     $sheet->cell('A'.$celdas_ini, function($cell){//BORDE
+//                         $cell->setFontSize(9);
+//                         $cell->setFontFamily('Arial');
+//                         $cell->setAlignment('center');
+//                         $cell->setValignment('center');
+//                         $cell->setFontWeight('bold');
+//                         $cell->setBackground('#D9D9D9');
+//                         $cell->setBorder('thin','thin','thin','thin');
+//                     });
+//                     $turnos = RolTurno::_getTurnosPorIdEtapaAndEspecialidad($etapa_servicio_uno->id,$especialidad->id);
+//                     if(count($turnos) == 0){
+//                         $sheet->setHeight(array(
+//                             $cont_filas     =>  45
+//                         ));
+//                         $cont_filas++;
+//                     }
+//                     foreach ($turnos as $turno) {
+//                         $celdas_ini_turno = $cont_filas;
+//                         $sheet->getStyle('B'.$cont_filas)->getAlignment()->setWrapText(true);//PARA SALTAR LINEA
+//                         $sheet->setCellValue('B'.$cont_filas, $turno->nombre . ": " . $turno->hora_inicio . " a " . $turno->hora_fin);
+//                         $rol_dias = RolTurno::_getRolDiasPorIdETurno($turno->id);
+//                         $detalle_turnos = DetalleTurno::_getDetalleTurnoPorIdTurno($turno->id);
+//                         // dd($detalle_turnos);
+//                         $i = 0;
+//                         while ($i < count($rol_dias)) {
+//                             $sheet->setHeight(array(
+//                                 $cont_filas     =>  45
+//                             ));
+//                             $sheet->cells('B'.$cont_filas.':Q'.$cont_filas, function($cells) {
+//                                 $cells->setFontSize(9);
+//                                 $cells->setFontFamily('Arial');
+//                                 $cells->setAlignment('center');
+//                                 $cells->setValignment('center');
+//                                 $cells->setBorder('thin','thin','thin','thin');
+//                             });
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//LUNES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('C'.$cont_filas.':'.'D'.$cont_filas); $sheet->getStyle('C'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('C'.$cont_filas.':D'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('C'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('D'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MARTES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('E'.$cont_filas.':'.'F'.$cont_filas); $sheet->getStyle('E'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('E'.$cont_filas.':F'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('E'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('F'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MIERCOLES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('G'.$cont_filas.':'.'H'.$cont_filas); $sheet->getStyle('G'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('G'.$cont_filas.':H'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('G'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('H'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//JUEVES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('I'.$cont_filas.':'.'J'.$cont_filas); $sheet->getStyle('I'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('I'.$cont_filas.':J'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('I'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('J'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//VIERNES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('K'.$cont_filas.':'.'L'.$cont_filas); $sheet->getStyle('K'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('K'.$cont_filas.':L'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('K'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('L'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//SABADO
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('M'.$cont_filas.':'.'N'.$cont_filas); $sheet->getStyle('M'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('M'.$cont_filas.':N'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('M'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('N'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//DOMINGO
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('O'.$cont_filas.':'.'P'.$cont_filas); $sheet->getStyle('O'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('O'.$cont_filas.':P'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('O'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('P'.$cont_filas, $telefono);
+//                             $i++;
+
+//                             $sheet->getStyle('Q'.$cont_filas)->getAlignment()->setWrapText(true);
+//                             $sheet->setCellValue('Q'.$cont_filas,$detalle_turnos[($i / 7)-1]->observacion);
+//                             $cont_filas++;
+//                         }
+//                         // $cont_filas++;
+//                         $celdas_fin = $cont_filas -1;
+//                         if($celdas_ini_turno - $celdas_fin != 0){
+//                             $sheet->mergeCells('B'.$celdas_ini_turno.':B'.$celdas_fin);
+//                             $sheet->cells('B'.$celdas_ini_turno.':B'.$celdas_fin, function($cells) {
+//                                 $cells->setAlignment('center');
+//                                 $cells->setValignment('center');
+//                             });
+//                         }
+//                     }
+//                     $celdas_fin = $cont_filas -1;
+//                     $sheet->mergeCells('A'.$celdas_ini.':A'.$celdas_fin);
+//                 }
+//                 //EXCEL DE 2DA ETAPA
+//                 $sheet->mergeCells('A'. $cont_filas .':Q' . $cont_filas);
+//                 $sheet->mergeCells('A'. ($cont_filas + 1) .':A' . ($cont_filas + 2));//ESPECIALIDAD
+//                 $sheet->mergeCells('B'. ($cont_filas + 1) .':B' . ($cont_filas + 2));//HORA
+
+//                 $sheet->mergeCells('C'. ($cont_filas + 1) .':D' . ($cont_filas + 1));
+//                 $sheet->mergeCells('E'. ($cont_filas + 1) .':F' . ($cont_filas + 1));
+//                 $sheet->mergeCells('G'. ($cont_filas + 1) .':H' . ($cont_filas + 1));
+//                 $sheet->mergeCells('I'. ($cont_filas + 1) .':J' . ($cont_filas + 1));
+//                 $sheet->mergeCells('K'. ($cont_filas + 1) .':L' . ($cont_filas + 1));
+//                 $sheet->mergeCells('M'. ($cont_filas + 1) .':N' . ($cont_filas + 1));
+//                 $sheet->mergeCells('O'. ($cont_filas + 1) .':P' . ($cont_filas + 1));
+
+//                 $sheet->setHeight(array(
+//                     $cont_filas     =>  45
+//                 ));
+
+//                 $sheet->setCellValue('A'. ($cont_filas + 1), 'ESPECIALIDAD');
+//                 $sheet->setCellValue('B'. ($cont_filas + 1), 'HORA');
+//                 $sheet->setCellValue('C'. ($cont_filas + 1), 'LUNES');
+//                 $sheet->setCellValue('E'. ($cont_filas + 1), 'MARTES');
+//                 $sheet->setCellValue('G'. ($cont_filas + 1), 'MIERCOLES');
+//                 $sheet->setCellValue('I'. ($cont_filas + 1), 'JUEVES');
+//                 $sheet->setCellValue('K'. ($cont_filas + 1), 'VIERNES');
+//                 $sheet->setCellValue('M'. ($cont_filas + 1), 'SABADO');
+//                 $sheet->setCellValue('O'. ($cont_filas + 1), 'DOMINGO');
+//                 $sheet->setCellValue('Q'. ($cont_filas + 1), 'OBSERVACION');
+//                 $sheet->setCellValue('C'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('D'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('E'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('F'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('G'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 //$sheet->setCellValue('H'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('I'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('J'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('K'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('L'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('M'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('N'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('O'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('P'. ($cont_filas + 2), 'N° CELULAR');
+                
+//                 $sheet->cells('A'. $cont_filas .':Q' . $cont_filas, function($cells) {
+//                     $cells->setFontSize(26);
+//                     $cells->setFontFamily('Calibri');
+//                     $cells->setAlignment('center');
+//                     $cells->setFontWeight('bold');
+//                     $cells->setValignment('center');
+//                     $cells->setFontColor('#FFFFFF');
+//                     $cells->setBackground('#506228');
+//                     $cells->setBorder('thin','thin','thin','thin');//BORDE
+//                 });
+//                 $sheet->cells('A'. ($cont_filas + 1) .':Q' . ($cont_filas + 1), function($cells) {
+//                     $cells->setFontSize(9);
+//                     $cells->setFontFamily('Calibri');
+//                     $cells->setAlignment('center');
+//                     $cells->setFontWeight('bold');
+//                     $cells->setValignment('center');
+//                     $cells->setFontColor('#FFFFFF');
+//                     $cells->setBackground('#76923B');
+//                     $cells->setBorder('thin','thin','thin','thin');//BORDE
+//                 });
+//                 $sheet->cells('C'. ($cont_filas + 2) .':Q' . ($cont_filas + 2), function($cells) {
+//                     $cells->setFontSize(9);
+//                     $cells->setFontFamily('Calibri');
+//                     $cells->setAlignment('center');
+//                     $cells->setFontWeight('bold');
+//                     $cells->setValignment('center');
+//                     $cells->setFontColor('#FFFFFF');
+//                     $cells->setBackground('#76923B');
+//                     $cells->setBorder('thin','thin','thin','thin');//BORDE
+//                 });
+//                 $sheet->row($cont_filas, ['Etapa de Consulta Externa']);
+//                 $etapa_servicio_dos = RolTurno::_getEtapaServicio($id_rol_turno,'Etapa de Consulta Externa');
+//                 $especialidades_etapa_consulta = CentroMedico::_obtenerEspecialidadesEtapaConsultaExt($id_centro);
+//                 $cont_filas = $cont_filas + 3;
+//                 foreach ($especialidades_etapa_consulta as $especialidad) {
+//                     $celdas_ini = $cont_filas;
+//                     $sheet->setCellValue('A'.$celdas_ini, $especialidad->nombre . " - " . $especialidad->id);
+//                     $sheet->cell('A'.$celdas_ini, function($cell){//BORDE
+//                         $cell->setFontSize(9);
+//                         $cell->setFontFamily('Arial');
+//                         $cell->setAlignment('center');
+//                         $cell->setValignment('center');
+//                         $cell->setFontWeight('bold');
+//                         $cell->setBackground('#D9D9D9');
+//                         $cell->setBorder('thin','thin','thin','thin');
+//                     });
+//                     $turnos = RolTurno::_getTurnosPorIdEtapaAndEspecialidad($etapa_servicio_dos->id,$especialidad->id);
+//                     if(count($turnos) == 0){
+//                         $sheet->setHeight(array(
+//                             $cont_filas     =>  45
+//                         ));
+//                         $cont_filas++;
+//                     }
+//                     foreach ($turnos as $turno) {
+//                         $celdas_ini_turno = $cont_filas;
+//                         $sheet->getStyle('B'.$cont_filas)->getAlignment()->setWrapText(true);//PARA SALTAR LINEA
+//                         $sheet->setCellValue('B'.$cont_filas, $turno->nombre . ": " . $turno->hora_inicio . " a " . $turno->hora_fin);
+//                         $detalle_turnos = DetalleTurno::_getDetalleTurnoPorIdTurno($turno->id);
+//                         $rol_dias = RolTurno::_getRolDiasPorIdETurno($turno->id);
+//                         $i = 0;
+//                         while ($i < count($rol_dias)) {
+//                             $sheet->setHeight(array(
+//                                 $cont_filas     =>  45
+//                             ));
+//                             $sheet->cells('B'.$cont_filas.':Q'.$cont_filas, function($cells) {
+//                                 $cells->setFontSize(9);
+//                                 $cells->setFontFamily('Arial');
+//                                 $cells->setAlignment('center');
+//                                 $cells->setValignment('center');
+//                                 $cells->setBorder('thin','thin','thin','thin');
+//                             });
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//LUNES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('C'.$cont_filas.':'.'D'.$cont_filas); $sheet->getStyle('C'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('C'.$cont_filas.':D'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('C'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('D'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MARTES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('E'.$cont_filas.':'.'F'.$cont_filas); $sheet->getStyle('E'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('E'.$cont_filas.':F'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('E'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('F'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MIERCOLES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('G'.$cont_filas.':'.'H'.$cont_filas); $sheet->getStyle('G'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('G'.$cont_filas.':H'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('G'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('H'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//JUEVES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('I'.$cont_filas.':'.'J'.$cont_filas); $sheet->getStyle('I'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('I'.$cont_filas.':J'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('I'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('J'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//VIERNES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('K'.$cont_filas.':'.'L'.$cont_filas); $sheet->getStyle('K'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('K'.$cont_filas.':L'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('K'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('L'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//SABADO
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('M'.$cont_filas.':'.'N'.$cont_filas); $sheet->getStyle('M'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('M'.$cont_filas.':N'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('M'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('N'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//DOMINGO
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('O'.$cont_filas.':'.'P'.$cont_filas); $sheet->getStyle('O'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('O'.$cont_filas.':P'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('O'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('P'.$cont_filas, $telefono);
+//                             $i++;
+//                             $sheet->getStyle('Q'.$cont_filas)->getAlignment()->setWrapText(true);
+//                             $sheet->setCellValue('Q'.$cont_filas,$detalle_turnos[($i / 7)-1]->observacion);
+//                             $cont_filas++;
+//                         }
+//                         // $cont_filas++;
+//                         $celdas_fin = $cont_filas -1;
+//                         if($celdas_ini_turno - $celdas_fin != 0){
+//                             $sheet->mergeCells('B'.$celdas_ini_turno.':B'.$celdas_fin);
+//                             $sheet->cells('B'.$celdas_ini_turno.':B'.$celdas_fin, function($cells) {
+//                                 $cells->setAlignment('center');
+//                                 $cells->setValignment('center');
+//                             });
+//                         }
+//                     }
+//                     $celdas_fin = $cont_filas -1;
+//                     $sheet->mergeCells('A'.$celdas_ini.':A'.$celdas_fin);
+//                 }
+//                 //EXCEL DE 3RA ETAPA
+//                 $sheet->mergeCells('A'. $cont_filas .':Q' . $cont_filas);
+//                 $sheet->mergeCells('A'. ($cont_filas + 1) .':A' . ($cont_filas + 2));//ESPECIALIDAD
+//                 $sheet->mergeCells('B'. ($cont_filas + 1) .':B' . ($cont_filas + 2));//HORA
+
+//                 $sheet->mergeCells('C'. ($cont_filas + 1) .':D' . ($cont_filas + 1));
+//                 $sheet->mergeCells('E'. ($cont_filas + 1) .':F' . ($cont_filas + 1));
+//                 $sheet->mergeCells('G'. ($cont_filas + 1) .':H' . ($cont_filas + 1));
+//                 $sheet->mergeCells('I'. ($cont_filas + 1) .':J' . ($cont_filas + 1));
+//                 $sheet->mergeCells('K'. ($cont_filas + 1) .':L' . ($cont_filas + 1));
+//                 $sheet->mergeCells('M'. ($cont_filas + 1) .':N' . ($cont_filas + 1));
+//                 $sheet->mergeCells('O'. ($cont_filas + 1) .':P' . ($cont_filas + 1));
+
+//                 $sheet->setHeight(array(
+//                     $cont_filas     =>  45
+//                 ));
+
+//                 $sheet->setCellValue('A'. ($cont_filas + 1), 'ESPECIALIDAD');
+//                 $sheet->setCellValue('B'. ($cont_filas + 1), 'HORA');
+//                 $sheet->setCellValue('C'. ($cont_filas + 1), 'LUNES');
+//                 $sheet->setCellValue('E'. ($cont_filas + 1), 'MARTES');
+//                 $sheet->setCellValue('G'. ($cont_filas + 1), 'MIERCOLES');
+//                 $sheet->setCellValue('I'. ($cont_filas + 1), 'JUEVES');
+//                 $sheet->setCellValue('K'. ($cont_filas + 1), 'VIERNES');
+//                 $sheet->setCellValue('M'. ($cont_filas + 1), 'SABADO');
+//                 $sheet->setCellValue('O'. ($cont_filas + 1), 'DOMINGO');
+//                 $sheet->setCellValue('Q'. ($cont_filas + 1), 'OBSERVACION');
+//                 $sheet->setCellValue('C'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('D'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('E'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('F'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('G'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 //$sheet->setCellValue('H'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('I'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('J'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('K'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('L'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('M'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('N'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('O'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('P'. ($cont_filas + 2), 'N° CELULAR');
+                
+//                 $sheet->cells('A'. $cont_filas .':Q' . $cont_filas, function($cells) {
+//                     $cells->setFontSize(26);
+//                     $cells->setFontFamily('Calibri');
+//                     $cells->setAlignment('center');
+//                     $cells->setFontWeight('bold');
+//                     $cells->setValignment('center');
+//                     $cells->setFontColor('#FFFFFF');
+//                     $cells->setBackground('#506228');
+//                     $cells->setBorder('thin','thin','thin','thin');//BORDE
+//                 });
+//                 $sheet->cells('A'. ($cont_filas + 1) .':Q' . ($cont_filas + 1), function($cells) {
+//                     $cells->setFontSize(9);
+//                     $cells->setFontFamily('Calibri');
+//                     $cells->setAlignment('center');
+//                     $cells->setFontWeight('bold');
+//                     $cells->setValignment('center');
+//                     $cells->setFontColor('#FFFFFF');
+//                     $cells->setBackground('#76923B');
+//                     $cells->setBorder('thin','thin','thin','thin');//BORDE
+//                 });
+//                 $sheet->cells('C'. ($cont_filas + 2) .':Q' . ($cont_filas + 2), function($cells) {
+//                     $cells->setFontSize(9);
+//                     $cells->setFontFamily('Calibri');
+//                     $cells->setAlignment('center');
+//                     $cells->setFontWeight('bold');
+//                     $cells->setValignment('center');
+//                     $cells->setFontColor('#FFFFFF');
+//                     $cells->setBackground('#76923B');
+//                     $cells->setBorder('thin','thin','thin','thin');//BORDE
+//                 });
+//                 $sheet->row($cont_filas, ['Etapa de Hospitalizacion']);
+//                 $etapa_servicio_tres = RolTurno::_getEtapaServicio($id_rol_turno,'Etapa de Hospitalizacion');
+//                 $especialidades_etapa_hospitalizacion = CentroMedico::_obtenerEspecialidadesEtapaHospitalizacion($id_centro);
+//                 $cont_filas = $cont_filas + 3;
+//                 foreach ($especialidades_etapa_hospitalizacion as $especialidad) {
+//                     $celdas_ini = $cont_filas;
+//                     $sheet->setCellValue('A'.$celdas_ini, $especialidad->nombre . " - " . $especialidad->id);
+//                     $sheet->cell('A'.$celdas_ini, function($cell){//BORDE
+//                         $cell->setFontSize(9);
+//                         $cell->setFontFamily('Arial');
+//                         $cell->setAlignment('center');
+//                         $cell->setValignment('center');
+//                         $cell->setFontWeight('bold');
+//                         $cell->setBackground('#D9D9D9');
+//                         $cell->setBorder('thin','thin','thin','thin');
+//                     });
+//                     $turnos = RolTurno::_getTurnosPorIdEtapaAndEspecialidad($etapa_servicio_tres->id,$especialidad->id);
+//                     if(count($turnos) == 0){
+//                         $sheet->setHeight(array(
+//                             $cont_filas     =>  45
+//                         ));
+//                         $cont_filas++;
+//                     }
+//                     foreach ($turnos as $turno) {
+//                         $celdas_ini_turno = $cont_filas;
+//                         $sheet->getStyle('B'.$cont_filas)->getAlignment()->setWrapText(true);//PARA SALTAR LINEA
+//                         $sheet->setCellValue('B'.$cont_filas, $turno->nombre . ": " . $turno->hora_inicio . " a " . $turno->hora_fin);
+//                         $rol_dias = RolTurno::_getRolDiasPorIdETurno($turno->id);
+//                         $detalle_turnos = DetalleTurno::_getDetalleTurnoPorIdTurno($turno->id);
+//                         $i = 0;
+//                         while ($i < count($rol_dias)) {
+//                             $sheet->setHeight(array(
+//                                 $cont_filas     =>  45
+//                             ));
+//                             $sheet->cells('B'.$cont_filas.':Q'.$cont_filas, function($cells) {
+//                                 $cells->setFontSize(9);
+//                                 $cells->setFontFamily('Arial');
+//                                 $cells->setAlignment('center');
+//                                 $cells->setValignment('center');
+//                                 $cells->setBorder('thin','thin','thin','thin');
+//                             });
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//LUNES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('C'.$cont_filas.':'.'D'.$cont_filas); $sheet->getStyle('C'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('C'.$cont_filas.':D'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('C'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('D'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MARTES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('E'.$cont_filas.':'.'F'.$cont_filas); $sheet->getStyle('E'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('E'.$cont_filas.':F'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('E'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('F'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MIERCOLES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('G'.$cont_filas.':'.'H'.$cont_filas); $sheet->getStyle('G'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('G'.$cont_filas.':H'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('G'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('H'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//JUEVES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('I'.$cont_filas.':'.'J'.$cont_filas); $sheet->getStyle('I'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('I'.$cont_filas.':J'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('I'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('J'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//VIERNES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('K'.$cont_filas.':'.'L'.$cont_filas); $sheet->getStyle('K'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('K'.$cont_filas.':L'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('K'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('L'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//SABADO
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('M'.$cont_filas.':'.'N'.$cont_filas); $sheet->getStyle('M'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('M'.$cont_filas.':N'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('M'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('N'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//DOMINGO
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('O'.$cont_filas.':'.'P'.$cont_filas); $sheet->getStyle('O'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('O'.$cont_filas.':P'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('O'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('P'.$cont_filas, $telefono);
+//                             $i++;
+//                             $sheet->getStyle('Q'.$cont_filas)->getAlignment()->setWrapText(true);
+//                             $sheet->setCellValue('Q'.$cont_filas,$detalle_turnos[($i / 7)-1]->observacion);
+//                             $cont_filas++;
+//                         }
+//                         // $cont_filas++;
+//                         $celdas_fin = $cont_filas -1;
+//                         if($celdas_ini_turno - $celdas_fin != 0){
+//                             $sheet->mergeCells('B'.$celdas_ini_turno.':B'.$celdas_fin);
+//                             $sheet->cells('B'.$celdas_ini_turno.':B'.$celdas_fin, function($cells) {
+//                                 $cells->setAlignment('center');
+//                                 $cells->setValignment('center');
+//                             });
+//                         }
+//                     }
+//                     $celdas_fin = $cont_filas -1;
+//                     $sheet->mergeCells('A'.$celdas_ini.':A'.$celdas_fin);
+//                 }
+//                 //EXCEL DE 4TA ETAPA
+//                 $sheet->mergeCells('A'. $cont_filas .':Q' . $cont_filas);
+//                 $sheet->mergeCells('A'. ($cont_filas + 1) .':A' . ($cont_filas + 2));//ESPECIALIDAD
+//                 $sheet->mergeCells('B'. ($cont_filas + 1) .':B' . ($cont_filas + 2));//HORA
+
+//                 $sheet->mergeCells('C'. ($cont_filas + 1) .':D' . ($cont_filas + 1));
+//                 $sheet->mergeCells('E'. ($cont_filas + 1) .':F' . ($cont_filas + 1));
+//                 $sheet->mergeCells('G'. ($cont_filas + 1) .':H' . ($cont_filas + 1));
+//                 $sheet->mergeCells('I'. ($cont_filas + 1) .':J' . ($cont_filas + 1));
+//                 $sheet->mergeCells('K'. ($cont_filas + 1) .':L' . ($cont_filas + 1));
+//                 $sheet->mergeCells('M'. ($cont_filas + 1) .':N' . ($cont_filas + 1));
+//                 $sheet->mergeCells('O'. ($cont_filas + 1) .':P' . ($cont_filas + 1));
+
+//                 $sheet->setHeight(array(
+//                     $cont_filas     =>  45
+//                 ));
+
+//                 $sheet->setCellValue('A'. ($cont_filas + 1), 'CARGO');
+//                 $sheet->setCellValue('B'. ($cont_filas + 1), 'HORA');
+//                 $sheet->setCellValue('C'. ($cont_filas + 1), 'LUNES');
+//                 $sheet->setCellValue('E'. ($cont_filas + 1), 'MARTES');
+//                 $sheet->setCellValue('G'. ($cont_filas + 1), 'MIERCOLES');
+//                 $sheet->setCellValue('I'. ($cont_filas + 1), 'JUEVES');
+//                 $sheet->setCellValue('K'. ($cont_filas + 1), 'VIERNES');
+//                 $sheet->setCellValue('M'. ($cont_filas + 1), 'SABADO');
+//                 $sheet->setCellValue('O'. ($cont_filas + 1), 'DOMINGO');
+//                 $sheet->setCellValue('Q'. ($cont_filas + 1), 'OBSERVACION');
+//                 $sheet->setCellValue('C'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('D'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('E'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('F'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('G'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 //$sheet->setCellValue('H'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('I'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('J'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('K'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('L'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('M'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('N'. ($cont_filas + 2), 'N° CELULAR');
+//                 $sheet->setCellValue('O'. ($cont_filas + 2), 'DESCRIPCION DE LA ASIGNACION');
+//                 // $sheet->setCellValue('P'. ($cont_filas + 2), 'N° CELULAR');
+                
+//                 $sheet->cells('A'. $cont_filas .':Q' . $cont_filas, function($cells) {
+//                     $cells->setFontSize(26);
+//                     $cells->setFontFamily('Calibri');
+//                     $cells->setAlignment('center');
+//                     $cells->setFontWeight('bold');
+//                     $cells->setValignment('center');
+//                     $cells->setFontColor('#FFFFFF');
+//                     $cells->setBackground('#506228');
+//                     $cells->setBorder('thin','thin','thin','thin');//BORDE
+//                 });
+//                 $sheet->cells('A'. ($cont_filas + 1) .':Q' . ($cont_filas + 1), function($cells) {
+//                     $cells->setFontSize(9);
+//                     $cells->setFontFamily('Calibri');
+//                     $cells->setAlignment('center');
+//                     $cells->setFontWeight('bold');
+//                     $cells->setValignment('center');
+//                     $cells->setFontColor('#FFFFFF');
+//                     $cells->setBackground('#76923B');
+//                     $cells->setBorder('thin','thin','thin','thin');//BORDE
+//                 });
+//                 $sheet->cells('C'. ($cont_filas + 2) .':Q' . ($cont_filas + 2), function($cells) {
+//                     $cells->setFontSize(9);
+//                     $cells->setFontFamily('Calibri');
+//                     $cells->setAlignment('center');
+//                     $cells->setFontWeight('bold');
+//                     $cells->setValignment('center');
+//                     $cells->setFontColor('#FFFFFF');
+//                     $cells->setBackground('#76923B');
+//                     $cells->setBorder('thin','thin','thin','thin');//BORDE
+//                 });
+//                 $sheet->row($cont_filas, ['Etapa de Personal Encargado']);
+//                 $etapa_servicio_cuatro = RolTurno::_getEtapaServicio($id_rol_turno,'Etapa de Personal Encargado');
+//                 $personal_etapa_personal_area = PersonalArea::_obtenerPersonalEtapaPersonalArea($etapa_servicio_cuatro->id);
+//                 $cont_filas = $cont_filas + 3;
+//                 foreach ($personal_etapa_personal_area as $personal) {
+//                     $celdas_ini = $cont_filas;
+//                     $sheet->setCellValue('A'.$celdas_ini, $personal->nombre . " - " . $personal->id);
+//                     $sheet->cell('A'.$celdas_ini, function($cell){//BORDE
+//                         $cell->setFontSize(9);
+//                         $cell->setFontFamily('Arial');
+//                         $cell->setAlignment('center');
+//                         $cell->setValignment('center');
+//                         $cell->setFontWeight('bold');
+//                         $cell->setBackground('#D9D9D9');
+//                         $cell->setBorder('thin','thin','thin','thin');
+//                     });
+//                     $turnos = RolTurno::_getTurnosPorIdEtapaAndPersonal($etapa_servicio_cuatro->id,$personal->id);
+//                     if(count($turnos) == 0){
+//                         $sheet->setHeight(array(
+//                             $cont_filas     =>  45
+//                         ));
+//                         $cont_filas++;
+//                     }
+//                     foreach ($turnos as $turno) {
+//                         $celdas_ini_turno = $cont_filas;
+//                         $sheet->getStyle('B'.$cont_filas)->getAlignment()->setWrapText(true);//PARA SALTAR LINEA
+//                         $sheet->setCellValue('B'.$cont_filas, $turno->nombre . ": " . $turno->hora_inicio . " a " . $turno->hora_fin);
+//                         $rol_dias = RolTurno::_getRolDiasPorIdETurno($turno->id);
+//                         $detalle_turnos = DetalleTurno::_getDetalleTurnoPorIdTurno($turno->id);
+//                         $i = 0;
+//                         while ($i < count($rol_dias)) {
+//                             $sheet->setHeight(array(
+//                                 $cont_filas     =>  45
+//                             ));
+//                             $sheet->cells('B'.$cont_filas.':Q'.$cont_filas, function($cells) {
+//                                 $cells->setFontSize(9);
+//                                 $cells->setFontFamily('Arial');
+//                                 $cells->setAlignment('center');
+//                                 $cells->setValignment('center');
+//                                 $cells->setBorder('thin','thin','thin','thin');
+//                             });
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//LUNES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('C'.$cont_filas.':'.'D'.$cont_filas); $sheet->getStyle('C'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('C'.$cont_filas.':D'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('C'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('D'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MARTES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('E'.$cont_filas.':'.'F'.$cont_filas); $sheet->getStyle('E'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('E'.$cont_filas.':F'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('E'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('F'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//MIERCOLES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('G'.$cont_filas.':'.'H'.$cont_filas); $sheet->getStyle('G'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('G'.$cont_filas.':H'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('G'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('H'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//JUEVES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('I'.$cont_filas.':'.'J'.$cont_filas); $sheet->getStyle('I'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('I'.$cont_filas.':J'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('I'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('J'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//VIERNES
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('K'.$cont_filas.':'.'L'.$cont_filas); $sheet->getStyle('K'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('K'.$cont_filas.':L'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('K'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('L'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//SABADO
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('M'.$cont_filas.':'.'N'.$cont_filas); $sheet->getStyle('M'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('M'.$cont_filas.':N'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('M'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('N'.$cont_filas, $telefono);
+//                             $i++;
+//                             $medico = Medico::_getMedico($rol_dias[$i]->id_medico);//DOMINGO
+//                             if(!isset($medico->nombre)){
+//                                 $nombre = "Sin Asignar";
+//                                 // $telefono = "Sin Asignar";
+//                             }else{
+//                                 $nombre = "Medico COD" . " - " . $medico->id . " / " . "Estado - " . ($medico->estado==1 ? "Activo":"Inactivo"); // $nombre = $medico->nombre . " " . $medico->apellido;
+//                                 // $telefono =  $medico->telefono;
+//                             }
+//                             $sheet->mergeCells('O'.$cont_filas.':'.'P'.$cont_filas); $sheet->getStyle('O'.$cont_filas)->getAlignment()->setWrapText(true); $sheet->cells('O'.$cont_filas.':P'.$cont_filas, function($cells) {$cells->setAlignment('center');$cells->setValignment('center');});
+//                             $sheet->setCellValue('O'.$cont_filas, $nombre);
+//                             // $sheet->setCellValue('P'.$cont_filas, $telefono);
+//                             $i++;
+//                             $sheet->getStyle('Q'.$cont_filas)->getAlignment()->setWrapText(true);
+//                             $sheet->setCellValue('Q'.$cont_filas,$detalle_turnos[($i / 7)-1]->observacion);
+//                             $cont_filas++;
+//                         }
+//                         // $cont_filas++;
+//                         $celdas_fin = $cont_filas -1;
+//                         if($celdas_ini_turno - $celdas_fin != 0){
+//                             $sheet->mergeCells('B'.$celdas_ini_turno.':B'.$celdas_fin);
+//                             $sheet->cells('B'.$celdas_ini_turno.':B'.$celdas_fin, function($cells) {
+//                                 $cells->setAlignment('center');
+//                                 $cells->setValignment('center');
+//                             });
+//                         }
+//                     }
+//                     $celdas_fin = $cont_filas -1;
+//                     $sheet->mergeCells('A'.$celdas_ini.':A'.$celdas_fin);
+//                 }
+//             });
+
+//         })->export('xlsx');
+//     }
